@@ -1,0 +1,16 @@
+{{!-- pass to handlebar just a fun question (question) --}}
+<main>
+    <div class="fun-question">
+        <p>{{question}}</p>
+    </div>
+    <form class="create-update-form" action="/" method="POST">
+
+        <div class="form-group">
+            <label for="code-input">Please get the room code from your host and enter it below:</label>
+            <input type="text" id="code-input" name="room-code">
+        </div>
+
+        <button type="submit">Submit</button>
+        {{!-- we should probs preventDefault on this and make it redirect to the lobby, and add the user to the appropriate room --}}
+    </form>
+</main>
