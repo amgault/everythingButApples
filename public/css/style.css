@@ -1,0 +1,40 @@
+.button {
+    display:block;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 1px solid red;
+    background-color:black;
+    margin:auto;
+    margin-top: 25px;
+} 
+
+.buttonContain {
+    display: flex;
+}
+
+.buttonWord{
+    z-index: 5;
+    color: white;
+    padding-top: 25px;
+    padding-left: 8px;
+}
+
+.container {
+    margin-top:75px;
+    display:flex;
+    flex-flow:column;
+    justify-content: center;
+    
+}
+
+.header {
+    text-align: center;
+
+}
+
+.logo {
+    width:100px;
+    margin:auto;
+}
+
