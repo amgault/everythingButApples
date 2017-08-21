@@ -12,7 +12,51 @@
         <h1>Everything but Apples</h1>
     </header>
     <main>
+        <!-- BEFORE THE GAME -->
+        <div class="pregame-lobby">
+            <div class="room-code-display">
+                <p id="room-code">?????</p>
+            </div>
+            <div class="host-lobby-display">
+                <div class="lobby-connections-display">
+                    <!-- this section might take some shuffling around depending on how we display the current connected players -->
+                    <div class="last-connection-display"></div>
+                        <p><span id="last-player-connected">No one</span> has connected!</p>
+                    </div>
+                    <div class="player-connections">
+                        <p>Players connected:</p>
+                        <div id="player-connections-container">
 
+                        </div>
+                    </div>
+                    <button id="start-game-button">Start Game</button>
+                </div>
+            </div>
+            <div class="host-rounds-display">
+                <p>This game will last ? rounds.</p>
+            </div>
+        </div>
+
+        <!-- HOSTING THE GAME -->
+        <div class="host-game">
+            <div class="host-card-adj">
+                <div class="cardContainer card">
+                    <h2>Noun</h2>
+                    <p>Description</p>
+                </div>
+            </div>
+            <div class="host-played-cards">
+                <div class="host-round-indicator">
+                    <p>ROUND <span id="host-round-number">?</span></p>
+                </div>
+                <div class="played-cards-container">
+                    <div class="cardContainer card">
+                        <h2>Noun</h2>
+                        <p>Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
 </html>
