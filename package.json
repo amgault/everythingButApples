@@ -1,0 +1,35 @@
+{
+  "name": "everythingbutapples",
+  "version": "1.0.0",
+  "description": "I multiplayer game cite.",
+  "main": "index.js",
+  "dependencies": {
+    "webpack": "^3.5.5"
+  },
+  "devDependencies": {
+    "postcss": "^6.0.9",
+    "postcss-import": "^10.0.0",
+    "postcss-loader": "^2.0.6",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-scss": "^1.0.2",
+    "precss": "^2.0.0",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.6.1"
+  },
+  "dependencies": {
+    "express": "^4.15.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amgault/everythingButApples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amgault/everythingButApples/issues"
+  },
+  "homepage": "https://github.com/amgault/everythingButApples#readme",
+  "engines": {
+    "node": "4.1.1"
+  }
+}
