@@ -1,23 +1,34 @@
-.button {
+.circle {
     display:block;
     height: 100px;
     width: 100px;
     border-radius: 50%;
     border: 1px solid red;
     background-color:black;
+
+} 
+
+.btn {
     margin:auto;
     margin-top: 25px;
-} 
+}
 
 .buttonContain {
     display: flex;
 }
 
-.buttonWord{
-    z-index: 5;
-    color: white;
-    padding-top: 25px;
-    padding-left: 8px;
+.card {
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    text-align: center;
+    border: 1px solid black;
+    margin:auto;
 }
 
 .container {
@@ -25,7 +36,20 @@
     display:flex;
     flex-flow:column;
     justify-content: center;
-    
+}
+
+.cardContainer {
+    margin-top:25px;
+    display:flex;
+    flex-flow:column;
+    justify-content: center;
+}
+
+.circleWord{
+    z-index: 5;
+    color: white;
+    padding-top: 25px;
+    padding-left: 8px;
 }
 
 .header {
@@ -38,3 +62,11 @@
     margin:auto;
 }
 
+.submit {
+    margin-top:25px;
+}
+
+.waiting-bubble {
+    margin:auto;
+    margin-top: 25px;
+}
