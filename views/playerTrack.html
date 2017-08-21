@@ -6,20 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>EBA</title>
     <link href="../public/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 </head>
+
 <body>
     <header class="header">
         <h1>Everything but Apples</h1>
     </header>
-
-    <div class="container code" style="display:none;">
+    <!-- style="display:none;" -->
+    <div class="container code" id="roomCode">
         <p>As the wild wind blows, the trees say:</p>
         <input type="text" id="code-input" name="room-code" placeholder="code goes here">
-        <input type="submit" placeholder="submit" class="submit">
+        <input type="submit" placeholder="submit" class="submit" id="code-button">
         <!-- Here compare this code to other codes that are in use -->
     </div>
 
-    <div class="continer pregame" style="display:none;">
+    <div class="continer pregame" id="pregame">
         <div class="waiting-bubble circle">
             <p class="circleWord">Waiting for opponents...</p>
         </div>
@@ -39,7 +41,7 @@
         </form>
     </div>
 
-    <div class="container game" style="display:none;">
+    <div class="container game hide" id="hand">
         <div class="player-hand-card cardContainer card">
             <h2>Noun</h2>
             <p>Description</p>
@@ -62,5 +64,7 @@
         </div>
         <!-- Each card will look like this -->
     </div>
+
+    <script src="../public/js/player.js"></script>
 </body>
 </html>

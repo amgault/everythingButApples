@@ -11,6 +11,24 @@
 .btn {
     margin:auto;
     margin-top: 25px;
+    border:  1px solid red;
+    display:block;
+    height: 100px;
+    width: 100px;
+    /* background: #0087cc; */
+    border-radius: 50%;
+    box-shadow: 0 5px 0 black;
+    /* color: #fff; */
+    cursor: pointer;
+    font: inherit;
+    outline: 0;
+    padding: 12px 20px;
+    transition: all .1s linear;
+}
+
+.btn:active {
+    box-shadow: 0 2px 0 black;
+    transform: translateY(3px);
 }
 
 .buttonContain {
@@ -50,6 +68,10 @@
     color: white;
     padding-top: 25px;
     padding-left: 8px;
+}
+
+.hide{
+    display:none;
 }
 
 .header {
