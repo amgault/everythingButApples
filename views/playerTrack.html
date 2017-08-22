@@ -33,14 +33,14 @@
             <p class="circleWord">Waiting for opponents...</p>
         </div>
 
-        <form class="create-update-form username" action="/" method="POST">
+        <form class="create-update-form username" action="/" method="POST" id="username">
             <p>While you wait, come up with a username:</p>
             <input type="text" id="player-name-form" name="player-name">
             <input type="submit" placeholder="submit" class="submit">
             <!-- prevent default on this/After submit show the createCards form-->
         </form>
 
-        <form class="create-update-form createCards" action="/" method="POST">
+        <form class="create-update-form createCards" action="/" method="POST" id="createCards" style="display:none;">
             <p>Come up with noun cards:</p>
             <input type="text" id="card-form" name="card">
             <input type="submit" placeholder="submit" class="submit">
