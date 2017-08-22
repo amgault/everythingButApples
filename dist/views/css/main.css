@@ -1,5 +1,8 @@
 /* Colors */
 /* http://paletton.com/#uid=71P1-0kqPtygJCSlLvntVobxLjb */
+.host-bg{
+    background-color: #FAF650;
+}
 .host-display {
     display: block;
     -ms-flex-wrap: nowrap;
@@ -9,6 +12,7 @@
     border-radius: 2px;
     margin: 0em 1em;
     padding: .75em;
+    background-color: white;
 }
 .host-display * {
     margin: auto;
@@ -17,6 +21,7 @@
     border: 1px solid #521081;
     padding: .5em;
     margin: 0em 25%;
+    font-size: 2em;
 }
 .start-game-button {
     background-color: #ebe626;
