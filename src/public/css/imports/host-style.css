@@ -18,6 +18,21 @@
     margin: auto;
 }
 
+.player-circle{
+    border: 2px solid var(--main-orange);
+    border-radius: 4em;
+    padding: 1em;
+    margin: 1em;
+    min-width: 10em;
+    max-width: 20em;
+}
+
+.player-connections-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .room-code{
     border: 1px solid var(--dark-purple);
     padding: .5em;

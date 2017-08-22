@@ -17,6 +17,22 @@
 .host-display * {
     margin: auto;
 }
+.player-circle{
+    border: 2px solid #EB8A26;
+    border-radius: 4em;
+    padding: 1em;
+    margin: 1em;
+    min-width: 10em;
+    max-width: 20em;
+}
+.player-connections-container{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;   
+}
 .room-code{
     border: 1px solid #521081;
     padding: .5em;
