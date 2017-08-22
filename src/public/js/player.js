@@ -25,10 +25,17 @@ function submitUsername() {
     showAndHide("username", "createCards")
 }
 
+function Card(text, player) {
+    this.text = text;
+    this.description = "A homemade card, made with love from " + player
+}
+
 function submitCards() {
     //Can they make duplicates in the deck or not (?)
+    let newCard = new Card(inputText, playerThatWroteit);
 
     //AJAX post card words to room
+        // post newCard
         //This should post it to the deck (?)
         //I think this means a deck instance has to be made for each game.  So maybe you pull the original deck once then you post new cards into our "Sudodeck"
     
@@ -47,7 +54,7 @@ $("#username").submit(function(e) {
     submitUsername()
 })
 
-//Name submit listener
+//New Card submit listener
 $("#createCards").submit(function(e) {
     e.preventDefault();
     submitCards()
