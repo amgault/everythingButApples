@@ -15,14 +15,12 @@
     </header>
     <main>
         <!-- BEFORE THE GAME -->
-        <div class="pregame-lobby">
-            <div class="room-code-display">
-                <p id="room-code">?????</p>
-            </div>
+        <div class="host-display host-pregame-lobby">
+            <p id="room-code" class="room-code">?????</p>
             <div class="host-lobby-display">
                 <div class="lobby-connections-display">
                     <!-- this section might take some shuffling around depending on how we display the current connected players -->
-                    <div class="last-connection-display"></div>
+                    <div class="last-connection-display">
                         <p><span id="last-player-connected">No one</span> has connected!</p>
                     </div>
                     <div class="player-connections">
@@ -31,7 +29,7 @@
 
                         </div>
                     </div>
-                    <button id="start-game-button">Start Game</button>
+                    <button id="start-game-button" class="start-game-button">Start Game</button>
                 </div>
             </div>
             <div class="host-rounds-display">
@@ -40,7 +38,7 @@
         </div>
 
         <!-- HOSTING THE GAME -->
-        <div class="host-game">
+        <div class="host-display host-game">
             <div class="host-card-adj">
                 <div class="cardContainer card">
                     <h2>Noun</h2>
