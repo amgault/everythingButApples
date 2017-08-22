@@ -9,7 +9,7 @@
     "postcss": "postcss -o dist/views/css/main.css src/public/css/style.css"
   },
   "dependencies": {
-    "webpack": "^3.5.5"
+    "express": "^4.15.4"
   },
   "devDependencies": {
     "postcss": "^6.0.9",
@@ -20,9 +20,6 @@
     "precss": "^2.0.0",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.6.1"
-  },
-  "dependencies": {
-    "express": "^4.15.4"
   },
   "repository": {
     "type": "git",

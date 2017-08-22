@@ -1,3 +1,5 @@
+var path = require("path");
+
 module.exports = {
   entry: './src/public/js/index.js',
   devServer: {
