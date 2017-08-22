@@ -10,18 +10,25 @@
 </head>
 
 <body>
+    <!-- Socket initialization -->
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+
     <header class="header">
+        <a href="landingPage.html">⇦</a>
         <h1>Everything but Apples</h1>
     </header>
-    <!-- style="display:none;" -->
-    <div class="container code" id="roomCode">
-        <p>As the wild wind blows, the trees say:</p>
-        <input type="text" id="code-input" name="room-code" placeholder="code goes here">
-        <input type="submit" placeholder="submit" class="submit" id="code-button">
-        <!-- Here compare this code to other codes that are in use -->
-    </div>
 
-    <div class="continer pregame" id="pregame">
+    <form id="roomCode">
+        <div class="container code">
+            <p>As the wild wind blows, the trees say:</p>
+            <input type="text" id="code-input" name="room-code" placeholder="code goes here">
+            <input type="submit" placeholder="submit" class="submit" id="code-button">
+            <!-- Here compare this code to other codes that are in use -->
+        </div>
+    </form>
+    
+
+    <div class="continer pregame" id="pregame" style="display:none;">
         <div class="waiting-bubble circle">
             <p class="circleWord">Waiting for opponents...</p>
         </div>
@@ -41,7 +48,7 @@
         </form>
     </div>
 
-    <div class="container game hide" id="hand">
+    <div class="container game" id="hand" style="display:none;">
         <div class="player-hand-card cardContainer card">
             <h2>Noun</h2>
             <p>Description</p>
