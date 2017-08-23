@@ -1,14 +1,14 @@
 /* Colors */
 /* http://paletton.com/#uid=71P1-0kqPtygJCSlLvntVobxLjb */
 .host-bg{
-    background-color: #FAF650;
+    background-color: #5AA2B6;
 }
 .host-display {
     display: block;
     -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
     text-align: center;
-    border: 5px solid #1C7892;
+    border: 5px solid #C1670D;
     border-radius: 2px;
     margin: 0em 1em;
     padding: .75em;
@@ -31,7 +31,9 @@
     display: flex;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
-            justify-content: center;   
+            justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
 }
 .room-code{
     border: 1px solid #521081;

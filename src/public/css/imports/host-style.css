@@ -1,12 +1,12 @@
 .host-bg{
-    background-color: var(--light-yellow);
+    background-color: var(--lightest-blue);
 }
 
 .host-display {
     display: block;
     flex-wrap: nowrap;
     text-align: center;
-    border: 5px solid var(--main-blue);
+    border: 5px solid var(--dark-orange);
     border-radius: 2px;
     margin: 0em 1em;
     padding: .75em;
@@ -43,7 +43,6 @@
 .start-game-button {
     background-color: var(--main-yellow);
     color: var(--darkest-blue);
-    border: 1px solid var(--dark-yellow);
     box-shadow: 0 5px 0 var(--darkest-yellow);
     margin: 1.5em auto;
     border-radius: 5px;
