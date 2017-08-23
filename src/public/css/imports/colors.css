@@ -1,0 +1,28 @@
+/* Colors */
+/* http://paletton.com/#uid=71P1-0kqPtygJCSlLvntVobxLjb */
+
+:root {
+    --main-yellow: #ebe626;
+    --darkest-yellow: #999500;
+    --dark-yellow: #C1BC0D;
+    --light-yellow: #FAF650;
+    --lightest-yellow: #FFFC7A;
+
+    --main-orange: #EB8A26;
+    --darkest-orange: #994D00;
+    --dark-orange: #C1670D;
+    --light-orange: #FAA650;
+    --lightest-orange: #FFBD7A;
+
+    --main-blue: #1C7892;
+    --darkest-blue: #034B5F;
+    --dark-blue: #0C6078;
+    --light-blue: #35859B;
+    --lightest-blue: #5AA2B6;
+
+    --main-purple: #6A229E;
+    --darkest-purple: #3E0667;
+    --dark-purple: #521081;
+    --light-purple: #7B3DA8;
+    --lightest-purple: #9862C0;
+}

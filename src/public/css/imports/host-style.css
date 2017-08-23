@@ -1,0 +1,40 @@
+.host-bg{
+    background-color: var(--light-yellow);
+}
+
+.host-display {
+    display: block;
+    flex-wrap: nowrap;
+    text-align: center;
+    border: 5px solid var(--main-blue);
+    border-radius: 2px;
+    margin: 0em 1em;
+    padding: .75em;
+    background-color: white;
+}
+
+
+.host-display * {
+    margin: auto;
+}
+
+.room-code{
+    border: 1px solid var(--dark-purple);
+    padding: .5em;
+    margin: 0em 25%;
+    font-size: 2em;
+}
+
+.start-game-button {
+    background-color: var(--main-yellow);
+    color: var(--darkest-blue);
+    border: 1px solid var(--dark-yellow);
+    box-shadow: 0 5px 0 var(--darkest-yellow);
+    margin: 1.5em auto;
+    border-radius: 5px;
+}
+/* https://codepen.io/shayhowe/pen/Bocnt */
+.start-game-button:active {
+  box-shadow: 0 2px 0 var(--darkest-yellow);
+  transform: translateY(3px);
+}
