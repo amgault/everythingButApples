@@ -43,7 +43,7 @@ function submitCards() {
 }
 
 function showHand() {
-    showAndHide("pregame", "hand")
+    showAndHide("pregame", "game")
 }
 
 //Code comparison listener
