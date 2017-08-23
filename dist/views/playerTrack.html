@@ -5,33 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>EBA</title>
-    <link href="css/main.css" rel="stylesheet">
+    <link href="../../src/public/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 </head>
+
 <body>
+    <!-- Socket initialization -->
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+
     <header class="header">
+        <a href="landingPage.html">⇦</a>
         <h1>Everything but Apples</h1>
     </header>
 
-    <div class="container code" style="display:none;">
-        <p>As the wild wind blows, the trees say:</p>
-        <input type="text" id="code-input" name="room-code" placeholder="code goes here">
-        <input type="submit" placeholder="submit" class="submit">
-        <!-- Here compare this code to other codes that are in use -->
-    </div>
+    <form id="roomCode">
+        <div class="container code">
+            <p>As the wild wind blows, the trees say:</p>
+            <input type="text" id="code-input" name="room-code" placeholder="code goes here">
+            <input type="submit" placeholder="submit" class="submit" id="code-button">
+            <!-- Here compare this code to other codes that are in use -->
+        </div>
+    </form>
+    
 
-    <div class="continer pregame" style="display:none;">
+    <div class="continer pregame" id="pregame" style="display:none;">
         <div class="waiting-bubble circle">
             <p class="circleWord">Waiting for opponents...</p>
         </div>
 
-        <form class="create-update-form username" action="/" method="POST">
+        <form class="create-update-form username" action="/" method="POST" id="username">
             <p>While you wait, come up with a username:</p>
             <input type="text" id="player-name-form" name="player-name">
             <input type="submit" placeholder="submit" class="submit">
             <!-- prevent default on this/After submit show the createCards form-->
         </form>
 
-        <form class="create-update-form createCards" action="/" method="POST">
+        <form class="create-update-form createCards" action="/" method="POST" id="createCards" style="display:none;">
             <p>Come up with noun cards:</p>
             <input type="text" id="card-form" name="card">
             <input type="submit" placeholder="submit" class="submit">
@@ -39,7 +48,7 @@
         </form>
     </div>
 
-    <div class="container game" style="display:none;">
+    <div class="container game" id="hand" style="display:none;">
         <div class="player-hand-card cardContainer card">
             <h2>Noun</h2>
             <p>Description</p>
@@ -62,5 +71,7 @@
         </div>
         <!-- Each card will look like this -->
     </div>
+
+    <script src="../../src/public/js/player.js"></script>
 </body>
 </html>
