@@ -1,3 +1,11 @@
+@import "imports/colors.css";
+@import "imports/host-style.css";
+
+* {
+    box-sizing: border-box;
+}
+
+
 .circle {
     display:block;
     height: 100px;
@@ -11,6 +19,7 @@
 .btn {
     margin:auto;
     margin-top: 25px;
+
     border:  1px solid red;
     display:block;
     height: 100px;
@@ -69,6 +78,7 @@
     padding-top: 25px;
     padding-left: 8px;
 }
+
 
 .hide{
     display:none;
