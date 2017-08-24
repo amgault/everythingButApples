@@ -1,8 +1,50 @@
 /* Colors */
 /* http://paletton.com/#uid=71P1-0kqPtygJCSlLvntVobxLjb */
-
 .host-bg{
     background-color: #5AA2B6;
+}
+.card-container {
+    cursor: pointer;
+    height: 150px;
+    -webkit-perspective: 600;
+            perspective: 600;
+    position: relative;
+    width: 150px;
+}
+/* https://codepen.io/anon/pen/oeENmb */
+/* https://jsfiddle.net/james2doyle/qsQun/ */
+.played-card {
+    width: 10em;
+    height: 10em;
+    position: absolute;
+    -webkit-transition: -webkit-transform 1s;
+    transition: -webkit-transform 1s;
+    transition: transform 1s;
+    transition: transform 1s, -webkit-transform 1s;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50% 50%;
+}
+.played-card div {
+    display: block;
+    height: 10em;
+    width: 10em;
+    text-align: center;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.played-card .front {
+  background: red;
+}
+.played-card .back {
+    background: blue;
+    -webkit-transform: rotateY( 180deg );
+    transform: rotateY( 180deg );
+}
+.played-card.flipped {
+    -webkit-transform: rotateY( 180deg );
+    transform: rotateY( 180deg );
 }
 .host-display {
     display: block;
@@ -45,7 +87,6 @@
 .start-game-button {
     background-color: #ebe626;
     color: #034B5F;
-    border: 1px solid #C1BC0D;
     -webkit-box-shadow: 0 5px 0 #999500;
             box-shadow: 0 5px 0 #999500;
     margin: 1.5em auto;
@@ -58,7 +99,6 @@
   -webkit-transform: translateY(3px);
           transform: translateY(3px);
 }
-
 * {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
@@ -68,13 +108,35 @@
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    border: 1px solid #ebe626;
-    background-color:#034B5F;
+    border: 1px solid red;
+    background-color:black;
 
 }
 .btn {
     margin:auto;
     margin-top: 25px;
+
+    border:  1px solid red;
+    display:block;
+    height: 100px;
+    width: 100px;
+    /* background: #0087cc; */
+    border-radius: 50%;
+    -webkit-box-shadow: 0 5px 0 black;
+            box-shadow: 0 5px 0 black;
+    /* color: #fff; */
+    cursor: pointer;
+    font: inherit;
+    outline: 0;
+    padding: 12px 20px;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+}
+.btn:active {
+    -webkit-box-shadow: 0 2px 0 black;
+            box-shadow: 0 2px 0 black;
+    -webkit-transform: translateY(3px);
+            transform: translateY(3px);
 }
 .buttonContain {
     display: -webkit-box;
@@ -134,9 +196,17 @@
     padding-top: 25px;
     padding-left: 8px;
 }
+.hide{
+    display:none;
+}
 .header {
     text-align: center;
-
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.header h1 {
+    margin: auto;
 }
 .logo {
     width:100px;

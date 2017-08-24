@@ -2,6 +2,56 @@
     background-color: var(--lightest-blue);
 }
 
+.card-container {
+    cursor: pointer;
+    height: 150px;
+    perspective: 600;
+    position: relative;
+    width: 150px;
+}
+
+/* https://jsfiddle.net/james2doyle/qsQun/ */
+
+.played-card {
+    width: 10em;
+    height: 10em;
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    transition: transform 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50% 50%;
+}
+.played-card div {
+    display: block;
+    height: 10em;
+    width: 10em;
+    text-align: center;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.played-card .front {
+  background: red;
+}
+.played-card .back {
+    background: blue;
+    -webkit-transform: rotateY( 180deg );
+    -moz-transform: rotateY( 180deg );
+    -o-transform: rotateY( 180deg );
+    transform: rotateY( 180deg );
+}
+.played-card.flipped {
+    -webkit-transform: rotateY( 180deg );
+    -moz-transform: rotateY( 180deg );
+    -o-transform: rotateY( 180deg );
+    transform: rotateY( 180deg );
+}
+
 .host-display {
     display: block;
     flex-wrap: nowrap;
@@ -12,7 +62,6 @@
     padding: .75em;
     background-color: white;
 }
-
 
 .host-display * {
     margin: auto;
