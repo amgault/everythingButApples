@@ -1,14 +1,17 @@
 // Set up MySQL connection.
 var mysql = require("mysql");
 
-//access environmental variables for username, password, host
+// access environmental variables for username, password, host
 require('dotenv').config({path: '../dotenv.env'});
 
 var connection;
+
+// first try to use JAWSDB connection if it exists (for Heroku deployment)
 if (process.env.JAWSDB_URL) {
   connection = mysql.createConnection(process.env.JAWSDB_URL);
 }
 
+// otherwise
 else {
     connection = mysql.createConnection({
         host: process.env.DB_HOST,
