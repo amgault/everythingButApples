@@ -17,10 +17,18 @@ var orm = require("../config/orm.js");
 // Use ORM functions and corresponding inputs to make mySQL queries
 var player = {
     
-    //THIS IS FROM A PREVIOUS HOMEWORK, NOT UPDATED YET
-    addNewPlayer: function(columns, values, cb){
-        orm.insertOne("burgers", columns, values, function(res){
-            cb(res);
+    //This function takes in a values array to insert a new row into the Players table.
+    //NOTE: the username in the values array must be a string with inner single quotes
+    // Ex: values = ["'PlayerZ", 1]
+    addNewPlayer: function(values, cb){
+        orm.insertOne("players", ["username", "room_id"], values, function(res){
+                cb(res);
+        });
+    },
+
+    addNewRoom: function(values, cb){
+        orm.insertOne("players", ["username", "room_id"], values, function(res){
+                cb(res);
         });
     },
 
@@ -43,6 +51,13 @@ var player = {
 /*
 // code to test refreshHand. Can be used in router later.
 player.refreshHand(1, function(res){
+    console.log(res);
+});
+*/
+
+/*
+// code to test addNewPlayer. Can be used in router later.
+player.addNewPlayer(["'playerZ'", 1], function(res){
     console.log(res);
 });
 */

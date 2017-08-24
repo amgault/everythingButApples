@@ -54,6 +54,5 @@ var orm = {
 
 };
 
-
 // Export the orm object for use by our models (burger.js)
 module.exports = orm;
