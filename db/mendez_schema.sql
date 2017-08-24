@@ -24,9 +24,25 @@ CREATE TABLE cards
 	title varchar(255) NOT NULL,
 	description varchar(255) NOT NULL,
     role varchar(255) DEFAULT 0,
-    isUsedThisRound boolean DEFAULT 0,
     room_id int,
     player_id int,
 	PRIMARY KEY (id)
 );
 
+CREATE TABLE cards_played_this_round
+(
+	id int NOT NULL,
+    room_id int,
+    player_id int NOT NULL,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE cards_to_deal
+(
+	id int NOT NULL,
+	title varchar(255) NOT NULL,
+	description varchar(255) NOT NULL,
+    room_id int,
+    player_id int,
+	PRIMARY KEY (id)
+);

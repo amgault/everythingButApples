@@ -40,7 +40,8 @@ var orm = {
           });
     }, 
 
-    //THIS IS FROM A PREVIOUS HOMEWORKNOT UPDATED YET
+    // This function takes in a table name, a column name, a value, a condition, and a callback function
+    // to make an SQL query that updates one row of a table
     updateOne: function(tableName, column, value, condition, cb) {
         var queryString = "UPDATE " + tableName + " SET " + column + " = " + value + " WHERE " + condition + ";";
         connection.query(queryString, function(err, result) {

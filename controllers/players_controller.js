@@ -23,13 +23,12 @@ var router = express.Router();
 // =============================================================
 
 // Create all our routes and set up logic within those routes where required.
-router.get("/cards", function(req, res) {
-    player.refreshHand(function(data) {
-        var cardsObject = {
-            players: data
-        };
-        console.log(cardsObject);
-        res.json(cardsObject);
+
+
+router.get("/cards", function(request, response) {
+    player.refreshHand(request.id, function(data) {
+        console.log(data);
+        res.json(data);
     });
 });
 

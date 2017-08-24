@@ -26,6 +26,9 @@ var player = {
         });
     },
 
+    //=========================================
+    // HOST FUNCTION
+    //=========================================
     //This function takes in a values array to insert a new row into the games table.
     //NOTE: the room name in the values array must be a string with inner single quotes
     // Ex: values = ["'Test Room'", 3]
@@ -35,8 +38,11 @@ var player = {
         });
     },
 
-    //This function takes in a single value for the new score and a string that will serve as the condition
-    //in an SQL query
+    //=========================================
+    // HOST FUNCTION
+    //=========================================
+    // This function takes in a single value for the new score and a string that will serve as the condition
+    // in an SQL query
     // Ex: values = 1 ; condition = "id = 31"
     increaseScore: function(value, condition, cb){
         orm.updateOne("players", "score", value, condition, function(res){
@@ -44,8 +50,10 @@ var player = {
         });
     },
 
+    //This function takes in an array of values to make an SQL query to insert a row into the
+    //cards_played_this_round table
     playCard: function(condition, cb){
-        orm.updateOne("cards_test", "isUsedThisRound", 1, condition, function(res){
+        orm.insertOne("cards_played_this_round", ["id", "room_id", "player_id"], values, function(res){
             cb(res);
         });
     },
@@ -53,7 +61,7 @@ var player = {
     //this function takes in a player id 
     //and uses ORM function to query (READ) the cards table by that player_id 
     refreshHand: function(id, cb){
-        orm.selectAllByKeyValue("cards_test", "player_id", id, function(res){
+        orm.selectAllByKeyValue("cards_to_deal", "player_id", id, function(res){
             cb(res);
         });
     },
