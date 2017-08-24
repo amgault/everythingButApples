@@ -11,7 +11,7 @@ var orm = require("../config/orm.js");
 
 
 // =============================================================
-// NAME OF WHATEVER THIS IS
+// player.js functions
 // =============================================================
 
 // Use ORM functions and corresponding inputs to make mySQL queries
@@ -35,7 +35,9 @@ var player = {
         });
     },
 
-    //THIS IS FROM A PREVIOUS HOMEWORK, NOT UPDATED YET
+    //This function takes in a single value for the new score and a string that will serve as the condition
+    //in an SQL query
+    // Ex: values = 1 ; condition = "id = 31"
     increaseScore: function(value, condition, cb){
         orm.updateOne("players", "score", value, condition, function(res){
             cb(res);
@@ -48,6 +50,14 @@ var player = {
         orm.selectAllByKeyValue("cards_test", "player_id", id, function(res){
             cb(res);
         });
+    },
+
+    //this function takes in a player id 
+    //and uses ORM function to query (READ) the cards table by that player_id 
+    refreshPlayerStats: function(id, cb){
+        orm.selectAllByKeyValue("players", "id", id, function(res){
+            cb(res);
+        });
     }
 
 }
@@ -55,6 +65,13 @@ var player = {
 /*
 // code to test refreshHand. Can be used in router later.
 player.refreshHand(1, function(res){
+    console.log(res);
+});
+*/
+
+/*
+// code to test refreshHand. Can be used in router later.
+player.refreshPlayerStats(1, function(res){
     console.log(res);
 });
 */
