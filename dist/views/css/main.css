@@ -1,22 +1,15 @@
 /* Colors */
 /* http://paletton.com/#uid=71P1-0kqPtygJCSlLvntVobxLjb */
+.back-link{
+    font-size: 2em;
+}
 .host-bg{
     background-color: #5AA2B6;
 }
-.card-container {
-    cursor: pointer;
-    height: 150px;
-    -webkit-perspective: 600;
-            perspective: 600;
-    position: relative;
-    width: 150px;
-}
-/* https://codepen.io/anon/pen/oeENmb */
 /* https://jsfiddle.net/james2doyle/qsQun/ */
 .played-card {
     width: 10em;
     height: 10em;
-    position: absolute;
     -webkit-transition: -webkit-transform 1s;
     transition: -webkit-transform 1s;
     transition: transform 1s;
@@ -51,7 +44,7 @@
     -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
     text-align: center;
-    border: 5px solid #C1670D;
+    border: .2em solid #C1670D;
     border-radius: 2px;
     margin: 0em 1em;
     padding: .75em;
@@ -59,6 +52,15 @@
 }
 .host-display * {
     margin: auto;
+}
+.host-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding-bottom: .2em;
 }
 .player-circle{
     border: 2px solid #EB8A26;
