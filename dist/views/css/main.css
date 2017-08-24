@@ -1,0 +1,151 @@
+/* Colors */
+/* http://paletton.com/#uid=71P1-0kqPtygJCSlLvntVobxLjb */
+
+.host-bg{
+    background-color: #5AA2B6;
+}
+.host-display {
+    display: block;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    text-align: center;
+    border: 5px solid #C1670D;
+    border-radius: 2px;
+    margin: 0em 1em;
+    padding: .75em;
+    background-color: white;
+}
+.host-display * {
+    margin: auto;
+}
+.player-circle{
+    border: 2px solid #EB8A26;
+    border-radius: 4em;
+    padding: 1em;
+    margin: 1em;
+    min-width: 10em;
+    max-width: 20em;
+}
+.player-connections-container{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+}
+.room-code{
+    border: 1px solid #521081;
+    padding: .5em;
+    margin: 0em 25%;
+    font-size: 2em;
+}
+.start-game-button {
+    background-color: #ebe626;
+    color: #034B5F;
+    border: 1px solid #C1BC0D;
+    -webkit-box-shadow: 0 5px 0 #999500;
+            box-shadow: 0 5px 0 #999500;
+    margin: 1.5em auto;
+    border-radius: 5px;
+}
+/* https://codepen.io/shayhowe/pen/Bocnt */
+.start-game-button:active {
+  -webkit-box-shadow: 0 2px 0 #999500;
+          box-shadow: 0 2px 0 #999500;
+  -webkit-transform: translateY(3px);
+          transform: translateY(3px);
+}
+
+* {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+.circle {
+    display:block;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 1px solid #ebe626;
+    background-color:#034B5F;
+
+}
+.btn {
+    margin:auto;
+    margin-top: 25px;
+}
+.buttonContain {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.card {
+    width: 200px;
+    height: 200px;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius: 5px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+    border: 1px solid black;
+    margin:auto;
+}
+.container {
+    margin-top:75px;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-orient:vertical;
+    -webkit-box-direction:normal;
+        -ms-flex-flow:column;
+            flex-flow:column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+.cardContainer {
+    margin-top:25px;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-orient:vertical;
+    -webkit-box-direction:normal;
+        -ms-flex-flow:column;
+            flex-flow:column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+.circleWord{
+    z-index: 5;
+    color: white;
+    padding-top: 25px;
+    padding-left: 8px;
+}
+.header {
+    text-align: center;
+
+}
+.logo {
+    width:100px;
+    margin:auto;
+}
+.submit {
+    margin-top:25px;
+}
+.waiting-bubble {
+    margin:auto;
+    margin-top: 25px;
+}
