@@ -35,20 +35,21 @@ var player = {
         });
     },
 
+    //THIS IS FROM A PREVIOUS HOMEWORK, NOT UPDATED YET
+    increaseScore: function(value, condition, cb){
+        orm.updateOne("players", "score", value, condition, function(res){
+            cb(res);
+        });
+    },
+
     //this function takes in a player id 
     //and uses ORM function to query (READ) the cards table by that player_id 
     refreshHand: function(id, cb){
         orm.selectAllByKeyValue("cards_test", "player_id", id, function(res){
             cb(res);
         });
-    },
-
-    //THIS IS FROM A PREVIOUS HOMEWORK, NOT UPDATED YET
-    increaseScore: function(column, value, condition, cb){
-        orm.updateOne("burgers", column, value, condition, function(res){
-            cb(res);
-        });
     }
+
 }
 
 /*
@@ -68,6 +69,13 @@ player.addNewPlayer(["'playerZ'", 1], function(res){
 /*
 // code to test addNewGame. Can be used in router later.
 player.addNewRoom(["'TESTING ROOM 2'", 1], function(res){
+    console.log(res);
+});
+*/
+
+/*
+// code to test increaseScore. Can be used in router later.
+player.increaseScore(1, "id = 31", function(res){
     console.log(res);
 });
 */
