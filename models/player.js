@@ -19,15 +19,18 @@ var player = {
     
     //This function takes in a values array to insert a new row into the Players table.
     //NOTE: the username in the values array must be a string with inner single quotes
-    // Ex: values = ["'PlayerZ", 1]
+    // Ex: values = ["'PlayerZ'", 1]
     addNewPlayer: function(values, cb){
         orm.insertOne("players", ["username", "room_id"], values, function(res){
-                cb(res);
+            cb(res);
         });
     },
 
+    //This function takes in a values array to insert a new row into the games table.
+    //NOTE: the room name in the values array must be a string with inner single quotes
+    // Ex: values = ["'Test Room'", 3]
     addNewRoom: function(values, cb){
-        orm.insertOne("players", ["username", "room_id"], values, function(res){
+        orm.insertOne("rooms", ["roomName", "gameLength"], values, function(res){
                 cb(res);
         });
     },
@@ -41,7 +44,7 @@ var player = {
     },
 
     //THIS IS FROM A PREVIOUS HOMEWORK, NOT UPDATED YET
-    updateOne: function(column, value, condition, cb){
+    increaseScore: function(column, value, condition, cb){
         orm.updateOne("burgers", column, value, condition, function(res){
             cb(res);
         });
@@ -58,6 +61,13 @@ player.refreshHand(1, function(res){
 /*
 // code to test addNewPlayer. Can be used in router later.
 player.addNewPlayer(["'playerZ'", 1], function(res){
+    console.log(res);
+});
+*/
+
+/*
+// code to test addNewGame. Can be used in router later.
+player.addNewRoom(["'TESTING ROOM 2'", 1], function(res){
     console.log(res);
 });
 */

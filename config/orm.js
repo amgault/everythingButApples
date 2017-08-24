@@ -10,7 +10,7 @@
 var connection = require("../config/connection.js");
 
 // =============================================================
-// NAMEOF WHATEVER THIS IS
+// ORM FUNCTIONS
 // =============================================================
 
 //orm object with methods to create the SQL queries we will need in our app
@@ -42,7 +42,6 @@ var orm = {
 
     //THIS IS FROM A PREVIOUS HOMEWORKNOT UPDATED YET
     updateOne: function(tableName, column, value, condition, cb) {
-        //UPDATE burgers SET devoured = 1 WHERE id = 3;
         var queryString = "UPDATE " + tableName + " SET " + column + " = " + value + " WHERE " + condition + ";";
         connection.query(queryString, function(err, result) {
             if (err) {
