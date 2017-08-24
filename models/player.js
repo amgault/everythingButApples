@@ -103,12 +103,12 @@ player.increaseScore(1, "id = 31", function(res){
 });
 */
 
-
+/*
 // code to test playCard. Can be used in router later.
 player.playCard("id = 91", function(res){
     console.log(res);
 });
-
+*/
 
 // Export the burger database functions for use by the controller (burgers_controller.js)
 module.exports = player;
