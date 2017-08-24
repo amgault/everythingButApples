@@ -44,6 +44,12 @@ var player = {
         });
     },
 
+    playCard: function(condition, cb){
+        orm.updateOne("cards_test", "isUsedThisRound", 1, condition, function(res){
+            cb(res);
+        });
+    },
+
     //this function takes in a player id 
     //and uses ORM function to query (READ) the cards table by that player_id 
     refreshHand: function(id, cb){
@@ -96,6 +102,13 @@ player.increaseScore(1, "id = 31", function(res){
     console.log(res);
 });
 */
+
+
+// code to test playCard. Can be used in router later.
+player.playCard("id = 91", function(res){
+    console.log(res);
+});
+
 
 // Export the burger database functions for use by the controller (burgers_controller.js)
 module.exports = player;
