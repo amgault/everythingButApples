@@ -114,15 +114,6 @@
             box-sizing: border-box;
     font-family: 'Bitter', serif;
 }
-<<<<<<< HEAD
-.circle {
-    display:block;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    border: 1px solid red;
-    background-color:black;
-=======
 .absolute {
     position: fixed;
     bottom: 0px;
@@ -132,7 +123,6 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
->>>>>>> 3076e66a8b6633dc4897a070c1f8f88e16c02361
 
 }
 .absoluteBottom {
@@ -239,12 +229,9 @@
     padding-top: 25px;
     padding-left: 8px;
 }
-<<<<<<< HEAD
-=======
 .game {
     margin-top:0px;
 }
->>>>>>> 3076e66a8b6633dc4897a070c1f8f88e16c02361
 .hide{
     display:none;
 }
