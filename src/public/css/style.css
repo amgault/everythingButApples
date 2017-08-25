@@ -1,4 +1,5 @@
 @import "imports/colors.css";
+@import "imports/width-vars.css";
 @import "imports/host-style.css";
 
 * {
