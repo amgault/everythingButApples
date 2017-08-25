@@ -83,14 +83,6 @@ $("#host").on("click", function(){
     })
 })
 
-//On game start
-    // showAndHide("pregame", "hand")
-
-
-
-
-
-
 
 // Host Functions
 function flipAllCards (){
