@@ -1,3 +1,5 @@
+let socket = io.connect();
+
 //To hide first div and show second
 let showAndHide = function (id1, id2) {
     $(`#${id1}`).hide()
@@ -42,10 +44,25 @@ function submitCards() {
     //reset input so they can make more cards
 }
 
+function getRandNum(){
+		return (Math.floor(Math.random()*(99999-10000+1)+10000));
+}
+
 //Code comparison listener
 $('#roomCode').submit(function(e) {
     e.preventDefault()
-    codeComparison()
+    let userData = {
+        userName: $("#player-name-form").val().trim(),
+        roomId: $("#code-input").val().trim(),
+        role: "player",
+        socketId: socket.id
+    }
+    console.log(userData)
+    
+    //socket.emit('set user', userData, function(){
+        showAndHide("pregame", "game")
+    //})
+    //codeComparison()
 });
 
 //Name submit listener
@@ -58,6 +75,22 @@ $("#username").submit(function(e) {
 $("#createCards").submit(function(e) {
     e.preventDefault();
     submitCards()
+})
+
+//listener for host a game 
+$("#host").on("click", function(){
+    let room = getRandNum()
+    let userData = {
+        userName: "Host-"+room,
+        roomId: room,
+        role: "host",
+        socketId: socket.id
+    }
+    console.log(userData)
+    
+    socket.emit('set user', userData, function(){
+        showAndHide('landing','host')
+    })
 })
 
 //On game start
