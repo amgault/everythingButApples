@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="host-bg" id="host" style="display:none">
+    <div id="host-page" style="display:none;">
             <!-- BEFORE THE GAME -->
             <div class="host-display host-pregame-lobby" style="display:none">
                 <p id="room-code" class="room-code">Waiting for Players...</p>
@@ -66,18 +66,18 @@
             </div>
     
             <!-- HOSTING THE GAME -->
-            <div class="host-display host-game">
+            <div class="host-display host-game absoluteTop">
                 <div class="cardContainer card">
                     <h2>Noun</h2>
                     <p>Description</p>
                 </div>
-                <div class="host-played-cards">
-                    <div class="host-round-indicator">
+                <div class="host-round-indicator">
                         <p>ROUND <span id="host-round-number">?</span></p>
                     </div>
                     <button  onclick="flipAllCards()">Flip all cards</button>
+                <div class="host-played-cards">
                     <!-- container holding all the cards that have been played -->
-                    <div class="played-cards-container">
+                    <div class="played-cards-container absoluteBottom">
                         <div class="played-card">
                             <div class="front">
                                 Face Down

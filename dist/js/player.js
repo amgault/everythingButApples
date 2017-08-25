@@ -77,9 +77,11 @@ $("#host").on("click", function(){
         socketId: socket.id
     }
     console.log(userData)
+    //Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
+    showAndHide('landing','host-page')
     
     socket.emit('set user', userData, function(){
-        showAndHide('landing','host')
+        
     })
 })
 
