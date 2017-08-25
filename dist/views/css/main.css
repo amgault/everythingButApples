@@ -6,10 +6,43 @@
 .host-bg{
     background-color: #5AA2B6;
 }
+.host-display {
+    display: block;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    text-align: center;
+    border: .2em solid #C1670D;
+    border-radius: 2px;
+    margin: 0em 1em;
+    padding: .75em;
+    background-color: white;
+}
+.host-display * {
+    margin: auto;
+}
+.host-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding-bottom: .2em;
+}
+.played-cards-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+}
 /* https://jsfiddle.net/james2doyle/qsQun/ */
 .played-card {
     width: 10em;
     height: 10em;
+    margin:1em;
     -webkit-transition: -webkit-transform 1s;
     transition: -webkit-transform 1s;
     transition: transform 1s;
@@ -38,29 +71,6 @@
 .played-card.flipped {
     -webkit-transform: rotateY( 180deg );
     transform: rotateY( 180deg );
-}
-.host-display {
-    display: block;
-    -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap;
-    text-align: center;
-    border: .2em solid #C1670D;
-    border-radius: 2px;
-    margin: 0em 1em;
-    padding: .75em;
-    background-color: white;
-}
-.host-display * {
-    margin: auto;
-}
-.host-header {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding-bottom: .2em;
 }
 .player-circle{
     border: 2px solid #EB8A26;
