@@ -1,6 +1,8 @@
 /* Colors */
 /* http://paletton.com/#uid=71P1-0kqPtygJCSlLvntVobxLjb */
-
+.back-link{
+    font-size: 2em;
+}
 .host-bg{
     background-color: #5AA2B6;
 }
@@ -114,6 +116,9 @@
             box-sizing: border-box;
     font-family: 'Bitter', serif;
 }
+body {
+    background-color:#FCFBE3;
+}
 .absolute {
     position: fixed;
     bottom: 0px;
@@ -134,7 +139,7 @@
     overflow-y: auto;
     z-index: 1000;
     position: absolute;
-    top: 300px;
+    top: 325px;
     left: 0px;
 }
 .btn {
@@ -169,8 +174,8 @@
     display: flex;
 }
 .card {
-    width: 200px;
-    height: 200px;
+    width: 10em;
+    height: 10em;
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
     -webkit-transition: 0.3s;
@@ -189,13 +194,18 @@
     border: 1px solid black;
     margin:auto;
 }
-.circle {
-    display:block;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    border: 1px solid red;
-    background-color:black;
+.cardContainer {
+    margin-top:25px;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-orient:vertical;
+    -webkit-box-direction:normal;
+        -ms-flex-flow:column;
+            flex-flow:column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 .container {
     margin-top:75px;
@@ -210,24 +220,31 @@
         -ms-flex-pack: center;
             justify-content: center;
 }
-.cardContainer {
-    margin-top:25px;
-    display:-webkit-box;
-    display:-ms-flexbox;
-    display:flex;
-    -webkit-box-orient:vertical;
-    -webkit-box-direction:normal;
-        -ms-flex-flow:column;
-            flex-flow:column;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+.createCards {
+    width:300px;
+    margin:auto;
+}
+.circle {
+    display:block;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 1px solid red;
+    background-color:black;
 }
 .circleWord{
     z-index: 5;
     color: white;
     padding-top: 25px;
     padding-left: 8px;
+}
+.favorite {
+    margin: auto;
+    width: 70px;
+}
+.roomForm {
+    width: 300px;
+    margin: auto;
 }
 .game {
     margin-top:0px;
