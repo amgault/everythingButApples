@@ -62,3 +62,16 @@ $("#createCards").submit(function(e) {
 
 //On game start
     // showAndHide("pregame", "hand")
+
+
+
+
+
+
+
+// Host Functions
+function flipAllCards (){
+    $(".played-card").each(function(){
+        $(this).toggleClass('flipped');
+    })
+}
