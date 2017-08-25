@@ -108,32 +108,29 @@
     </div>
 
     <div id="player" style="display:none">
-        <form id="roomCode">
+        <form id="roomCode" id="username">
             <div class="container code roomForm">
                 <p>As the wild wind blows, the trees say:</p>
                 <input type="text" id="code-input" name="room-code" placeholder="Room code goes here">
                 <p>What do you want to go by:</p>
                 <input type="text" id="player-name-form" name="player-name" placeholder="Username goes here">
-                <!-- prevent default on this/After submit show the createCards form-->
                 <input type="submit" placeholder="submit" class="submit" id="code-button">
-                <!-- Here compare this code to other codes that are in use -->
+                <!-- #Max Here compare this code to other codes that are in use -->
             </div>
         </form>
         
     
         <div class="continer pregame" id="pregame" style="display:none;">
-            <!-- <div class="waiting-bubble circle"> -->
-                <!-- <p class="circleWord">Waiting for opponents...</p> -->
                 <div class="spinner"></div>
                 <p class="spinnerText">Waiting for opponents...</p>
-            <!-- </div> -->
     
             <form class="create-update-form createCards" action="/" method="POST" id="createCards">
                 <p>Come up with noun cards to add to our deck:</p>
                 <input type="text" id="card-form" name="card">
                 <input type="submit" placeholder="submit" class="submit">
-                <!-- prevent default on this -->
             </form>
+
+            <button onclick="showAndHide('pregame', 'game')">Go to Game</button>
         </div>
     
         <div class="container game" id="game" style="display:none;">
