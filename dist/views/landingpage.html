@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>EBA</title>
     <link href="/views/css/main.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bitter:400,700" rel="stylesheet">
 </head>
 <body>
@@ -13,18 +14,167 @@
         <h1>Everything but Apples</h1>
     </header>
 
-    <div class="container">
+    <div class="container" id="landing">
         <div class="logo">
                 <img class="logo" src="https://files.slack.com/files-pri/T4J1C74HW-F6TDSEQRM/logo.png">
         </div>
         <div class="buttonContain">
-            <a class="circle btn" href="/host">
+            <a class="circle btn" onclick="showAndHide('landing','host')">
                 <p class="circleWord">Host a game</p>
             </a>
-            <a class="circle btn" href="/player">
+            <a class="circle btn" onclick="showAndHide('landing','player')">
                     <p class="circleWord">Play a game</p>
             </a>
         </div>
+    </div>
+
+    <div id="host" style="display:none">
+        <main>
+            <!-- BEFORE THE GAME -->
+            <div class="host-display host-pregame-lobby" style="display:none">
+                <p id="room-code" class="room-code">?????</p>
+                <div class="host-lobby-display">
+                    <div class="lobby-connections-display">
+                        <!-- this section might take some shuffling around depending on how we display the current connected players -->
+                        <div class="last-connection-display">
+                            <p><span id="last-player-connected">No one</span> has connected!</p>
+                        </div>
+                        <div class="player-connections">
+                            <p>Players connected:</p>
+                            <div id="player-connections-container" class="player-connections-container">
+                                <div class="player-circle">
+                                    Player Name
+                                </div>
+                                <div class="player-circle">
+                                    Player Name
+                                </div>
+                                <div class="player-circle">
+                                    Player Name
+                                </div>
+                                <div class="player-circle">
+                                    Player Name
+                                </div>
+                            </div>
+                        </div>
+                        <button id="start-game-button" class="start-game-button">Start Game</button>
+                    </div>
+                </div>
+                <div class="host-rounds-display">
+                    <p>This game will last 3 rounds.</p>
+                </div>
+            </div>
+    
+            <!-- HOSTING THE GAME -->
+            <div class="host-display host-game">
+                <div class="cardContainer card">
+                    <h2>Noun</h2>
+                    <p>Description</p>
+                </div>
+                <div class="host-played-cards">
+                    <div class="host-round-indicator">
+                        <p>ROUND <span id="host-round-number">?</span></p>
+                    </div>
+                    <button  onclick="flipAllCards()">Flip all cards</button>
+                    <!-- container holding all the cards that have been played -->
+                    <div class="played-cards-container">
+                        <div class="played-card">
+                            <div class="front">
+                                Face Down
+                            </div>
+                            <div class="back">
+                                Face Up
+                            </div>
+                        </div>
+                        <div class="played-card">
+                            <div class="front">
+                                Face Down
+                            </div>
+                            <div class="back">
+                                Face Up
+                            </div>
+                        </div>
+                        <div class="played-card">
+                            <div class="front">
+                                Face Down
+                            </div>
+                            <div class="back">
+                                Face Up
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="player" style="display:none">
+        <form id="roomCode">
+            <div class="container code">
+                <p>As the wild wind blows, the trees say:</p>
+                <input type="text" id="code-input" name="room-code" placeholder="Room code goes here">
+                <p>What do you want to go by:</p>
+                <input type="text" id="player-name-form" name="player-name" placeholder="Username goes here">
+                <!-- prevent default on this/After submit show the createCards form-->
+                <input type="submit" placeholder="submit" class="submit" id="code-button">
+                <!-- Here compare this code to other codes that are in use -->
+            </div>
+        </form>
+        
+    
+        <div class="continer pregame" id="pregame" style="display:none;">
+            <!-- <div class="waiting-bubble circle"> -->
+                <!-- <p class="circleWord">Waiting for opponents...</p> -->
+                <div class="spinner"></div>
+                <p class="spinnerText">Waiting for opponents...</p>
+            <!-- </div> -->
+    
+            <form class="create-update-form createCards" action="/" method="POST" id="createCards">
+                <p>Come up with noun cards to add to our deck:</p>
+                <input type="text" id="card-form" name="card">
+                <input type="submit" placeholder="submit" class="submit">
+                <!-- prevent default on this -->
+            </form>
+        </div>
+    
+        <div class="container game" id="game" style="display:none;">
+            <div id="favorite" class="absoluteTop">
+                <div>
+                    <p class="favorite">Favorite</p>
+                    <input type="submit" placeholder="submit" class="submit">
+                </div>
+                <div class="cardContainer card">
+                    <h2>Noun</h2>
+                    <p>Description</p>
+                </div>
+            </div>
+            <div id="hand" class="absoluteBottom">
+                <div class="player-hand-card cardContainer card">
+                    <h2>Noun</h2>
+                    <p>Description</p>
+                </div>
+                <div class="player-hand-card cardContainer card">
+                    <h2>Noun</h2>
+                    <p>Description</p>
+                </div>
+                <div class="player-hand-card cardContainer card">
+                    <h2>Noun</h2>
+                    <p>Description</p>
+                </div>
+                <div class="player-hand-card cardContainer card">
+                    <h2>Noun</h2>
+                    <p>Description</p>
+                </div>
+                <div class="player-hand-card cardContainer card">
+                    <h2>Noun</h2>
+                    <p>Description</p>
+                </div>
+            </div>
+    
+            <!-- Each card will look like this -->
+        </div>
+    
+        <script src="../js/player.js"></script>
+        <img class="logo absolute" src="../img/logo.png">
     </div>
 </body>
 </html>
