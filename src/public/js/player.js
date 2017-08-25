@@ -7,10 +7,11 @@ let showAndHide = function (id1, id2) {
 //This is to validate code
 function codeComparison() {
     let inputCode = $("#code-input").val();
-    console.log(inputCode)
+    // console.log(inputCode)
     //Compare input code to room codes available
+    submitUsername();
     // if (input code exists)
-        showAndHide("roomCode", "pregame")
+        showAndHide("roomCode", "pregame");
     // else
     // Request new code
 }
@@ -21,8 +22,7 @@ function submitUsername() {
     //AJAX post user name to room
         //This should post it to the host to display the name on the players box
 
-    //Shows next input if they want
-    showAndHide("username", "createCards")
+    //Shows next Cards Input
 }
 
 function Card(text, player) {
@@ -42,17 +42,21 @@ function submitCards() {
     //reset input so they can make more cards
 }
 
+function showHand() {
+    showAndHide("pregame", "game")
+}
+
 //Code comparison listener
 $('#roomCode').submit(function(e) {
     e.preventDefault()
     codeComparison()
 });
 
-//Name submit listener
-$("#username").submit(function(e) {
-    e.preventDefault();
-    submitUsername()
-})
+// //Name submit listener
+// $("#username").submit(function(e) {
+//     e.preventDefault();
+//     submitUsername()
+// })
 
 //New Card submit listener
 $("#createCards").submit(function(e) {

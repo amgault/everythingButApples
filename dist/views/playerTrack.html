@@ -7,6 +7,7 @@
     <title>EBA</title>
     <link href="/views/css/main.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bitter:400,700" rel="stylesheet">
 </head>
 
 <body>
@@ -21,7 +22,10 @@
     <form id="roomCode">
         <div class="container code">
             <p>As the wild wind blows, the trees say:</p>
-            <input type="text" id="code-input" name="room-code" placeholder="code goes here">
+            <input type="text" id="code-input" name="room-code" placeholder="Room code goes here">
+            <p>What do you want to go by:</p>
+            <input type="text" id="player-name-form" name="player-name" placeholder="Username goes here">
+            <!-- prevent default on this/After submit show the createCards form-->
             <input type="submit" placeholder="submit" class="submit" id="code-button">
             <!-- Here compare this code to other codes that are in use -->
         </div>
@@ -29,49 +33,58 @@
     
 
     <div class="continer pregame" id="pregame" style="display:none;">
-        <div class="waiting-bubble circle">
-            <p class="circleWord">Waiting for opponents...</p>
-        </div>
+        <!-- <div class="waiting-bubble circle"> -->
+            <!-- <p class="circleWord">Waiting for opponents...</p> -->
+            <div class="spinner"></div>
+            <p class="spinnerText">Waiting for opponents...</p>
+        <!-- </div> -->
 
-        <form class="create-update-form username" action="/" method="POST" id="username">
-            <p>While you wait, come up with a username:</p>
-            <input type="text" id="player-name-form" name="player-name">
-            <input type="submit" placeholder="submit" class="submit">
-            <!-- prevent default on this/After submit show the createCards form-->
-        </form>
-
-        <form class="create-update-form createCards" action="/" method="POST" id="createCards" style="display:none;">
-            <p>Come up with noun cards:</p>
+        <form class="create-update-form createCards" action="/" method="POST" id="createCards">
+            <p>Come up with noun cards to add to our deck:</p>
             <input type="text" id="card-form" name="card">
             <input type="submit" placeholder="submit" class="submit">
             <!-- prevent default on this -->
         </form>
     </div>
 
-    <div class="container game" id="hand" style="display:none;">
-        <div class="player-hand-card cardContainer card">
-            <h2>Noun</h2>
-            <p>Description</p>
+    <div class="container game" id="game" style="display:none;">
+        <div id="favorite" class="absoluteTop">
+            <div>
+                <p class="favorite">Favorite</p>
+                <input type="submit" placeholder="submit" class="submit">
+            </div>
+            <div class="cardContainer card">
+                <h2>Noun</h2>
+                <p>Description</p>
+            </div>
         </div>
-        <div class="player-hand-card cardContainer card">
-            <h2>Noun</h2>
-            <p>Description</p>
+        <div id="hand" class="absoluteBottom">
+            <div class="player-hand-card cardContainer card">
+                <h2>Noun</h2>
+                <p>Description</p>
+            </div>
+            <div class="player-hand-card cardContainer card">
+                <h2>Noun</h2>
+                <p>Description</p>
+            </div>
+            <div class="player-hand-card cardContainer card">
+                <h2>Noun</h2>
+                <p>Description</p>
+            </div>
+            <div class="player-hand-card cardContainer card">
+                <h2>Noun</h2>
+                <p>Description</p>
+            </div>
+            <div class="player-hand-card cardContainer card">
+                <h2>Noun</h2>
+                <p>Description</p>
+            </div>
         </div>
-        <div class="player-hand-card cardContainer card">
-            <h2>Noun</h2>
-            <p>Description</p>
-        </div>
-        <div class="player-hand-card cardContainer card">
-            <h2>Noun</h2>
-            <p>Description</p>
-        </div>
-        <div class="player-hand-card cardContainer card">
-            <h2>Noun</h2>
-            <p>Description</p>
-        </div>
+
         <!-- Each card will look like this -->
     </div>
 
-    <script src="/js/player.js"></script>
+    <script src="../js/player.js"></script>
+    <img class="logo absolute" src="../img/logo.png">
 </body>
 </html>
