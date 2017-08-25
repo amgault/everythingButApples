@@ -8,6 +8,10 @@
     font-family: 'Bitter', serif;
 }
 
+body {
+    background-color:var(--new-main-cream);
+}
+
 .absolute {
     position: fixed;
     bottom: 0px;
@@ -28,7 +32,7 @@
     overflow-y: auto;
     z-index: 1000;
     position: absolute;
-    top: 300px;
+    top: 325px;
     left: 0px;
 }
 
@@ -61,8 +65,8 @@
 }
 
 .card {
-    width: 200px;
-    height: 200px;
+    width: var(--card-width);
+    height: var(--card-width);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
@@ -71,6 +75,26 @@
     display: flex;
     text-align: center;
     border: 1px solid black;
+    margin:auto;
+}
+
+.cardContainer {
+    margin-top:25px;
+    display:flex;
+    flex-flow:column;
+    justify-content: center;
+}
+
+
+.container {
+    margin-top:75px;
+    display:flex;
+    flex-flow:column;
+    justify-content: center;
+}
+
+.createCards {
+    width:300px;
     margin:auto;
 }
 
@@ -83,25 +107,21 @@
     background-color:black;
 }
 
-.container {
-    margin-top:75px;
-    display:flex;
-    flex-flow:column;
-    justify-content: center;
-}
-
-.cardContainer {
-    margin-top:25px;
-    display:flex;
-    flex-flow:column;
-    justify-content: center;
-}
-
 .circleWord{
     z-index: 5;
     color: white;
     padding-top: 25px;
     padding-left: 8px;
+}
+
+.favorite {
+    margin: auto;
+    width: 70px;
+}
+
+.roomForm {
+    width: 300px;
+    margin: auto;
 }
 
 .game {
