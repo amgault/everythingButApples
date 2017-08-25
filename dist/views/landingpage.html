@@ -10,11 +10,12 @@
     <link href="https://fonts.googleapis.com/css?family=Bitter:400,700" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-        <h1>Everything but Apples</h1>
-    </header>
 
     <div class="container" id="landing">
+        <header class="header">
+            <h1>Everything but Apples</h1>
+        </header>
+            
         <div class="logo">
                 <img class="logo" src="https://files.slack.com/files-pri/T4J1C74HW-F6TDSEQRM/logo.png">
         </div>
@@ -28,11 +29,10 @@
         </div>
     </div>
 
-    <div id="host" style="display:none">
-        <main>
+    <div class="host-bg" id="host" style="display:none">
             <!-- BEFORE THE GAME -->
             <div class="host-display host-pregame-lobby" style="display:none">
-                <p id="room-code" class="room-code">?????</p>
+                <p id="room-code" class="room-code">Waiting for Players...</p>
                 <div class="host-lobby-display">
                     <div class="lobby-connections-display">
                         <!-- this section might take some shuffling around depending on how we display the current connected players -->
@@ -104,7 +104,6 @@
                     </div>
                 </div>
             </div>
-        </main>
     </div>
 
     <div id="player" style="display:none">
