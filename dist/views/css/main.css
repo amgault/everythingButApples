@@ -8,7 +8,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	/* font: inherit; */
+	/* #Max  Commented out for use */
 	vertical-align: baseline;
 }
 
@@ -174,7 +175,7 @@ body {
 * {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
-    font-family: 'Bitter', serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 body {
@@ -321,10 +322,6 @@ body {
     margin: auto;
 }
 
-.hide{
-    display:none;
-}
-
 .header {
     text-align: center;
     display: -webkit-box;
@@ -343,6 +340,10 @@ body {
 
 .player-hand-card {
     background-color: white;
+}
+
+.player-topBumper {
+    margin-top:25px
 }
 
 .spinner {
@@ -382,6 +383,10 @@ body {
     /* margin-top:25px; */
     width: 60px;
     height: 2em;
+}
+
+.roomFromSubmit {
+    margin-top: 25px;
 }
 
 .waiting-bubble {

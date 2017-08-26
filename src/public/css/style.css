@@ -5,7 +5,7 @@
 
 * {
     box-sizing: border-box;
-    font-family: 'Bitter', serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 body {
@@ -123,10 +123,6 @@ body {
     margin: auto;
 }
 
-.hide{
-    display:none;
-}
-
 .header {
     text-align: center;
     display: flex;
@@ -134,6 +130,7 @@ body {
 
 .header h1 {
     margin: auto;
+    font-size: 2em;
 }
 
 .logo {
@@ -143,6 +140,10 @@ body {
 
 .player-hand-card {
     background-color: white;
+}
+
+.player-topBumper {
+    margin-top:25px
 }
 
 .spinner {
@@ -182,6 +183,10 @@ body {
     /* margin-top:25px; */
     width: 60px;
     height: 2em;
+}
+
+.roomFromSubmit {
+    margin-top: 25px;
 }
 
 .waiting-bubble {
