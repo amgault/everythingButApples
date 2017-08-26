@@ -16,4 +16,6 @@ io.sockets.on('connection', function (socket){
     console.log(socket);
 })
 
-server.listen(port);
+server.listen(port, function () {
+	console.log('Example app listening on port ' + port + '!');
+})

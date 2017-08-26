@@ -15,12 +15,21 @@
     "style-loader": "^0.18.2"
   },
   "devDependencies": {
+    "browserify": "^14.4.0",
+    "chai": "^4.1.1",
+    "karma": "^1.7.0",
+    "karma-browserify": "^5.1.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-commonjs": "^1.0.0",
+    "karma-mocha-reporter": "^2.2.4",
+    "mocha": "^3.5.0",
     "postcss": "^6.0.9",
+    "postcss-cssnext": "^3.0.2",
     "postcss-import": "^10.0.0",
     "postcss-loader": "^2.0.6",
-    "postcss-cssnext": "^3.0.2",
     "postcss-scss": "^1.0.2",
     "precss": "^2.0.0",
+    "watchify": "^3.9.0",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.6.1"
   },
