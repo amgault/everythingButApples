@@ -28,8 +28,15 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // ================================================================================
 require('./routes/htmlroutes.js')(app);
 
-io.sockets.on('connection', function (socket){
-    console.log(socket);
-})
+var routes = require("./controllers/players_controller.js");
+app.use("/", routes);
 
-server.listen(port);
+
+
+io.sockets.on('connection', function (socket){
+    //console.log(socket);
+});
+
+server.listen(port, function() {
+    console.log("App listening on PORT " + port);
+});

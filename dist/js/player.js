@@ -90,3 +90,4 @@ function flipAllCards (){
         $(this).toggleClass('flipped');
     })
 }
+
