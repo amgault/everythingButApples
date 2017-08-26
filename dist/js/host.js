@@ -29,17 +29,19 @@ $("#grabPlayers").on("click", function(){
     var currentURL = window.location.origin;
 
     // #SRM FIX HARDCODING: take in the players from socket, right now they're hardcoded.
-    // Host pulls the players from socket
+    // #SRM Host pulls the players from socket
     hostGlobalVar.playersNum = initializePlayersLocally();
     hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
     hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
 
-
-    var bigRedIdArray = generateRedIdArray();
-    hostGlobalVar.redCardsIdArray = bigRedIdArray.splice(0, 80);
+    // #SRM Create a shuffled array of all red card ids in our db
+    // #SRM Splice it get the number of IDs representing red cards we'll need for the whole game 
+    hostGlobalVar.redCardsIdArray = generateIdArray(7461+1, 1).splice(0, 80);
     console.log("REDCARDS IDS: " + hostGlobalVar.redCardsIdArray);
-    var bigGreenIdArray = generateGreenIdArray();
-    hostGlobalVar.greenCardsIdArray = bigGreenIdArray.splice(0, 10);
+
+    // #SRM Create a shuffled array of all green card ids in our db
+    // #SRM Splice it get the number of IDs representing green cards we'll need for the whole game
+    hostGlobalVar.greenCardsIdArray = generateIdArray(9951+1, 7471).splice(0, 10);
     console.log("Green CARDS IDS: " + hostGlobalVar.greenCardsIdArray);
 
     var idsList = "1, 11, 21"
@@ -116,8 +118,11 @@ function createDecks(cb){
 };
 */
 
+// #SRM FIX HARCODING, the players are hardcoded right now, needs to be switched to get them via socket
+// This sets the global variable of the players array.
 function initializePlayersLocally(){
 
+    //#SRM REPLACE THIS WITH A SOCKET CALL
     hostGlobalVar.playersArray = [
         {
             id: 1,
@@ -152,7 +157,6 @@ return hostGlobalVar.playersArray.length;
 
 
 //Bex: Generating array of ids
-
 function serialArray(n, initialId){
     var arr = [];
     for (var i = initialId; i <= n-1; i+=10) {
@@ -161,6 +165,7 @@ function serialArray(n, initialId){
     return arr;
 }
 
+// Function supplied directly by Bex
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
   
@@ -180,15 +185,8 @@ function shuffle(array) {
     return array;
 }
 
-// #SRM this assumes a databse identical to the 2017.08.26 version, if cards get added or deleted, the query incorporating these ids might not work
-//This function generates a shuffled array of the ids corresponding to red cards in our db
-function generateRedIdArray(){
-    return shuffle(serialArray(7461+1, 1))
+// #SRM this assumes a databse identical to the 2017.08.26 version, if cards/ids change, the query incorporating these ids risks breaking
+// #SRM This function generates a shuffled array of ids corresponding to cards in our db
+function generateIdArray(endNum, startNum){
+    return shuffle(serialArray(endNum, startNum))
 };
-
-// #SRM this assumes identical to the 2017.08.26 version, if cards get added or deleted, the query incorporating these ids might not work
-//This function generates a shuffled array of the ids corresponding to green cards in our db
-function generateGreenIdArray(){
-    return shuffle(serialArray(9951+1, 7471))
-};
-
