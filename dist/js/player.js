@@ -45,7 +45,7 @@ $('#roomCode').submit(function(e) {
         userName: $("#player-name-form").val().trim(),
         roomId: $("#code-input").val().trim(),
         role: "player",
-        socketId: socket.id
+        playerId: socket.id
     }
     console.log(userData)
     
@@ -74,7 +74,7 @@ $("#host").on("click", function(){
         userName: "Host-"+room,
         roomId: room,
         role: "host",
-        socketId: socket.id
+        playerId: socket.id
     }
     console.log(userData)
     //Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
@@ -138,3 +138,7 @@ function startGame(){
     //then run a query to obtain all of those cards and shuffle them
     //then construct an array of cards for each players hand and the remaining cards
 }
+
+socket.on('deal cards', function(cards) {
+    cards.forEach( card => console.log(card.title));
+})
