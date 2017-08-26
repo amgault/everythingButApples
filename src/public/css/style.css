@@ -39,7 +39,7 @@ body {
     margin:auto;
     margin-top: 25px;
 
-    border:  1px solid red;
+    /* border:  1px solid red; */
     display:block;
     height: 100px;
     width: 100px;
@@ -102,8 +102,8 @@ body {
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    border: 1px solid red;
-    background-color:black;
+    /* border: 1px solid red; */
+    background-color: var(--new-opp-purple);
 }
 
 .circleWord{
@@ -121,10 +121,6 @@ body {
 .roomForm {
     width: 300px;
     margin: auto;
-}
-
-.game {
-    margin-top:0px;
 }
 
 .hide{
@@ -145,10 +141,14 @@ body {
     margin:auto;
 }
 
+.player-hand-card {
+    background-color: white;
+}
+
 .spinner {
     width: 100px;
     height: 100px;
-    background-color: #333;
+    background-color: var(--new-opp-purple);
   
     margin: 100px auto;
     -webkit-animation: sk-rotateplane 5.2s infinite ease-in-out;
@@ -179,7 +179,7 @@ body {
 }
 
 .submit {
-    margin-top:25px;
+    /* margin-top:25px; */
     width: 60px;
     height: 2em;
 }

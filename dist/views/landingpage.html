@@ -125,16 +125,15 @@
     </div>
 
     <div id="player" style="display:none">
-        <form id="roomCode">
-
-            <div class="container code roomForm">
-                <p>As the wild wind blows, the trees say:</p>
-                <input type="text" id="code-input" name="room-code" placeholder="Room code goes here">
-                <p>What do you want to go by:</p>
-                <input type="text" id="player-name-form" name="player-name" placeholder="Username goes here">
-                <input type="submit" placeholder="submit" class="submit" id="code-button">
-                <!-- #Max Here compare this code to other codes that are in use -->
-            </div>
+        <form class="container" id="roomCode">
+                <div class="roomForm code roomForm">
+                        <p>As the wild wind blows, the trees say:</p>
+                        <input type="text" id="code-input" name="room-code" placeholder="Room code goes here">
+                        <p>What do you want to go by:</p>
+                        <input type="text" id="player-name-form" name="player-name" placeholder="Username goes here">
+                        <input type="submit" placeholder="submit" class="submit" id="code-button">
+                        <!-- #Max Here compare this code to other codes that are in use -->
+                </div>
         </form>
         
     
@@ -152,7 +151,7 @@
             <button onclick="showAndHide('pregame', 'game')">Go to Game</button>
         </div>
     
-        <div class="container game" id="game" style="display:none;">        
+        <div class="container" id="game" style="display:none;">        
             <div id="favorite" class="absoluteTop">
                 <div class="favorite">
                     <p class="favorite">Favorite</p>
@@ -160,37 +159,36 @@
                 </div>
                 <div>
                     <span>Your name here: </span>
+                    <!-- This player name should populate based on the username given on last  -->
                     <div>${playerName}</div>
                 </div>
-                <div class="cardContainer card">
-                    <h2 id="favNoun">Noun</h2>
-                    <p id="favDesc">Description</p>
+                <div class="cardContainer card" id='fav'>
+                    <h2>card.title</h2>
+                    <p>card.description</p>
                 </div>
             </div>
             <div id="hand" class="absoluteBottom">
-                <div class="player-hand-card cardContainer card" id="card1">
+                <div class="player-hand-card cardContainer card" id="card1" cardId="socketInfo">
                     <h2 id="card1-noun">Computer</h2>
                     <p id="card1-desc">Gateway to the world</p>
                 </div>
-                <div class="player-hand-card cardContainer card" id="card2">
+                <div class="player-hand-card cardContainer card" id="card2" cardId="socketInfo">
                     <h2 id="card2-noun">Max's Farts</h2>
                     <p id="card2-desc">Silent but Deadly</p>
                 </div>
-                <div class="player-hand-card cardContainer card" id="card3">
+                <div class="player-hand-card cardContainer card" id="card3" cardId="socketInfo">
                     <h2 id="card3-noun">Andrew</h2>
                     <p id="card3-desc">Jordan but less cool</p>
                 </div>
-                <div class="player-hand-card cardContainer card" id="card4">
+                <div class="player-hand-card cardContainer card" id="card4" cardId="socketInfo">
                     <h2 id="card4-noun">Jquery</h2>
                     <p id="card4-desc">Javascript framework</p>
                 </div>
-                <div class="player-hand-card cardContainer card" id="card5">
+                <div class="player-hand-card cardContainer card" id="card5" cardId="socketInfo">
                     <h2 id="card5-noun">Noun</h2>
                     <p id="card5-desc">Description</p>
                 </div>
             </div>
-    
-            <!-- Each card will look like this -->
         </div>
     
         <script src="../js/player.js"></script>

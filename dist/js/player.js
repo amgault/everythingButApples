@@ -82,15 +82,27 @@ $("#host").on("click", function(){
 
 
 //#Max Writing card click to favorite
-function cardClickToFavorite() {
-
+function cardClickToFavorite(cardNum) {
+    let card = document.getElementById(cardNum).innerHTML
+    // console.log(document.getElementById(cardNum).innerHTML)
+    document.getElementById("fav").innerHTML = card
 }
-
-$("#card1").on("click", function(){})
-$("#card2").on("click", function(){})
-$("#card3").on("click", function(){})
-$("#card4").on("click", function(){})
-$("#card5").on("click", function(){})
+ //#Max  These listeners are for switching each specific card into the fav div.
+$("#card1").on("click", function(){
+    cardClickToFavorite('card1')
+})
+$("#card2").on("click", function(){
+    cardClickToFavorite('card2')
+})
+$("#card3").on("click", function(){
+    cardClickToFavorite('card3')
+})
+$("#card4").on("click", function(){
+    cardClickToFavorite('card4')
+})
+$("#card5").on("click", function(){
+    cardClickToFavorite('card5')
+})
 
 
 
