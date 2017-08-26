@@ -27,7 +27,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // The below points our server to a series of route files.
 // ================================================================================
-require('./routes/htmlroutes.js')(app);
+//require('./routes/htmlroutes.js')(app);
 
 var routes = require("./controllers/players_controller.js");
 app.use("/", routes);
@@ -35,13 +35,8 @@ app.use("/", routes);
 
 
 io.sockets.on('connection', function (socket){
-    //console.log(socket);
-<<<<<<< HEAD
-});
-=======
     game.initGame(io, socket);
 })
->>>>>>> 34664e98604eae7e9c9e2e5a3a0fe87c287566f9
 
 server.listen(port, function () {
 	console.log('Example app listening on port ' + port + '!');
