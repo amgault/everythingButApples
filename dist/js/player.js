@@ -119,19 +119,31 @@ function removeItemFromArray(item, array){
 
 
 // Host Functions
-function flipAllCards (){
+// function flipAllCards (){
+//     $(".played-card").each(function(){
+//         $(this).toggleClass('flipped');
+//     })
+// }
+
+function preparePlayedCards (cardArray){
+    var index = 0;
     $(".played-card").each(function(){
+        console.log(cardArray[index])
+        $(this).data(cardArray[index]);
         $(this).toggleClass('flipped');
+        index++;
     })
 }
 
 function startJudging (){
     // Bex: should run whenever all player cards are submitted
-    flipAllCards();
     // Bex: switch the prompt on the host screen
     showAndHide("pre-judging-message", "mid-judging-message");
     // Bex: TODO: assign the data for the cards (and the players they belong to? might not be necessary if we keep info on player hands in the host side) on each card div
-    //there's a .each function in jquery (see flipAllCards) that can be used to assign each card div the necessary data
+    var dummySubmittedCards = ["1", "2", "3", "4"]
+
+    preparePlayedCards(dummySubmittedCards);
+    
 }
 
 function startGame(){
