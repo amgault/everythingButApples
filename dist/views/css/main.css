@@ -26,6 +26,19 @@ body {
 
 /* http://paletton.com/#uid=71P1-0kqPtygJCSlLvntVobxLjb */
 
+.adj-card {
+    display: block;
+    width: 10em;
+    height: 10em;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin:auto;
+}
+
 .host-display {
     display: block;
     -ms-flex-wrap: nowrap;
@@ -49,6 +62,10 @@ body {
         -ms-flex-align: center;
             align-items: center;
     padding-bottom: .2em;
+}
+
+.host-topside {
+    display: block;
 }
 
 .played-cards-container {
@@ -128,6 +145,10 @@ body {
     font-size: 2em;
 }
 
+.scores-list {
+    list-style: none;
+}
+
 .start-game-button {
     background-color: #ebe626;
     color: #034B5F;
@@ -166,7 +187,6 @@ body {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-
 }
 
 .absoluteBottom {

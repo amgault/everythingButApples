@@ -66,15 +66,32 @@
             </div>
     
             <!-- HOSTING THE GAME -->
-            <div class="host-display host-game absoluteTop">
-                <div class="cardContainer card">
-                    <h2>Noun</h2>
-                    <p>Description</p>
-                </div>
-                <div class="host-round-indicator">
+            <div class="host-display host-game">
+                <div class="host-topside">
+                    <div class="host-stats">
                         <p>ROUND <span id="host-round-number">?</span></p>
+                        <p>SCORES:</p>
+                        <ul class="scores-list">
+                            <li>
+                                ??: Player 1
+                            </li>
+                            <li>
+                                ??: Player 2
+                            </li>
+                            <li>
+                                ??: Player 3
+                            </li>
+                        </ul>
                     </div>
-                    <button  onclick="flipAllCards()">Flip all cards</button>
+                    <div class="adj-card">
+                        <h2>Noun</h2>
+                        <p>Description</p>
+                    </div>
+                    <!--<button  onclick="flipAllCards()">Function Testing Button</button>-->
+                    <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
+                    <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="judging-player">???</span> is the judge. Pleast pick your favorite card.</p>
+                </div>
+                
                 <div class="host-played-cards">
                     <!-- container holding all the cards that have been played -->
                     <div class="played-cards-container absoluteBottom">
