@@ -49,10 +49,10 @@ $('#roomCode').submit(function(e) {
     }
     console.log(userData)
     
-    //socket.emit('set user', userData, function(){
-        showAndHide("roomCode", "pregame")
-        // showAndHide("pregame", "game")
-    //})
+    socket.emit('set user', userData, function(){
+        //showAndHide("roomCode", "pregame")
+        showAndHide("pregame", "game")
+    })
 });
 
 //Name submit listener
