@@ -10,12 +10,10 @@
 // =============================================================
 // Dependencies
 // =============================================================
-var express = require("express");
 
 //Import the model to use its database functions
 var player = require("../models/player.js");
-
-//create the router for our app
+var express = require("express");
 var router = express.Router();
 
 // =============================================================
@@ -24,13 +22,16 @@ var router = express.Router();
 
 // Create all our routes and set up logic within those routes where required.
 
+//player.selectAll(function(data){
+//    console.log(data)});
 
-router.get("/cards", function(request, response) {
-    player.refreshHand(request.id, function(data) {
+// Export routes for use by our server (server.js)
+
+router.get("/api/cards", function(req, res) {
+    player.selectAll(function(data) {
         console.log(data);
-        res.json(data);
+        return res.json(data);
     });
 });
 
-// Export routes for use by our server (server.js)
 module.exports = router;

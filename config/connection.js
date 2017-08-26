@@ -15,7 +15,7 @@ if (process.env.JAWSDB_URL) {
 else {
     connection = mysql.createConnection({
         host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
+        //port: process.env.DB_PORT,
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
         database: "heroku_6aafb0838fd5e56"

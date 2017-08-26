@@ -18,6 +18,16 @@ var orm = {
 
     // function takes in a table name, a column name, and a value to query the database
     // and return the results as a callback function
+    selectAll: function(tableName, cb) {
+        var queryString = "SELECT * FROM " + tableName + ";";
+        connection.query(queryString, function(err, result) {
+            if (err) {
+              throw err;
+            }
+            cb(result);
+          });
+    },
+
     selectAllByKeyValue: function(tableName, column, value, cb) {
         var queryString = "SELECT * FROM " + tableName + " WHERE " + column + " = '" + value + "';";
         connection.query(queryString, function(err, result) {
@@ -39,18 +49,6 @@ var orm = {
             cb(result);
           });
     }, 
-
-    // This function takes in a table name, a column name, a value, a condition, and a callback function
-    // to make an SQL query that updates one row of a table
-    updateOne: function(tableName, column, value, condition, cb) {
-        var queryString = "UPDATE " + tableName + " SET " + column + " = " + value + " WHERE " + condition + ";";
-        connection.query(queryString, function(err, result) {
-            if (err) {
-              throw err;
-            }
-            cb(result);
-        });
-    }
 
 };
 

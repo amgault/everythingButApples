@@ -9,7 +9,6 @@
 // Import ORM query functions
 var orm = require("../config/orm.js");
 
-
 // =============================================================
 // player.js functions
 // =============================================================
@@ -17,68 +16,31 @@ var orm = require("../config/orm.js");
 // Use ORM functions and corresponding inputs to make mySQL queries
 var player = {
     
-    //This function takes in a values array to insert a new row into the Players table.
-    //NOTE: the username in the values array must be a string with inner single quotes
-    // Ex: values = ["'PlayerZ'", 1]
-    addNewPlayer: function(values, cb){
-        orm.insertOne("players", ["username", "room_id"], values, function(res){
+    addNewCard: function(values, cb){
+        orm.insertOne("cards_test", ["title", "description", "role", ], values, function(res){
             cb(res);
         });
-    },
+    }, 
 
-    //=========================================
-    // HOST FUNCTION
-    //=========================================
-    //This function takes in a values array to insert a new row into the games table.
-    //NOTE: the room name in the values array must be a string with inner single quotes
-    // Ex: values = ["'Test Room'", 3]
-    addNewRoom: function(values, cb){
-        orm.insertOne("rooms", ["roomName", "gameLength"], values, function(res){
-                cb(res);
-        });
-    },
-
-    //=========================================
-    // HOST FUNCTION
-    //=========================================
-    // This function takes in a single value for the new score and a string that will serve as the condition
-    // in an SQL query
-    // Ex: values = 1 ; condition = "id = 31"
-    increaseScore: function(value, condition, cb){
-        orm.updateOne("players", "score", value, condition, function(res){
-            cb(res);
-        });
-    },
-
-    //This function takes in an array of values to make an SQL query to insert a row into the
-    //cards_played_this_round table
-    playCard: function(condition, cb){
-        orm.insertOne("cards_played_this_round", ["id", "room_id", "player_id"], values, function(res){
-            cb(res);
-        });
-    },
-
-    //this function takes in a player id 
+     //this function takes in a player id 
     //and uses ORM function to query (READ) the cards table by that player_id 
-    refreshHand: function(id, cb){
-        orm.selectAllByKeyValue("cards_to_deal", "player_id", id, function(res){
+    selectAllByRole: function(role, cb){
+        orm.selectAllByKeyValue("cards", "role", role, function(res){
             cb(res);
         });
     },
 
-    //this function takes in a player id 
-    //and uses ORM function to query (READ) the cards table by that player_id 
-    refreshPlayerStats: function(id, cb){
-        orm.selectAllByKeyValue("players", "id", id, function(res){
+    selectAll: function(cb){
+        orm.selectAll("cards", function(res){
             cb(res);
         });
-    }
+    },
 
 }
 
 /*
-// code to test refreshHand. Can be used in router later.
-player.refreshHand(1, function(res){
+// code to test drawCard. Can be used in router later.
+player.drawCard(1, function(res){
     console.log(res);
 });
 */
@@ -117,6 +79,7 @@ player.playCard("id = 91", function(res){
     console.log(res);
 });
 */
+
 
 // Export the burger database functions for use by the controller (burgers_controller.js)
 module.exports = player;
