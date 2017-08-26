@@ -56,12 +56,6 @@ $('#roomCode').submit(function(e) {
     showAndHide("roomCode", "pregame")
 });
 
-//Name submit listener
-// $("#username").submit(function(e) {
-//     e.preventDefault();
-//     submitUsername()
-// })
-
 //New Card submit listener
 $("#createCards").submit(function(e) {
     e.preventDefault();
@@ -85,6 +79,31 @@ $("#host").on("click", function(){
         
     })
 })
+
+
+//#Max Writing card click to favorite
+function cardClickToFavorite(cardNum) {
+    let card = document.getElementById(cardNum).innerHTML
+    // console.log(document.getElementById(cardNum).innerHTML)
+    document.getElementById("fav").innerHTML = card
+}
+ //#Max  These listeners are for switching each specific card into the fav div.
+$("#card1").on("click", function(){
+    cardClickToFavorite('card1')
+})
+$("#card2").on("click", function(){
+    cardClickToFavorite('card2')
+})
+$("#card3").on("click", function(){
+    cardClickToFavorite('card3')
+})
+$("#card4").on("click", function(){
+    cardClickToFavorite('card4')
+})
+$("#card5").on("click", function(){
+    cardClickToFavorite('card5')
+})
+
 
 
 

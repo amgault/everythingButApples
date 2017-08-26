@@ -7,7 +7,7 @@
     <title>EBA</title>
     <link href="/views/css/main.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Bitter:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
@@ -17,7 +17,7 @@
             <h1>Everything but Apples</h1>
         </header>
             
-        <div class="logo">
+        <div class="logo player-topBumper">
             <img class="logo" src="../img/logo.png">
         </div>
         <div class="buttonContain">
@@ -125,16 +125,19 @@
     </div>
 
     <div id="player" style="display:none">
-        <form id="roomCode">
-
-            <div class="container code roomForm">
-                <p>As the wild wind blows, the trees say:</p>
-                <input type="text" id="code-input" name="room-code" placeholder="Room code goes here">
-                <p>What do you want to go by:</p>
-                <input type="text" id="player-name-form" name="player-name" placeholder="Username goes here">
-                <input type="submit" placeholder="submit" class="submit" id="code-button">
-                <!-- #Max Here compare this code to other codes that are in use -->
-            </div>
+        <form class="container" id="roomCode">
+                <div class="code roomForm">
+                    <div>
+                        <p>As the wild wind blows, the trees say:</p>
+                        <input type="text" id="code-input" name="room-code" placeholder="Room code goes here">
+                    </div>
+                    <div class="player-topBumper">
+                        <p>What do you want to go by:</p>
+                        <input type="text" id="player-name-form" name="player-name" placeholder="Username goes here">
+                    </div>
+                    <input type="submit" placeholder="submit" class="submit roomFromSubmit" id="code-button">
+                    <!-- #Max Here compare this code to other codes that are in use -->
+                </div>
         </form>
         
     
@@ -144,49 +147,54 @@
             <p class="spinnerText">Waiting for opponents...</p>
     
             <form class="create-update-form createCards" action="/" method="POST" id="createCards">
-                <p>Come up with noun cards to add to our deck:</p>
-                <input type="text" id="card-form" name="card">
-                <input type="submit" placeholder="submit" class="submit">
+                <div class="player-topBumper">
+                    <p>Come up with noun cards to add to our deck:</p>
+                    <input type="text" id="card-form" name="card">
+                    <input type="submit" placeholder="submit" class="submit">
+                </div>
             </form>
 
             <button onclick="showAndHide('pregame', 'game')">Go to Game</button>
         </div>
     
-        <div class="container game" id="game" style="display:none;">        
+        <div class="container" id="game" style="display:none;">        
             <div id="favorite" class="absoluteTop">
                 <div class="favorite">
                     <p class="favorite">Favorite</p>
-                    <input type="submit" placeholder="submit" class="submit">
+                    <input type="submit" placeholder="submit" class="submit player-topBumper">
                 </div>
-                <div class="cardContainer card">
-                    <h2>Noun</h2>
-                    <p>Description</p>
+                <div>
+                    <span>Your name here: </span>
+                    <!-- This player name should populate based on the username given on last  -->
+                    <div>${playerName}</div>
+                </div>
+                <div class="player-hand-card cardContainer card" id='fav'>
+                    <p class="nounTitleText">card.title</p>
+                    <p>card.description</p>
                 </div>
             </div>
             <div id="hand" class="absoluteBottom">
-                <div class="player-hand-card cardContainer card">
-                    <h2>Noun</h2>
-                    <p>Description</p>
+                <div class="player-hand-card cardContainer card" id="card1" cardId="socketInfo">
+                    <p class="nounTitleText" id="card1-noun">Computer</p>
+                    <p id="card1-desc">Gateway to the world askdf asdjfkaj asjdkfjaksjwej qwiefi kasdf xcvjxk asdfjla jaskdjfk ekjw qwiefi kasdf xcvjxk asdfjla jaskdjfk ekjw</p>
                 </div>
-                <div class="player-hand-card cardContainer card">
-                    <h2>Noun</h2>
-                    <p>Description</p>
+                <div class="player-hand-card cardContainer card" id="card2" cardId="socketInfo">
+                    <p class="nounTitleText" id="card2-noun">Max's Farts</p>
+                    <p id="card2-desc">Silent but Deadly</p>
                 </div>
-                <div class="player-hand-card cardContainer card">
-                    <h2>Noun</h2>
-                    <p>Description</p>
+                <div class="player-hand-card cardContainer card" id="card3" cardId="socketInfo">
+                    <p class="nounTitleText" id="card3-noun">Andrew</p>
+                    <p id="card3-desc">Jordan but less cool</p>
                 </div>
-                <div class="player-hand-card cardContainer card">
-                    <h2>Noun</h2>
-                    <p>Description</p>
+                <div class="player-hand-card cardContainer card" id="card4" cardId="socketInfo">
+                    <p class="nounTitleText" id="card4-noun">Jquery</p>
+                    <p id="card4-desc">Javascript framework</p>
                 </div>
-                <div class="player-hand-card cardContainer card">
-                    <h2>Noun</h2>
-                    <p>Description</p>
+                <div class="player-hand-card cardContainer card" id="card5" cardId="socketInfo">
+                    <p class="nounTitleText" id="card5-noun">Noun</p>
+                    <p id="card5-desc">Description</p>
                 </div>
             </div>
-    
-            <!-- Each card will look like this -->
         </div>
     
         <script src="../js/player.js"></script>
