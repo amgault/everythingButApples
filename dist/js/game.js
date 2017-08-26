@@ -92,6 +92,8 @@ function setUser(user) {
             io.to(player.playerId).emit('deal cards', myCards);
         })
         socket.emit('deal cards', cards);
+    } else if (player.length > 0) {
+        io.to(host[0].playerId).emit('players so far', players);
     }
 }
 
