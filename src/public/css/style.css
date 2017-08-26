@@ -146,6 +146,11 @@ body {
     margin-top:25px
 }
 
+.nounTitleText {
+    font-size: 1.5em;
+    margin-bottom: 25px;
+}
+
 .spinner {
     width: 100px;
     height: 100px;

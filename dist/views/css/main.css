@@ -331,6 +331,7 @@ body {
 
 .header h1 {
     margin: auto;
+    font-size: 2em;
 }
 
 .logo {
@@ -344,6 +345,11 @@ body {
 
 .player-topBumper {
     margin-top:25px
+}
+
+.nounTitleText {
+    font-size: 1.5em;
+    margin-bottom: 25px;
 }
 
 .spinner {
