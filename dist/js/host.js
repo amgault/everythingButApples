@@ -4,7 +4,7 @@
 hostGlobalVar = {
     deckArray: [],
     playersArray: [],
-    playersNum: 5,
+    playersNum: 0,
     roundsNum: 2,
     redCardsArray: [],
     greenCardsArray: [],
@@ -12,10 +12,18 @@ hostGlobalVar = {
 
 };
 
-
 // #SRM need to delete this part and make the server actualy work
 
 //1.) Host presses button to create room
+$("#host").on("click", function(){
+
+    // #SRM I will have to replace this with a socket function. This is hardcoded for now
+    hostGlobalVar.playersNum = initializePlayersLocally();
+    console.log(hostGlobalVar.playersNum);
+    
+
+});
+
 //2.) Enters room ID (and told that a game must have 5 players, and will last 2 rounds)
 //3.) Assigned a socket, object with roomName, role, players (hardcode 5), and gameLength (hardcode 2)
 //#### LISTENER Z: "5 PLAYERS HAVE JOINED ROOM" ##################################
@@ -79,6 +87,7 @@ hostGlobalVar = {
 //23.) If it is the last turn of the last round, display winner on screen, and whatever else we want to do
 //#### EMIT G: "END OF GAME" ###############################################
 
+/*
 function createDecks(cb){
 
     var deckIndexTracker = 0;
@@ -92,5 +101,40 @@ function createDecks(cb){
     }
 
     return cb;
+
+};
+*/
+
+function initializePlayersLocally(){
+
+    hostGlobalVar.playersArray = [
+        {
+            id: 1,
+            username: "Player1",
+            room_id: 1,
+        },
+        {
+            id: 11,
+            username: "Player2",
+            room_id: 1,
+        },
+        {
+            id: 21,
+            username: "Player3",
+            room_id: 1,
+        },
+        {
+            id: 31,
+            username: "Player4",
+            room_id: 1,
+        },
+        {
+            id: 41,
+            username: "Player5",
+            room_id: 1,
+        }
+    ];
+
+return hostGlobalVar.playersArray.length;
 
 };
