@@ -7,13 +7,14 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
+var app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+var port = process.env.PORT || 3006;
 
 //access environmental variables for username, password, host
 require('dotenv').config({path: 'dotenv.env'});
-
-var port = process.env.PORT || 3006;
-var app = express();
-
 
 app.use(express.static(path.join(__dirname, '/dist')));
 
@@ -27,8 +28,8 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // ================================================================================
 require('./routes/htmlroutes.js')(app);
 
-var routes = require("./controllers/players_controller.js");
-app.use("/", routes);
+io.sockets.on('connection', function (socket){
+    console.log(socket);
+})
 
-
-app.listen(port, function () {console.log("App listening on PORT " + port);});
+server.listen(port);

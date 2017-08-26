@@ -18,7 +18,7 @@ function codeComparison() {
 
 function submitUsername() {
     //I don't think there needs to be validation if name is already taken but it may mess us up.  Unless each player is named player i to our programming
-
+    
     //AJAX post user name to room
         //This should post it to the host to display the name on the players box
 
