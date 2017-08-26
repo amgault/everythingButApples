@@ -8,7 +8,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	/* font: inherit; */
+	/* #Max  Commented out for use */
 	vertical-align: baseline;
 }
 
@@ -28,8 +29,8 @@ body {
 
 .adj-card {
     display: block;
-    width: 10em;
-    height: 10em;
+    width: 12em;
+    height: 12em;
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
     -webkit-transition: 0.3s;
@@ -68,6 +69,10 @@ body {
     display: block;
 }
 
+.judging-message{
+    margin-top: .5em;
+}
+
 .played-cards-container {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -81,8 +86,8 @@ body {
 /* https://jsfiddle.net/james2doyle/qsQun/ */
 
 .played-card {
-    width: 10em;
-    height: 10em;
+    width: 12em;
+    height: 12em;
     margin:1em;
     -webkit-transition: -webkit-transform 1s;
     transition: -webkit-transform 1s;
@@ -95,8 +100,8 @@ body {
 
 .played-card div {
     display: block;
-    height: 10em;
-    width: 10em;
+    height: 12em;
+    width: 12em;
     text-align: center;
     position: absolute;
     -webkit-backface-visibility: hidden;
@@ -170,7 +175,7 @@ body {
 * {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
-    font-family: 'Bitter', serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 body {
@@ -206,7 +211,7 @@ body {
     margin:auto;
     margin-top: 25px;
 
-    border:  1px solid red;
+    /* border:  1px solid red; */
     display:block;
     height: 100px;
     width: 100px;
@@ -237,8 +242,9 @@ body {
 }
 
 .card {
-    width: 10em;
-    height: 10em;
+    width: 12em;
+    min-height: 12em;
+    padding: 25px;
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
     -webkit-transition: 0.3s;
@@ -273,7 +279,7 @@ body {
 }
 
 .container {
-    margin-top:75px;
+    margin-top:25px;
     display:-webkit-box;
     display:-ms-flexbox;
     display:flex;
@@ -296,8 +302,8 @@ body {
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    border: 1px solid red;
-    background-color:black;
+    /* border: 1px solid red; */
+    background-color: #A29AA9;
 }
 
 .circleWord{
@@ -317,14 +323,6 @@ body {
     margin: auto;
 }
 
-.game {
-    margin-top:0px;
-}
-
-.hide{
-    display:none;
-}
-
 .header {
     text-align: center;
     display: -webkit-box;
@@ -334,6 +332,7 @@ body {
 
 .header h1 {
     margin: auto;
+    font-size: 2em;
 }
 
 .logo {
@@ -341,10 +340,24 @@ body {
     margin:auto;
 }
 
+.player-hand-card {
+    background-color: white;
+}
+
+.player-topBumper {
+    margin-top:25px
+}
+
+.nounTitleText {
+    font-size: 1.5em;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
 .spinner {
     width: 100px;
     height: 100px;
-    background-color: #333;
+    background-color: #A29AA9;
   
     margin: 100px auto;
     -webkit-animation: sk-rotateplane 5.2s infinite ease-in-out;
@@ -375,9 +388,13 @@ body {
 }
 
 .submit {
-    margin-top:25px;
+    /* margin-top:25px; */
     width: 60px;
     height: 2em;
+}
+
+.roomFromSubmit {
+    margin-top: 25px;
 }
 
 .waiting-bubble {

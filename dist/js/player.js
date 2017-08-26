@@ -45,7 +45,7 @@ $('#roomCode').submit(function(e) {
         userName: $("#player-name-form").val().trim(),
         roomId: $("#code-input").val().trim(),
         role: "player",
-        socketId: socket.id
+        playerId: socket.id
     }
     console.log(userData)
     
@@ -55,12 +55,6 @@ $('#roomCode').submit(function(e) {
     })
     showAndHide("roomCode", "pregame")
 });
-
-//Name submit listener
-// $("#username").submit(function(e) {
-//     e.preventDefault();
-//     submitUsername()
-// })
 
 //New Card submit listener
 $("#createCards").submit(function(e) {
@@ -75,7 +69,7 @@ $("#host").on("click", function(){
         userName: "Host-"+room,
         roomId: room,
         role: "host",
-        socketId: socket.id
+        playerId: socket.id
     }
     console.log(userData)
     //Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
@@ -85,6 +79,31 @@ $("#host").on("click", function(){
         
     })
 })
+
+
+//#Max Writing card click to favorite
+function cardClickToFavorite(cardNum) {
+    let card = document.getElementById(cardNum).innerHTML
+    // console.log(document.getElementById(cardNum).innerHTML)
+    document.getElementById("fav").innerHTML = card
+}
+ //#Max  These listeners are for switching each specific card into the fav div.
+$("#card1").on("click", function(){
+    cardClickToFavorite('card1')
+})
+$("#card2").on("click", function(){
+    cardClickToFavorite('card2')
+})
+$("#card3").on("click", function(){
+    cardClickToFavorite('card3')
+})
+$("#card4").on("click", function(){
+    cardClickToFavorite('card4')
+})
+$("#card5").on("click", function(){
+    cardClickToFavorite('card5')
+})
+
 
 
 
@@ -151,3 +170,7 @@ function startGame(){
     //then run a query to obtain all of those cards and shuffle them
     //then construct an array of cards for each players hand and the remaining cards
 }
+
+socket.on('deal cards', function(cards) {
+    cards.forEach( card => console.log(card.title));
+})
