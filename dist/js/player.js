@@ -50,16 +50,17 @@ $('#roomCode').submit(function(e) {
     console.log(userData)
     
     socket.emit('set user', userData, function(){
-        //showAndHide("roomCode", "pregame")
-        showAndHide("pregame", "game")
+        
+        // showAndHide("", "game")
     })
+    showAndHide("roomCode", "pregame")
 });
 
 //Name submit listener
-$("#username").submit(function(e) {
-    e.preventDefault();
-    submitUsername()
-})
+// $("#username").submit(function(e) {
+//     e.preventDefault();
+//     submitUsername()
+// })
 
 //New Card submit listener
 $("#createCards").submit(function(e) {
