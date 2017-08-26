@@ -22,10 +22,19 @@ var player = {
         });
     }, 
 
-     //this function takes in a player id 
+    //this function takes in a player id 
     //and uses ORM function to query (READ) the cards table by that player_id 
     selectAllByRole: function(role, cb){
         orm.selectAllByKeyValue("cards", "role", role, function(res){
+            cb(res);
+        });
+    },
+
+    //this function takes in a set of player ids as a comma-separated string
+    //and uses ORM function to query (READ) the cards that match those ids
+    //ex: values = "1, 11, 21, 31, 41" 
+    selectAllWithinIdList: function(valuesString, cb){
+        orm.selectAllByKeyValueList("cards", "id", valuesString, function(res){
             cb(res);
         });
     },

@@ -37,6 +37,16 @@ var orm = {
           });
     },
 
+    selectAllByKeyValueList: function(tableName, column, values, cb) {
+      var queryString = "SELECT * FROM " + tableName + " WHERE " + column + " IN (" + values + ");";
+      connection.query(queryString, function(err, result) {
+          if (err) {
+            throw err;
+          }
+          cb(result);
+        });
+  },
+
     // This function takes in a table name, an array of column names, an array of values, and a callback function
     // inserts a new row into a table and returns the results to the calback function
     insertOne: function(tableName, columns, values, cb) {

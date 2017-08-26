@@ -15,18 +15,32 @@ hostGlobalVar = {
 // #SRM need to delete this part and make the server actualy work
 
 //1.) Host presses button to create room
-$("#host").on("click", function(){
+
+//2.) Enters room ID (and told that a game must have 5 players, and will last 2 rounds)
+//3.) Assigned a socket, object with roomName, role, players (hardcode 5), and gameLength (hardcode 2)
+
+//#### LISTENER Z: "5 PLAYERS HAVE JOINED ROOM" ##################################
+$("#grabPlayers").on("click", function(){
+    
+    var currentURL = window.location.origin;
 
     // #SRM I will have to replace this with a socket function. This is hardcoded for now
     hostGlobalVar.playersNum = initializePlayersLocally();
     console.log(hostGlobalVar.playersNum);
-    
 
+    var idsList = "1, 21, 31";
+
+    $.ajax({
+        url: currentURL + "/api/cards/draw",
+        method: "POST",
+        data: {idsString: idsList}, 
+    })
+    .done(function(data){
+        console.log(data)
+    });
+    
 });
 
-//2.) Enters room ID (and told that a game must have 5 players, and will last 2 rounds)
-//3.) Assigned a socket, object with roomName, role, players (hardcode 5), and gameLength (hardcode 2)
-//#### LISTENER Z: "5 PLAYERS HAVE JOINED ROOM" ##################################
 //4.) Host will pull the array of player objects from socket to locally keep track of game stats 
 
 
@@ -34,7 +48,7 @@ $("#host").on("click", function(){
 
 
 //5.) Host draws n random red cards from the deck and stores them in a redCards array locally
-    hostGlobalVar.redCardsTotal = ( (hostGlobalVar.playersNum*5) + ((hostGlobalVar.playersNum - 1)*((hostGlobalVar.playersNum)*roundsNum) ));
+    hostGlobalVar.redCardsTotal = ( (hostGlobalVar.playersNum*5) + ((hostGlobalVar.playersNum - 1)*((hostGlobalVar.playersNum)*hostGlobalVar.roundsNum) ));
     
     //n = ( 25 + 4*5*2)
     //n = 65
@@ -47,9 +61,9 @@ $("#host").on("click", function(){
 //7.) Host deals the game's worth of red cards to each player via an array of card objects in socket
     
     // #SRM create the individual player decks
-    createDecks(function(){
-        console.log(hostGlobalVar.playerDecks);
-    });
+    //createDecks(function(){
+    //    console.log(hostGlobalVar.playerDecks);
+    //});
 
 //#### EMIT A: "CARDS DEALT" ####################################################
 

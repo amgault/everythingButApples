@@ -32,6 +32,12 @@ router.get("/api/cards", function(req, res) {
     });
 });
 
+router.post("/api/cards/draw", function(req, res) {
+    player.selectAllWithinIdList(req.body.idsString, function(data){
+        return res.json(data);
+    });
+});
+
 router.get('/test', function(req, res){
     res.sendFile(path.join(__dirname + "/../dist/test.html"));
 });
@@ -39,7 +45,6 @@ router.get('/test', function(req, res){
 router.use(function(req, res){
     res.sendFile(path.join(__dirname, "/../dist/views/landingpage.html"));
 });
-
 
 
 // Export routes for use by our server (server.js)
