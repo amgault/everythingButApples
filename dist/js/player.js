@@ -73,9 +73,10 @@ $("#host").on("click", function(){
     }
     console.log(userData)
     //Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
-    showAndHide('landing','host-page')
+    showAndHide('landing','host-page');
     //Bex: some setup for displaying the lobby page
     $("#room-code").text(userData.roomId);
+    updatePlayerConnections(["Player1", "Player2"]);
     
     socket.emit('set user', userData, function(){
         
@@ -175,6 +176,13 @@ function startGame(){
 $("#start-game-button").on("click", function(){
     startGame()
 });
+
+function updatePlayerConnections(playerList){
+    $("#player-connections-container").empty();
+    for(var p in playerList){
+        $("#player-connections-container").append($("<div>").addClass("player-circle").text(playerList[p]))
+    }
+}
 
 
 
