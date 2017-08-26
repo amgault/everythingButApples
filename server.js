@@ -37,6 +37,7 @@ io.sockets.on('connection', function (socket){
     //console.log(socket);
 });
 
-server.listen(port, function() {
-    console.log("App listening on PORT " + port);
-});
+server.listen(port, function () {
+	console.log('Example app listening on port ' + port + '!');
+})
+

@@ -18,7 +18,7 @@
         </header>
             
         <div class="logo">
-                <img class="logo" src="https://files.slack.com/files-pri/T4J1C74HW-F6TDSEQRM/logo.png">
+            <img class="logo" src="../img/logo.png">
         </div>
         <div class="buttonContain">
             <a id="host" class="circle btn">
@@ -109,6 +109,7 @@
 
     <div id="player" style="display:none">
         <form id="roomCode" id="username">
+
             <div class="container code roomForm">
                 <p>As the wild wind blows, the trees say:</p>
                 <input type="text" id="code-input" name="room-code" placeholder="Room code goes here">
@@ -121,8 +122,9 @@
         
     
         <div class="continer pregame" id="pregame" style="display:none;">
-                <div class="spinner"></div>
-                <p class="spinnerText">Waiting for opponents...</p>
+
+            <div class="spinner"></div>
+            <p class="spinnerText">Waiting for opponents...</p>
     
             <form class="create-update-form createCards" action="/" method="POST" id="createCards">
                 <p>Come up with noun cards to add to our deck:</p>
@@ -133,7 +135,7 @@
             <button onclick="showAndHide('pregame', 'game')">Go to Game</button>
         </div>
     
-        <div class="container game" id="game" style="display:none;">
+        <div class="container game" id="game" style="display:none;">        
             <div id="favorite" class="absoluteTop">
                 <div class="favorite">
                     <p class="favorite">Favorite</p>
