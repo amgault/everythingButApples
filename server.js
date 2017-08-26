@@ -10,6 +10,7 @@ var path = require("path");
 var app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+var game =  require('./dist/js/game');
 
 var port = process.env.PORT || 3006;
 
@@ -35,7 +36,12 @@ app.use("/", routes);
 
 io.sockets.on('connection', function (socket){
     //console.log(socket);
+<<<<<<< HEAD
 });
+=======
+    game.initGame(io, socket);
+})
+>>>>>>> 34664e98604eae7e9c9e2e5a3a0fe87c287566f9
 
 server.listen(port, function () {
 	console.log('Example app listening on port ' + port + '!');
