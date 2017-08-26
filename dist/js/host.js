@@ -1,8 +1,8 @@
 /*===============================================================
-    host functions
+    #SRM host functions
 ===============================================================*/
 hostGlobalVar = {
-
+    deckArray: [],
     playersArray: [],
     playersNum: 5,
     roundsNum: 2,
@@ -12,7 +12,6 @@ hostGlobalVar = {
 
 };
 
-var deckArray = [];
 
 // #SRM need to delete this part and make the server actualy work
 
@@ -75,7 +74,7 @@ var deckArray = [];
 //22.) Go back to step 8 and repeat
 
 /*===============================================================
-    EndGame
+    #SRM EndGame
 ===============================================================*/
 //23.) If it is the last turn of the last round, display winner on screen, and whatever else we want to do
 //#### EMIT G: "END OF GAME" ###############################################

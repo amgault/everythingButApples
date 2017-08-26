@@ -12,7 +12,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 var game =  require('./dist/js/game');
 
-var port = process.env.PORT || 3006;
+var port = process.env.PORT || 3010;
 
 //access environmental variables for username, password, host
 require('dotenv').config({path: 'dotenv.env'});
