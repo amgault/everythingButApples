@@ -7,29 +7,42 @@ hostGlobalVar = {
     playersNum: 0,
     roundsNum: 2,
     redCardsArray: [],
+    redCardsIdArray: [],
+    redCardsTotal: 0, 
     greenCardsArray: [],
+    greenCardsIdArray: [],
+    greenCardsTotal: 0, 
     playerDecks: []
-
 };
 
 // #SRM need to delete this part and make the server actualy work
 
 //1.) Host presses button to create room
-
 //2.) Enters room ID (and told that a game must have 5 players, and will last 2 rounds)
 //3.) Assigned a socket, object with roomName, role, players (hardcode 5), and gameLength (hardcode 2)
 
-//#### LISTENER Z: "5 PLAYERS HAVE JOINED ROOM" ##################################
+
+// #SRM This is hardcoded as a button press. We need to change it to a socket listener event: 
+// "5 PLAYERS HAVE JOINED ROOM"
 $("#grabPlayers").on("click", function(){
     
     var currentURL = window.location.origin;
 
-    // #SRM I will have to replace this with a socket function. This is hardcoded for now
+    // #SRM FIX HARDCODING: take in the players from socket, right now they're hardcoded.
+    // Host pulls the players from socket
     hostGlobalVar.playersNum = initializePlayersLocally();
-    console.log(hostGlobalVar.playersNum);
+    hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
+    hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
 
-    var idsList = "1, 21, 31";
 
+    var bigRedIdArray = generateRedIdArray();
+    hostGlobalVar.redCardsIdArray = bigRedIdArray.splice(0, 80);
+    console.log("REDCARDS IDS: " + hostGlobalVar.redCardsIdArray);
+    var bigGreenIdArray = generateGreenIdArray();
+    hostGlobalVar.greenCardsIdArray = bigGreenIdArray.splice(0, 10);
+    console.log("Green CARDS IDS: " + hostGlobalVar.greenCardsIdArray);
+
+    var idsList = "1, 11, 21"
     $.ajax({
         url: currentURL + "/api/cards/draw",
         method: "POST",
@@ -40,22 +53,6 @@ $("#grabPlayers").on("click", function(){
     });
     
 });
-
-//4.) Host will pull the array of player objects from socket to locally keep track of game stats 
-
-
-
-
-
-//5.) Host draws n random red cards from the deck and stores them in a redCards array locally
-    hostGlobalVar.redCardsTotal = ( (hostGlobalVar.playersNum*5) + ((hostGlobalVar.playersNum - 1)*((hostGlobalVar.playersNum)*hostGlobalVar.roundsNum) ));
-    
-    //n = ( 25 + 4*5*2)
-    //n = 65
-
-//6.) Host draws y random green cards from the deck and stores them in a greenCards array lcoally
-    hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
-    
 
 
 //7.) Host deals the game's worth of red cards to each player via an array of card objects in socket
@@ -117,7 +114,6 @@ function createDecks(cb){
     return cb;
 
 };
-<<<<<<< HEAD
 */
 
 function initializePlayersLocally(){
@@ -157,9 +153,9 @@ return hostGlobalVar.playersArray.length;
 
 //Bex: Generating array of ids
 
-function serialArray(n){
+function serialArray(n, initialId){
     var arr = [];
-    for (var i = 0; i <= n-1; i+=10) {
+    for (var i = initialId; i <= n-1; i+=10) {
         arr.push(i);
     }
     return arr;
@@ -184,6 +180,15 @@ function shuffle(array) {
     return array;
 }
 
-function generateIdArray(){
-    return shuffle(serialArray(7461+1))
+// #SRM this assumes a databse identical to the 2017.08.26 version, if cards get added or deleted, the query incorporating these ids might not work
+//This function generates a shuffled array of the ids corresponding to red cards in our db
+function generateRedIdArray(){
+    return shuffle(serialArray(7461+1, 1))
 };
+
+// #SRM this assumes identical to the 2017.08.26 version, if cards get added or deleted, the query incorporating these ids might not work
+//This function generates a shuffled array of the ids corresponding to green cards in our db
+function generateGreenIdArray(){
+    return shuffle(serialArray(9951+1, 7471))
+};
+

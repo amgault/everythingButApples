@@ -14,7 +14,7 @@ var orm = require("../config/orm.js");
 // =============================================================
 
 // Use ORM functions and corresponding inputs to make mySQL queries
-var player = {
+var playerModels = {
     
     addNewCard: function(values, cb){
         orm.insertOne("cards_test", ["title", "description", "role", ], values, function(res){
@@ -91,4 +91,4 @@ player.playCard("id = 91", function(res){
 
 
 // Export the burger database functions for use by the controller (burgers_controller.js)
-module.exports = player;
+module.exports = playerModels;

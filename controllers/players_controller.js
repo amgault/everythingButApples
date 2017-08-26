@@ -16,7 +16,7 @@ var express = require("express");
 var router = express.Router();
 
 //Import the model to use its database functions
-var player = require("../models/player.js");
+var player = require("../models/playerModels.js");
 
 var path = require("path");
 
