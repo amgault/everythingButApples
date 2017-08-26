@@ -56,12 +56,6 @@ $('#roomCode').submit(function(e) {
     showAndHide("roomCode", "pregame")
 });
 
-//Name submit listener
-// $("#username").submit(function(e) {
-//     e.preventDefault();
-//     submitUsername()
-// })
-
 //New Card submit listener
 $("#createCards").submit(function(e) {
     e.preventDefault();
@@ -85,6 +79,19 @@ $("#host").on("click", function(){
         
     })
 })
+
+
+//#Max Writing card click to favorite
+function cardClickToFavorite() {
+
+}
+
+$("#card1").on("click", function(){})
+$("#card2").on("click", function(){})
+$("#card3").on("click", function(){})
+$("#card4").on("click", function(){})
+$("#card5").on("click", function(){})
+
 
 
 
