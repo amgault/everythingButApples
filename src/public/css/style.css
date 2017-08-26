@@ -65,7 +65,8 @@ body {
 
 .card {
     width: var(--card-width);
-    height: var(--card-width);
+    min-height: var(--card-width);
+    padding: 25px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
@@ -86,7 +87,7 @@ body {
 
 
 .container {
-    margin-top:75px;
+    margin-top:25px;
     display:flex;
     flex-flow:column;
     justify-content: center;
@@ -149,6 +150,7 @@ body {
 .nounTitleText {
     font-size: 1.5em;
     margin-bottom: 25px;
+    font-weight: bold;
 }
 
 .spinner {
