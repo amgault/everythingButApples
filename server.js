@@ -5,7 +5,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 var game =  require('./dist/js/game');
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3010;
 
 
 
