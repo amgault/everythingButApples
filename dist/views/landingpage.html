@@ -30,16 +30,13 @@
         </div>
     </div>
 
-    <div id="host-page" style="display:none;">
+    <div id="host-page" style="display:none">
             <!-- BEFORE THE GAME -->
-            <div class="host-display host-pregame-lobby" style="display:none">
-                <p id="room-code" class="room-code">Waiting for Players...</p>
+            <div id="host-pregame-lobby" class="host-display host-pregame-lobby">
+                <p id="room-code" class="room-code">???</p>
                 <div class="host-lobby-display">
                     <div class="lobby-connections-display">
                         <!-- this section might take some shuffling around depending on how we display the current connected players -->
-                        <div class="last-connection-display">
-                            <p><span id="last-player-connected">No one</span> has connected!</p>
-                        </div>
                         <div class="player-connections">
                             <p>Players connected:</p>
                             <div id="player-connections-container" class="player-connections-container">
@@ -63,72 +60,72 @@
                 <div class="host-rounds-display">
                     <p>This game will last 3 rounds.</p>
                 </div>
-            </div>
-    
-            <!-- HOSTING THE GAME -->
-            <div class="host-display host-game">
-                <div class="host-topside">
-                    <div class="host-stats">
-                        <p>ROUND <span id="host-round-number">?</span></p>
-                        <p>SCORES:</p>
-                        <ul class="scores-list">
-                            <li>
-                                ??: Player 1
-                            </li>
-                            <li>
-                                ??: Player 2
-                            </li>
-                            <li>
-                                ??: Player 3
-                            </li>
-                        </ul>
+                <!-- DURING THE GAME -->
+                <div id="host-game" class="host-display host-game" style="display:none;">
+                    <div class="host-topside">
+                        <div class="host-stats">
+                            <p>ROUND <span id="host-round-number">?</span></p>
+                            <p>SCORES:</p>
+                            <ul class="scores-list">
+                                <li>
+                                    ??: Player 1
+                                </li>
+                                <li>
+                                    ??: Player 2
+                                </li>
+                                <li>
+                                    ??: Player 3
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="adj-card">
+                            <h2>Noun</h2>
+                            <p>Description</p>
+                        </div>
+                        <button  onclick="startJudging()">Function Testing Button</button>
+                        <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
+                        <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="judging-player">???</span> is the judge. Pleast pick your favorite card.</p>
                     </div>
-                    <div class="adj-card">
-                        <h2>Noun</h2>
-                        <p>Description</p>
+                    
+                    <div class="host-played-cards">
+                        <!-- container holding all the cards that have been played -->
+                        <div class="played-cards-container absoluteBottom">
+                            <div class="played-card">
+                                <div class="front">
+                                    Face Down
+                                </div>
+                                <div class="back">
+                                    Face Up
+                                </div>
+                            </div>
+                            <div class="played-card">
+                                <div class="front">
+                                    Face Down
+                                </div>
+                                <div class="back">
+                                    Face Up
+                                </div>
+                            </div>
+                            <div class="played-card">
+                                <div class="front">
+                                    Face Down
+                                </div>
+                                <div class="back">
+                                    Face Up
+                                </div>
+                            </div>
+                            <div class="played-card">
+                                <div class="front">
+                                    Face Down
+                                </div>
+                                <div class="back">
+                                    Face Up
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button  onclick="startJudging()">Function Testing Button</button>
-                    <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
-                    <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="judging-player">???</span> is the judge. Pleast pick your favorite card.</p>
                 </div>
-                
-                <div class="host-played-cards">
-                    <!-- container holding all the cards that have been played -->
-                    <div class="played-cards-container absoluteBottom">
-                        <div class="played-card">
-                            <div class="front">
-                                Face Down
-                            </div>
-                            <div class="back">
-                                Face Up
-                            </div>
-                        </div>
-                        <div class="played-card">
-                            <div class="front">
-                                Face Down
-                            </div>
-                            <div class="back">
-                                Face Up
-                            </div>
-                        </div>
-                        <div class="played-card">
-                            <div class="front">
-                                Face Down
-                            </div>
-                            <div class="back">
-                                Face Up
-                            </div>
-                        </div>
-                        <div class="played-card">
-                            <div class="front">
-                                Face Down
-                            </div>
-                            <div class="back">
-                                Face Up
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
     </div>
 

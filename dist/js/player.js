@@ -74,6 +74,8 @@ $("#host").on("click", function(){
     console.log(userData)
     //Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
     showAndHide('landing','host-page')
+    //Bex: some setup for displaying the lobby page
+    $("#room-code").text(userData.roomId);
     
     socket.emit('set user', userData, function(){
         
@@ -138,11 +140,6 @@ function removeItemFromArray(item, array){
 
 
 // Host Functions
-// function flipAllCards (){
-//     $(".played-card").each(function(){
-//         $(this).toggleClass('flipped');
-//     })
-// }
 
 function preparePlayedCards (cardArray){
     var index = 0;
@@ -165,11 +162,22 @@ function startJudging (){
     
 }
 
+
+
 function startGame(){
     //Bex: TODO: Generate random numbers to represent each card for each player
     //then run a query to obtain all of those cards and shuffle them
     //then construct an array of cards for each players hand and the remaining cards
+
+    showAndHide("host-pregame-lobby", "host-game");
 }
+
+$("#start-game-button").on("click", function(){
+    startGame()
+});
+
+
+
 
 socket.on('deal cards', function(cards) {
     cards.forEach( card => console.log(card.title));
