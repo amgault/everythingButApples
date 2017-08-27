@@ -55,6 +55,8 @@ var socket;
 var players = [];
 var host = [];
 
+
+
 // #Amanda when a connection is created a new game instance is created
 exports.initGame = function(sio, sock) {
     io = sio;
@@ -87,14 +89,15 @@ function setUser(user) {
         })
         console.log(`added ${user.userName} to the list of players`);
     }
-    if( players.length === 5 ) {
+    if( players.length === 3 ) {
         //#Gowri send the players to Host Machine
+        hostGlobalVar.playersArray=players;
         socket.emit('all players joined', players);
-        players.forEach( player => {
+       /* players.forEach( player => {
             var myCards = cards.splice(cards.length - 2);
             io.to(player.playerId).emit('deal cards', myCards);
         })
-        socket.emit('deal cards', cards);
+        socket.emit('deal cards', cards);*/
     } 
     // #Gowri emit the players to Host screen
     if (players.length > 0 && players.length < 6) {

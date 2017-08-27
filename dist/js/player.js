@@ -175,9 +175,9 @@ function startGame(){
     showAndHide("host-pregame-lobby", "host-game");
 }
 
-$("#start-game-button").on("click", function(){
+/*$("#start-game-button").on("click", function(){
     startGame()
-});
+});*/
 
 //#Gowri added the userName since playerlist is an object
 function updatePlayerConnections(playerList){
