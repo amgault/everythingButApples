@@ -54,6 +54,7 @@ body {
         -ms-flex-flow:column;
             flex-flow:column;
     text-align: center;
+    padding: 25px;
 }
 
 .host-absoluteBottom {
