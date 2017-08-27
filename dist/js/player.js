@@ -174,10 +174,11 @@ $("#start-game-button").on("click", function(){
     startGame()
 });
 
+//#Gowri added the userName since playerlist is an object
 function updatePlayerConnections(playerList){
     $("#player-connections-container").empty();
     for(var p in playerList){
-        $("#player-connections-container").append($("<div>").addClass("player-circle").text(playerList[p]))
+        $("#player-connections-container").append($("<div>").addClass("player-circle").text(playerList[p].userName))
     }
 }
 
@@ -194,6 +195,10 @@ $(".card-back").on("dblclick", function(){
     console.log($(this).data("cardInfo"));
 });
 
+//#Gowri listen for the players joined and update the host screen
+socket.on('player joined', function(players){
+    updatePlayerConnections(players);
+})
 
 socket.on('deal cards', function(cards) {
     cards.forEach( card => console.log(card.title));

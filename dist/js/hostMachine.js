@@ -120,7 +120,7 @@ function hostBuildDeck(){
     }
 
     // #Gowri added listener to create the players array
-    socket.on('player data', function(players){
+    socket.on('all players joined', function(players){
         hostInitializePlayersLocally(players)
     })
     
@@ -128,7 +128,8 @@ function hostBuildDeck(){
     // This sets the global variable of the players array.
     function hostInitializePlayersLocally(players){
 
-        hostGlobalVar.playersArray = palyers;
+        hostGlobalVar.playersArray = players;
+        console.log(hostGlobalVar.playersArray);
     
         //#SRM WE NEED TO REPLACE THIS WITH A SOCKET CALL
        /* hostGlobalVar.playersArray = [
