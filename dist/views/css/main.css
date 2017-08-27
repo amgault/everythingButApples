@@ -291,10 +291,9 @@ body {
 
 .btn {
     height: 100%;
-    width: 49%;
+    width: 45%;
     margin-bottom: 0;
-    color: #ECFFE0;
-    font-family: 'Quicksand', sans-serif;
+    color: white;
     font-weight: 700;
     font-size: 2em;
     /* line-height: 1.2; */
@@ -303,10 +302,9 @@ body {
     cursor: pointer;
     border: .1em solid transparent;
     -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 
 .btn:focus {
@@ -336,7 +334,7 @@ body {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    margin-top: 25px;
+    margin-top: 10em;
 }
 
 .card {
@@ -416,8 +414,7 @@ body {
 .circleWord{
     z-index: 5;
     color: white;
-    padding-top: 25px;
-    padding-left: 8px;
+    padding: 25px;
 }
 
 .favorite {
