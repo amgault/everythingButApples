@@ -184,6 +184,14 @@ function updatePlayerConnections(playerList){
     }
 }
 
+function updateScore(winningPlayerId, winningPlayerName){
+    // Increment the score of the winner
+    var winnerJqueryObj = $("#"+winningPlayerId);
+    var updatedScore = parseInt(winnerJqueryObj.attr("data-score")) + 1;
+    winnerJqueryObj.attr("data-score", updatedScore).text(updatedScore+" : "+winningPlayerName);
+
+}
+
 
 $(".card-back").on("dblclick", function(){
     console.log($(this).data("cardInfo"));
