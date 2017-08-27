@@ -47,48 +47,5 @@ var playerModels = {
 
 }
 
-/*
-// code to test drawCard. Can be used in router later.
-player.drawCard(1, function(res){
-    console.log(res);
-});
-*/
-
-/*
-// code to test refreshHand. Can be used in router later.
-player.refreshPlayerStats(1, function(res){
-    console.log(res);
-});
-*/
-
-/*
-// code to test addNewPlayer. Can be used in router later.
-player.addNewPlayer(["'playerZ'", 1], function(res){
-    console.log(res);
-});
-*/
-
-/*
-// code to test addNewGame. Can be used in router later.
-player.addNewRoom(["'TESTING ROOM 2'", 1], function(res){
-    console.log(res);
-});
-*/
-
-/*
-// code to test increaseScore. Can be used in router later.
-player.increaseScore(1, "id = 31", function(res){
-    console.log(res);
-});
-*/
-
-/*
-// code to test playCard. Can be used in router later.
-player.playCard("id = 91", function(res){
-    console.log(res);
-});
-*/
-
-
-// Export the burger database functions for use by the controller (burgers_controller.js)
+// Export the database functions for use by the controller (players_controller.js)
 module.exports = playerModels;

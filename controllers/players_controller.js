@@ -38,9 +38,6 @@ router.post("/api/cards/draw", function(req, res) {
     });
 });
 
-router.get('/test', function(req, res){
-    res.sendFile(path.join(__dirname + "/../dist/test.html"));
-});
 
 router.use(function(req, res){
     res.sendFile(path.join(__dirname, "/../dist/views/landingpage.html"));
