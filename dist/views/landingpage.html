@@ -57,16 +57,11 @@
             </div>
         </div>
 
+
     <!-- #SRM TESTDIV -->
             <div>
-                <a id="showGreenCard">
-                    <p class="circleWord" style="color:blue;">Show Green Card</p>
-                </a>
                 <a id="grabPlayedCards">
                     <p class="circleWord" style="color:blue;">Grab Played Cards</p>
-                </a>
-                <a id="pickWinner">
-                    <p class="circleWord" style="color:blue;">Pick WInner</p>
                 </a>
             </div>
      <!-- END SRM TEST DIV -->
@@ -96,10 +91,10 @@
                     </ul>
                 </div>
                 <div class="adj-card">
-                    <p class="nounTitleText">Noun</p>
-                    <p>Description</p>
+                    <p id="adj-title" class="nounTitleText">Noun</p>
+                    <p id="adj-description">Description</p>
                 </div>
-                <button  onclick="updateScore('player1', 'player1')">Function Testing Button</button>
+                <button id="showGreenCard">Reveal Card</button>
                 <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
                 <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="judging-player">???</span> is the judge. Please pick your favorite card.</p>
             </div>
@@ -109,29 +104,33 @@
                     <div class="played-card">
                         <div class="card-front">
                         </div>
-                        <div class="card-back">
+                        <div class="card-back" data-player-id="0" data-player-username="name1">
                             <p class="nounTitleText">Noun</p>
-                            <p>Description</p>
-                        </div>
-                    </div>
-                    <div class="adj-card">
-                        <p id="adj-title" class="nounTitleText">Adjective</p>
-                        <p id="adj-description">Description</p>
-                    </div>
-                    <div class="played-card">
-                        <div class="card-front">
-                        </div>
-                        <div class="card-back">
-                            <p class="nounTitleText">Noun</p>
-                            <p>Description</p>
+                            <p class="nounDescriptionText">Description</p>
                         </div>
                     </div>
                     <div class="played-card">
                         <div class="card-front">
                         </div>
-                        <div class="card-back">
+                        <div class="card-back" data-player-id="0" data-player-username="name2">
                             <p class="nounTitleText">Noun</p>
-                            <p>Description</p>
+                            <p class="nounDescriptionText">Description</p>
+                        </div>
+                    </div>
+                    <div class="played-card">
+                        <div class="card-front">
+                        </div>
+                        <div class="card-back" data-player-id="0" data-player-username="name3">
+                            <p class="nounTitleText">Noun</p>
+                            <p class="nounDescriptionText">Description</p>
+                        </div>
+                    </div>
+                    <div class="played-card">
+                        <div class="card-front">
+                        </div>
+                        <div class="card-back" data-player-id="0" data-player-username="name4">
+                            <p class="nounTitleText">Noun</p>
+                            <p class="nounDescriptionText">Description</p>
                         </div>
                     </div>
                 </div>

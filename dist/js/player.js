@@ -139,29 +139,6 @@ function removeItemFromArray(item, array){
 
 // Host Functions
 
-function preparePlayedCards (cardArray){
-    var index = 0;
-    $(".played-card").each(function(){
-        console.log(cardArray[index])
-        $(this).find(".card-back").data("cardInfo", cardArray[index]);
-        $(this).toggleClass('flipped');
-        index++;
-    })
-}
-
-function startJudging (){
-    // Bex: should run whenever all player cards are submitted
-    // Bex: switch the prompt on the host screen
-    showAndHide("pre-judging-message", "mid-judging-message");
-    // Bex: TODO: assign the data for the cards (and the players they belong to? might not be necessary if we keep info on player hands in the host side) on each card div
-    var dummySubmittedCards = ["1", "2", "3", "4"]
-
-    preparePlayedCards(dummySubmittedCards);
-    
-}
-
-
-
 function startGame(){
     //Bex: TODO: Generate random numbers to represent each card for each player
     //then run a query to obtain all of those cards and shuffle them
@@ -181,19 +158,6 @@ function updatePlayerConnections(playerList){
         $("#player-connections-container").append($("<div>").addClass("player-circle").text(playerList[p].userName))
     }
 }
-
-function updateScore(winningPlayerId, winningPlayerName){
-    // Increment the score of the winner
-    var winnerJqueryObj = $("#"+winningPlayerId);
-    var updatedScore = parseInt(winnerJqueryObj.attr("data-score")) + 1;
-    winnerJqueryObj.attr("data-score", updatedScore).text(updatedScore+" : "+winningPlayerName);
-
-}
-
-
-$(".card-back").on("dblclick", function(){
-    console.log($(this).data("cardInfo"));
-});
 
 //#Gowri listen for the players joined and update the host screen
 socket.on('player joined', function(players){
