@@ -1,16 +1,21 @@
 /*===============================================================
     #SRM host functions
 ===============================================================*/
+
+/*===============================================================
+    #SRM host functions
+===============================================================*/
 var currentURL = window.location.origin;
+
 
 // An object that holds the global variables for the game that the host machine needs to track
 // #SRM More key/value pairs get created as needed in the initialization
 var hostGlobalVar = {
-    deckArray: [],
-    greenCardsArray: [],
+    dealerTracker: 0,
+    greenDeck: [],
     playersArray: [],
     playerDecks: [],
-    redCardsArray: [],
+    submittedCards: []
 };
 
 // #SRM need to delete this part and make the server actualy work
@@ -33,11 +38,9 @@ $("#grabPlayers").on("click", function(){
     hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
     hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
 
-    drawAllCards(hostGlobalVar.greenCardsTotal, hostGlobalVar.greenCardsTotal);
-
-    
+    hostGlobalVar.deckArray = buildDeck();
+        
 });
-
 
 //7.) Host deals the game's worth of red cards to each player via an array of card objects in socket
     
@@ -82,8 +85,32 @@ $("#grabPlayers").on("click", function(){
 //23.) If it is the last turn of the last round, display winner on screen, and whatever else we want to do
 //#### EMIT G: "END OF GAME" ###############################################
 
+function buildDeck(){
 
-function drawAllCards(greenCardsNum, redCardsNum){
+    drawGreenCards(hostGlobalVar.greenCardsTotal, 7471, 9951);
+    drawRedCards(hostGlobalVar.redCardsTotal, 1, 7461);
+
+}
+
+//function makes an AJAX call and sets global variable so our host Machine can access this array later;
+function drawGreenCards(cardsNum, startId, endId){
+    
+         // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
+         $.ajax({
+            url: currentURL + "/api/cards/draw",
+            method: "POST",
+            // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string
+            data: {
+                idsString: ( generateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString() )
+            } 
+        }).done(function(data){
+            console.log(data);
+            hostGlobalVar.greenDeck = data;
+        });
+    
+    }
+
+function drawRedCards(cardsNum, startId, endId){
 
      // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
      $.ajax({
@@ -92,23 +119,22 @@ function drawAllCards(greenCardsNum, redCardsNum){
         // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string
         // NOTE: the card ids have been set to match our database as it appeared on 2017.08.26 
         data: {
-            idsString: ( generateIdArray( 7461+1, 1 ).splice( 0, redCardsNum ).toString() )
+            idsString: ( generateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString() )
         } 
     }).done(function(data){
-        hostGlobalVar.redCardsArray = data;
-    });
+        console.log(data);
+        for(i=0; i<hostGlobalVar.playersArray.length; i++){
+            var cardsPerPlayer = ( (hostGlobalVar.playersArray.length-1)+4 )*hostGlobalVar.roundsNum;
+            var personalDeck = [];
+            
+            for (j=0; j<cardsPerPlayer; j++){
+                personalDeck.push(data[hostGlobalVar.dealerTracker]);
+                hostGlobalVar.dealerTracker++;
+            }
 
-   // #SRM AJAX call to grab an array of all the green cards needed for the game
-    $.ajax({
-        url: currentURL + "/api/cards/draw",
-        method: "POST",
-        // #SRM Create a shuffled array of all green card ids in our db, then splice it to match our game length, and turn it into a string
-        // NOTE: the card ids have been set to match our database as it appeared on 2017.08.26 
-        data: {
-            idsString: ( generateIdArray( 9951+1, 7471 ).splice( 0, greenCardsNum ) ).toString()
-        } 
-    }).done(function(data){
-        hostGlobalVar.greenCardsArray = data;
+            hostGlobalVar.playerDecks.push(personalDeck);
+ 
+        }
     });
 
 }
@@ -120,29 +146,34 @@ function initializePlayersLocally(){
     //#SRM REPLACE THIS WITH A SOCKET CALL
     hostGlobalVar.playersArray = [
         {
-            id: 1,
             username: "Player1",
-            room_id: 1,
+            roomId: 1,
+            role: "player",
+            playerId: 1,
         },
         {
-            id: 11,
             username: "Player2",
-            room_id: 1,
+            roomId: 1,
+            role: "player",
+            playerId: 11,
         },
         {
-            id: 21,
             username: "Player3",
-            room_id: 1,
+            roomId: 1,
+            role: "player",
+            playerId: 21,
         },
         {
-            id: 31,
             username: "Player4",
-            room_id: 1,
+            roomId: 1,
+            role: "player",
+            playerId: 31,
         },
         {
-            id: 41,
             username: "Player5",
-            room_id: 1,
+            roomId: 1,
+            role: "player",
+            playerId: 41,
         }
     ];
 
