@@ -6,8 +6,8 @@ require('dotenv').config({ path: '../dotenv.env' });
 var connection;
 
 // first try to use JAWSDB connection if it exists (for Heroku deployment)
-if (process.env.JAWSDB_URL) {
-    connection = mysql.createConnection(process.env.JAWSDB_URL);
+if (process.env.CLEARDB_DATABASE_URL) {
+    connection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
 }
 
 // otherwise
