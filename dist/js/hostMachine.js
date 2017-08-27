@@ -20,24 +20,6 @@
 =============================================================++==============*/
 var currentURL = window.location.origin;
 
-// An object that holds the global variables for the game that the host machine needs to track
-// #SRM More key/value pairs get created as needed in the initialization
-var hostGlobalVar = {
-    currentGreenCard: null,
-    currentGreenCardIndex: 0,
-    currentLeaderIndex: 0,
-    dealerTracker: 0,
-    greenDeck: [],
-    playersArray: [],
-    playerDecks: [],
-    roundsNum: 2,
-    roundsTracker: 1,
-    submittedCards: [],
-    winningCards: [],
-    playersNum: 0
-};
-
-
 
 /*============================================================================
     
@@ -45,7 +27,7 @@ var hostGlobalVar = {
     HOST FUNCTIONS
 
 ============================================================================*/
-function hostBuildDeck(){
+/*function hostBuildDeck(){
     
         hostDrawGreenCards(hostGlobalVar.greenCardsTotal, 7471, 9951);
         hostDrawRedCards(hostGlobalVar.redCardsTotal, 1, 7461);
