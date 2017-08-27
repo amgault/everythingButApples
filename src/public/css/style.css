@@ -93,6 +93,12 @@ body {
     justify-content: center;
 }
 
+.copyright {
+    margin: auto;
+    margin-top: 4em;
+    font-size: small;
+}
+
 .createCards {
     width:300px;
     margin:auto;
@@ -156,7 +162,7 @@ body {
 .spinner {
     width: 100px;
     height: 100px;
-    background-color: var(--new-opp-purple);
+    background-color: purple;
   
     margin: 100px auto;
     -webkit-animation: sk-rotateplane 5.2s infinite ease-in-out;
