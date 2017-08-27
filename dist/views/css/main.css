@@ -36,8 +36,37 @@ body {
     -webkit-transition: 0.3s;
     transition: 0.3s;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid white;
     margin:auto;
+    background-color: black;
+    color: white;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient:vertical;
+    -webkit-box-direction:normal;
+        -ms-flex-flow:column;
+            flex-flow:column;
+    text-align: center;
+}
+
+.host-absoluteBottom {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    border-top: 1px solid #D3D3D3;
+    text-align: center;
+    overflow-y: auto;
+    z-index: 1000;
+    position: absolute;
+    /* top: 325px; */
+    left: 0px;
 }
 
 .host-display {
@@ -48,7 +77,6 @@ body {
     border-radius: 2px;
     margin: 0em 1em;
     padding: .75em;
-    background-color: white;
 }
 
 .host-display * {
@@ -109,11 +137,41 @@ body {
 }
 
 .played-card .card-front {
-  background: red;
+  /* background: red; */
+  width: 12em;
+  height: 12em;
+  background-image: url("https://farm5.staticflickr.com/4359/36609034781_96e88f2b8f.jpg");
+  background-size: 100% 100%;
+  border: 1px solid black;
 }
 
 .played-card .card-back {
-    background: blue;
+    width: 12em;
+    min-height: 12em;
+    padding: 25px;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius: 5px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient:vertical;
+    -webkit-box-direction:normal;
+        -ms-flex-flow:column;
+            flex-flow:column;
+    text-align: center;
+    border: 1px solid black;
+    margin:auto;
+    background-color: white;
+    color: black;
     -webkit-transform: rotateY( 180deg );
             transform: rotateY( 180deg );
 }
