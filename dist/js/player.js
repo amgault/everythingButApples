@@ -144,6 +144,12 @@ function removeItemFromArray(item, array){
 
 // Host Functions
 
+function flipPlayedCards (cardArray){
+    $(".played-card").each(function(){
+        $(this).toggleClass('flipped');
+    })
+}
+
 function preparePlayedCards (cardArray){
     var index = 0;
     $(".played-card").each(function(){

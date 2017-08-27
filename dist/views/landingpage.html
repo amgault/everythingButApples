@@ -49,7 +49,7 @@
                             <!-- player connections will go here -->
                         </div>
                     </div>
-                    <button id="start-game-button" class="start-game-button">Start Game</button>
+                    <button id="start-game-button" class="general-button">Start Game</button>
                 </div>
             </div>
             <div class="host-rounds-display">
@@ -79,7 +79,7 @@
             <div class="host-topside">
                 <div class="host-stats">
                     <p>ROUND <span id="host-round-number">?</span></p>
-                    <p>SCORES:</p>
+                    <!-- <p>SCORES:</p>
                     <ul class="scores-list">
                         <li class="score-list-item" data-score="0" id="player1">
                             0: Player 1
@@ -96,15 +96,15 @@
                         <li class="score-list-item" data-score="0" id="player5">
                             0: Player 5
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="adj-card">
                     <p class="nounTitleText">Noun</p>
                     <p>Description</p>
                 </div>
                 <button  onclick="updateScore('player1', 'player1')">Function Testing Button</button>
-                <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
-                <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="judging-player">???</span> is the judge. Please pick your favorite card.</p>
+                <!-- <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
+                <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="judging-player">???</span> is the judge. Please pick your favorite card.</p> -->
             </div>
             <div class="host-played-cards">
                 <!-- container holding all the cards that have been played -->
@@ -159,7 +159,7 @@
                         <p>What do you want to go by:</p>
                         <input type="text" id="player-name-form" name="player-name" class="roomForm-input" placeholder="Username goes here">
                     </div>
-                    <input type="submit" placeholder="submit" class="submit roomFromSubmit" id="code-button">
+                    <input type="submit" placeholder="submit" class="submit roomFromSubmit general-button" id="code-button">
                     <!-- #Max Here compare this code to other codes that are in use -->
                 </div>
                 <p id="room-full-message" style="display:none; text-align:center">Sorry, those trees said the room is full, so you can't join right now!</p>
@@ -175,11 +175,11 @@
                 <div class="player-topBumper">
                     <p>Come up with noun cards to add to our deck:</p>
                     <input type="text" id="card-form" name="card">
-                    <input type="submit" placeholder="submit" class="submit player-topBumper">
+                    <input class="general-button" type="submit" placeholder="submit" class="submit">
                 </div>
             </form>
 
-            <button onclick="showAndHide('pregame', 'game')">Go to Game</button>
+            <button class="general-button" onclick="showAndHide('pregame', 'game')">Go to Game</button>
         </div>
     
         <div class="container" id="game" style="display:none;">        
