@@ -82,20 +82,24 @@ function setUser(user) {
             roomId: user.roomId,
             role: user.role,
             playerId: user.playerId,
+            score: 0,
             cards: []
         })
         console.log(`added ${user.userName} to the list of players`);
     }
     if( players.length === 5 ) {
+        //#Gowri send the players to Host Machine
+        socket.emit('all players joined', players);
         players.forEach( player => {
             var myCards = cards.splice(cards.length - 2);
             io.to(player.playerId).emit('deal cards', myCards);
         })
         socket.emit('deal cards', cards);
     } 
-    // else if (player.length > 0) {
-    //     io.to(host[0].playerId).emit('players so far', players);
-    // }
+    // #Gowri emit the players to Host screen
+    if (players.length > 0 && players.length < 6) {
+         io.to(host[0].playerId).emit('player joined', players);
+    }
 }
 
 // io.to(e.socketId).emit('test', `hi + ${e.userName}`));

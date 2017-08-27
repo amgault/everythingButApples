@@ -118,13 +118,21 @@ function hostBuildDeck(){
         }
     
     }
+
+    // #Gowri added listener to create the players array
+    socket.on('all players joined', function(players){
+        hostInitializePlayersLocally(players)
+    })
     
     // #SRM FIX HARCODING, the players are hardcoded right now, needs to be switched to get them via socket
     // This sets the global variable of the players array.
-    function hostInitializePlayersLocally(){
+    function hostInitializePlayersLocally(players){
+
+        hostGlobalVar.playersArray = players;
+        console.log(hostGlobalVar.playersArray);
     
         //#SRM WE NEED TO REPLACE THIS WITH A SOCKET CALL
-        hostGlobalVar.playersArray = [
+       /* hostGlobalVar.playersArray = [
             {
                 username: "Player1",
                 roomId: 1,
@@ -160,7 +168,8 @@ function hostBuildDeck(){
                 playerId: 41,
                 score: 0
             }
-        ];
+        ];*/
+
     
         return hostGlobalVar.playersArray.length;
     
