@@ -73,12 +73,17 @@ $("#host").on("click", function(){
     showAndHide('landing','host-page');
     //Bex: some setup for displaying the lobby page
     $("#room-code").text(userData.roomId);
-    updatePlayerConnections(["Player1", "Player2"]);
     
     socket.emit('set user', userData, function(){
         
     })
 })
+
+$("#play-a-game").on("click", function(){
+    showAndHide('landing','player');
+    isRoomFull();
+})
+
 
 
 //#Max Writing card click to favorite
@@ -190,6 +195,13 @@ function updateScore(winningPlayerId, winningPlayerName){
 
 }
 
+function isRoomFull(){
+    //Bex: dummy hard coding
+    var fullRoom = false;
+    if (fullRoom){
+        showAndHide("room-form", "room-full-message");
+    }
+}
 
 $(".card-back").on("dblclick", function(){
     console.log($(this).data("cardInfo"));
