@@ -31,7 +31,7 @@
             </a>
         </div>
         <div class="copyright">
-            <p>&copy; 2017  Amanda Gault, Sam Mendez, Bex Way, Jordan Pert, Gorwi Rajasekaran, Max Rashes</p><br>
+            <p>&copy; 2017  Amanda Gault, Sam Mendez, Bex Way, Jordan Peart, Gowri Rajasekaran, Max Rashes</p><br>
         </div>
     </div>
 
@@ -52,9 +52,29 @@
                     </div>
                 </div>
                 <div class="host-rounds-display">
-                    <p>This game will last 3 rounds.</p>
+                    <p>This game will last 2 rounds.</p>
                 </div>
             </div>
+
+    <!-- #SRM TESTDIV -->
+                    <div>
+                        <a id="grabPlayers">
+                            <p class="circleWord" style="color:blue;">Grab Players</p>
+                        </a>
+                        <a id="showGreenCard">
+                            <p class="circleWord" style="color:blue;">Show Green Card</p>
+                        </a>
+                        <a id="grabPlayedCards">
+                            <p class="circleWord" style="color:blue;">Grab Played Cards</p>
+                        </a>
+                        <a id="pickWinner">
+                            <p class="circleWord" style="color:blue;">Pick WInner</p>
+                        </a>
+                    </div>
+     <!-- END SRM TEST DIV -->
+
+            <!-- HOSTING THE GAME -->
+            <div class="host-display host-game">
             <!-- DURING THE GAME -->
             <div id="host-game" class="host-display host-game" style="display:none;">
                 <div class="host-topside">
@@ -87,7 +107,6 @@
                     <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
                     <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="judging-player">???</span> is the judge. Please pick your favorite card.</p>
                 </div>
-                
                 <div class="host-played-cards">
                     <!-- container holding all the cards that have been played -->
                     <div class="played-cards-container host-absoluteBottom">
@@ -202,6 +221,7 @@
         </div>
     
         <script src="../js/player.js"></script>
+        <script src="../js/hostMachine.js"></script>
         <img class="logo absolute" src="../img/logo.png">
     </div>
 </body>

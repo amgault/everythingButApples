@@ -16,7 +16,7 @@ var express = require("express");
 var router = express.Router();
 
 //Import the model to use its database functions
-var player = require("../models/player.js");
+var player = require("../models/playerModels.js");
 
 var path = require("path");
 
@@ -32,14 +32,16 @@ router.get("/api/cards", function(req, res) {
     });
 });
 
-router.get('/test', function(req, res){
-    res.sendFile(path.join(__dirname + "/../dist/test.html"));
+router.post("/api/cards/draw", function(req, res) {
+    player.selectAllWithinIdList(req.body.idsString, function(data){
+        return res.json(data);
+    });
 });
+
 
 router.use(function(req, res){
     res.sendFile(path.join(__dirname, "/../dist/views/landingpage.html"));
 });
-
 
 
 // Export routes for use by our server (server.js)
