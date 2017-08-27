@@ -248,6 +248,7 @@ body {
     position: fixed;
     bottom: 0px;
     right: 0px;
+    z-index: -1;
 }
 
 .absoluteTop {
@@ -375,6 +376,10 @@ body {
             justify-content: center;
 }
 
+.code {
+    margin-top: 10em; 
+}
+
 .container {
     margin-top:25px;
     display:-webkit-box;
@@ -456,6 +461,10 @@ body {
 .logo {
     width: 10em;
     margin-top: 3em;
+}
+
+.pregame {
+    font-size: 1.5em;
 }
 
 .player-hand-card {
