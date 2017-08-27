@@ -62,14 +62,20 @@
                         <p>ROUND <span id="host-round-number">?</span></p>
                         <p>SCORES:</p>
                         <ul class="scores-list">
-                            <li>
-                                ??: Player 1
+                            <li class="score-list-item" data-score="0" id="player1">
+                                0: Player 1
                             </li>
-                            <li>
-                                ??: Player 2
+                            <li class="score-list-item" data-score="0" id="player2">
+                                0: Player 2
                             </li>
-                            <li>
-                                ??: Player 3
+                            <li class="score-list-item" data-score="0" id="player3">
+                                0: Player 3
+                            </li>
+                            <li class="score-list-item" data-score="0" id="player4">
+                                0: Player 4
+                            </li>
+                            <li class="score-list-item" data-score="0" id="player5">
+                                0: Player 5
                             </li>
                         </ul>
                     </div>
@@ -77,7 +83,7 @@
                         <p class="nounTitleText">Noun</p>
                         <p>Description</p>
                     </div>
-                    <button  onclick="startJudging()">Function Testing Button</button>
+                    <button  onclick="updateScore('player1', 'player1')">Function Testing Button</button>
                     <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
                     <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="judging-player">???</span> is the judge. Please pick your favorite card.</p>
                 </div>
