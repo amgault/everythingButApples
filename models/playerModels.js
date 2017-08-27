@@ -8,7 +8,7 @@
 
 // Import ORM query functions
 var orm = require("../config/orm.js");
-
+require('dotenv').config({ path: '../dotenv.env' });
 // =============================================================
 // player.js functions
 // =============================================================
@@ -46,7 +46,6 @@ var playerModels = {
     },
 
 }
-
 
 // Export the database functions for use by the controller (players_controller.js)
 module.exports = playerModels;

@@ -30,4 +30,10 @@
     --new-main-cream: #FCFBE3;
     --new-right-green: #F1FCE3;
     --new-opp-purple: #A29AA9;
+
+    --dark-grey: rgba(0, 0, 0, 0.69);
+    --light-grey: rgba(0, 0, 0, 0.420);
+
+    --button-main: var(--darkest-blue);
+    --button-shadow: var(--light-blue);
 }

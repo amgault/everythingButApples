@@ -20,21 +20,6 @@
 =============================================================++==============*/
 var currentURL = window.location.origin;
 
-// An object that holds the global variables for the game that the host machine needs to track
-// #SRM More key/value pairs get created as needed in the initialization
-var hostGlobalVar = {
-    currentGreenCard: null,
-    currentGreenCardIndex: 0,
-    currentLeaderIndex: 0,
-    dealerTracker: 0,
-    greenDeck: [],
-    playersArray: [],
-    playerDecks: [],
-    roundsNum: 2,
-    roundsTracker: 1,
-    submittedCards: [],
-    winningCards: []
-};
 
 /*============================================================================
     
@@ -42,12 +27,63 @@ var hostGlobalVar = {
     HOST FUNCTIONS
 
 ============================================================================*/
-function hostBuildDeck(){
+/*function hostBuildDeck(){
     
-    hostDrawGreenCards(10, 7471, 9951);
-    hostDrawRedCards(80, 1, 7461);
-
-}
+        hostDrawGreenCards(hostGlobalVar.greenCardsTotal, 7471, 9951);
+        hostDrawRedCards(hostGlobalVar.redCardsTotal, 1, 7461);
+    
+    }
+    
+    //function makes an AJAX call and sets global variable so our host Machine can access this array later;
+    function hostDrawGreenCards(cardsNum, startId, endId){
+        
+             // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
+             $.ajax({
+                url: currentURL + "/api/cards/draw",
+                method: "POST",
+                // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string
+                data: {
+                    idsString: ( hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString() )
+                } 
+            }).done(function(data){
+                hostGlobalVar.greenDeck = data;
+    
+                // Prepare the first green card to be revealed
+                hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
+            });
+        
+        }
+    
+    function hostDrawRedCards(cardsNum, startId, endId){
+    
+         // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
+         $.ajax({
+            url: currentURL + "/api/cards/draw",
+            method: "POST",
+            // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string
+            // NOTE: the card ids have been set to match our database as it appeared on 2017.08.26 
+            data: {
+                idsString: ( hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString() )
+            } 
+        }).done(function(data){
+    
+            // Divide the cards into personal decks for each player, supplying enough red cards for the whole game
+            for(i=0; i<hostGlobalVar.playersArray.length; i++){
+                var cardsPerPlayer = ( (hostGlobalVar.playersArray.length-1)+4 )*hostGlobalVar.roundsNum;
+                var personalDeck = [];
+                
+                for (j=0; j<cardsPerPlayer; j++){
+                    personalDeck.push(data[hostGlobalVar.dealerTracker]);
+                    hostGlobalVar.dealerTracker++;
+                }
+    
+                hostGlobalVar.playerDecks.push(personalDeck);
+                io.to(playersArray[i].playerId).emit('deal cards', myCards);
+                //alert("Player in position " + i + ": " +hostGlobalVar.playerDecks[i]);
+            }
+        });
+    
+    }
     
 //function makes an AJAX call and sets global variable so our host Machine can access this array later;
 function hostDrawGreenCards(cardsNum, startId, endId){
@@ -113,68 +149,72 @@ function hostEmitRoundLeader(){
         }
     }
 
-}
+    // #Gowri added listener to create the players array adding the varible to the start game button as data
 
-/*
-// #Gowri added listener to create the players array
-socket.on('all players joined', function(players){
-    hostInitializePlayersLocally(players)
-})
-*/
-players=[
-    {username: "USer One", playerId: 1, roomId: 1 },
-    {username: "USer Two", playerId: 11, roomId: 1 },
-    {username: "USer Three", playerId: 21, roomId: 1 },
-    {username: "USer Four", playerId: 31, roomId: 1 },
-    {username: "USer Five", playerId: 41, roomId: 1 }
-]
-
-// #SRM FIX HARCODING, the players are hardcoded right now, needs to be switched to get them via socket
-// This sets the global variable of the players array.
-function hostInitializePlayersLocally(players){
-
-    hostGlobalVar.playersArray = players;
-
-}
-
-//Function Courtesy of Bex.
-function hostStartJudging (cardsArray){
-    // Bex: should run whenever all player cards are submitted
-    // Bex: switch the prompt on the host screen
-    // Bex: TODO: assign the data for the cards (and the players they belong to? might not be necessary if we keep info on player hands in the host side) on each card div
-    hostPreparePlayedCards(cardsArray);
+    socket.on('all players joined', function(players){
+        var hostGlobalVar = hostInitializePlayersLocally(players);
+        
+    });
+    /*{
+        console.log('i am in host machine');
+        console.log('host machine', players);
+        hostGlobalVar.playersArray = players.slice(0);
+        console.log("received array"+players);
+        console.log("host array"+hostGlobalVar.playersArray);
+        console.log("host array length"+hostGlobalVar.playersArray.length);
+        hostGlobalVar.playersNum = hostGlobalVar.playersArray.length;
+        console.log("playnum"+hostGlobalVar.playersNum);
+        
+    })*/
     
-}
+//}
 
-//Function Courtesy of Bex,updated by Sam to fit this file. Takes in an array of card objects and displays them
-function hostPreparePlayedCards (cardArray){
-    var index = 0;
-    $(".card-back").each(function(){
+        hostGlobalVar.playersArray = players;
+        hostGlobalVar.playersNum = hostGlobalVar.playersArray.length;
         
-        //Change display of of red cards to fill them with text and flip them over
-        $(this).find(".nounTitleText").html(cardArray[index].title);
-        $(this).find(".nounDescriptionText").html(cardArray[index].description);
-        //.data("cardInfo", cardArray[index]);
-        $(this).parent().toggleClass('flipped');
+        //#SRM WE NEED TO REPLACE THIS WITH A SOCKET CALL
+       /* hostGlobalVar.playersArray = [
+            {
+                username: "Player1",
+                roomId: 1,
+                role: "player",
+                playerId: 1,
+                score: 0
+            },
+            {
+                username: "Player2",
+                roomId: 1,
+                role: "player",
+                playerId: 11,
+                score: 0
+            },
+            {
+                username: "Player3",
+                roomId: 1,
+                role: "player",
+                playerId: 21,
+                score: 0
+            },
+            {
+                username: "Player4",
+                roomId: 1,
+                role: "player",
+                playerId: 31,
+                score: 0
+            },
+            {
+                username: "Player5",
+                roomId: 1,
+                role: "player",
+                playerId: 41,
+                score: 0
+            }
+        ];*/
+
+    
         
-        //change the data attribute of the card so we can access it later when we pick a winner
-        $(this).attr("data-player-id", cardArray[index].player_id);
-        $(this).attr("data-player-username", cardArray[index].username);
-        console.log(cardArray[index].player_id);
-
-        index++;
-
-    })
-}
-
-//Bex: Generating array of ids
-function hostSerialArray(n, initialId){
-    var arr = [];
-    for (var i = initialId; i <= n-1; i+=10) {
-        arr.push(i);
-    }
-    return arr;
-}
+    
+   }
     
 // Function supplied directly by Bex
 function hostShuffle(array) {
@@ -213,6 +253,7 @@ function hostGenerateIdArray(endNum, startNum){
 // #SRM This is hardcoded as a button press. We need to change it to a socket listener event: 
 // "5 PLAYERS HAVE JOINED ROOM"
 $("#start-game-button").on("click", function(){
+<<<<<<< HEAD
 
     // #SRM FIX HARDCODING: take in the players from socket, right now they're hardcoded.
     // #SRM Host pulls the players from socket
@@ -224,6 +265,25 @@ $("#start-game-button").on("click", function(){
     //and distribute individual red card decks to each player
     hostGlobalVar.deckArray = hostBuildDeck();
 
+=======
+    //e.preventDefault();
+    var hostGlobalVar = $("#start-game-button").data("hostVar");
+    // #SRM FIX HARDCODING: take in the players from socket, right now they're hardcoded.
+    // #SRM Host pulls the players from socket
+    /* #Gowri removed the call to hostInitializePlayersLocally since that is called by socket once room is full 
+    so changing to directly measure the length*/
+    console.log("inside start"+hostGlobalVar.playersNum);
+    console.log("inside start"+hostGlobalVar.playersArray);
+    console.log("inside start"+hostGlobalVar.playersArray);
+    showAndHide("host-pregame-lobby", "host-game");
+    
+   hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
+   hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
+
+    //Uses a series of functions to make an AJAX call to store the green cards for the whole game
+    //and distribute individual red card decks to each player
+   hostGlobalVar.deckArray = hostBuildDeck();   
+>>>>>>> 2e109da463cc32a0631cf7e5f9648a61235bcb6d
 });
 
 //#SRM for FRONTEND:This needs to be an actual button
