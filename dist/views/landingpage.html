@@ -26,7 +26,7 @@
             <a id="host" class="btn">
                 <p class="circleWord">Host a game</p>
             </a>
-            <a class="btn" onclick="showAndHide('landing','player')">
+            <a class="btn" id="play-a-game">
                     <p class="circleWord">Play a game</p>
             </a>
         </div>
@@ -149,10 +149,11 @@
 
     <div id="player" style="display:none">
         <form class="container" id="roomCode">
-                <div class="code roomForm">
+                <div id="room-form" class="code roomForm">
                     <div>
                         <p>As the wild wind blows, the trees say:</p>
                         <input type="text" id="code-input" name="room-code" placeholder="Room code goes here">
+                        <!-- Bex: adding message for room being full -->
                     </div>
                     <div class="player-topBumper">
                         <p>What do you want to go by:</p>
@@ -161,6 +162,7 @@
                     <input type="submit" placeholder="submit" class="submit roomFromSubmit" id="code-button">
                     <!-- #Max Here compare this code to other codes that are in use -->
                 </div>
+                <p id="room-full-message" style="display:none; text-align:center">Sorry, those trees said the room is full, so you can't join right now!</p>
         </form>
         
     
