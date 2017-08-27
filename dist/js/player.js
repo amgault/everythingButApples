@@ -47,7 +47,7 @@ $('#roomCode').submit(function(e) {
         role: "player",
         playerId: socket.id
     }
-    console.log(userData)
+    //console.log(userData)
     
     socket.emit('set user', userData);
     showAndHide("roomCode", "pregame")
@@ -142,7 +142,7 @@ function removeItemFromArray(item, array){
 function preparePlayedCards (cardArray){
     var index = 0;
     $(".played-card").each(function(){
-        console.log(cardArray[index])
+        //console.log(cardArray[index])
         $(this).find(".card-back").data("cardInfo", cardArray[index]);
         $(this).toggleClass('flipped');
         index++;
@@ -198,11 +198,11 @@ $(".card-back").on("dblclick", function(){
 //#Gowri listen for the players joined and update the host screen
 socket.on('player joined', function(players){
     updatePlayerConnections(players);
-})
+});
 
 socket.on('deal cards', function(cards) {
-    cards.forEach( card => console.log(card.title));
-})
+    //cards.forEach( card => console.log(card.title));
+});
 
 
 //============================================================================================================================
@@ -295,12 +295,19 @@ class user {
 } //end player
 
 //*************************************** LISTEN FOR PLAYERS  ***********************************************************
-// socket.on('sendplayers', DIDNT WRITE FUNCTION YET TO MAKE PLAYER)
+var thisuser = new user("", "", "player", "");
+var myhost = '';
+ socket.on('checkyoself', function(playa){
+    thisuser.player_id = playa.playID;
+    thisuser.username = playa.thename;
+    thisuser.room_id = playa.room;
+    myhost = playa.hostsock;
 
+    document.getElementById("playername").innerHTML = thisuser.username;
+ });
 
-// create the player object (not sure where im going to get the variables listed below from so ill hardcode for now)
-// (playerID / username. role is always 'player' so i think its a bit redundant) 
-// var thisuser = new user(2, "Smitty Werbenjagermanjensen", "player", 1);
+ //change player names on screen
+
 
 
 
@@ -360,6 +367,13 @@ class user {
 
 //*************************************     FUNCTIONS      *****************************************************************
 
+
+
+
+
+
+
+
 //this function signifies the end of the game and will hide all cards and display a message for the time being
 function ENDIT() {
 
@@ -376,25 +390,30 @@ function ENDIT() {
 //     else {}
 // }
 // or i can just have an event listener for "player-hand-card"
-$(".player-hand-card").on('click', function() {
-    // CHECK IF THE USER CAN SUBMIT A CARD YET
-    if (!thisuser.cansub)
-        return;
-    else {
-        //get the title of the card
-        var findthis = $(this).children('h2').text;
-        //find what index of hand array it is at
-        var itshere = thisuser.findcard(findthis);
-        if (itshere == -1)
-            console.log("you suck, thats not it");
 
-        //EMIT THE CARD THAT HAD BEEN CHOSEN
-        //socket.emit('chosencard', thisuser.hand[itshere]);
+// THERE IS NOW A SUBMIT BUTTON, PUT THE LISTENER HERE
 
-        //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
-        thisuser.removecard(itshere);
-    }
-});
+
+
+// $(".player-hand-card").on('click', function() {
+//     // CHECK IF THE USER CAN SUBMIT A CARD YET
+//     if (!thisuser.cansub)
+//         return;
+//     else {
+//         //get the title of the card
+//         var findthis = $(this).children('h2').text;
+//         //find what index of hand array it is at
+//         var itshere = thisuser.findcard(findthis);
+//         if (itshere == -1)
+//             console.log("you suck, thats not it");
+
+//         //EMIT THE CARD THAT HAD BEEN CHOSEN
+//         //socket.emit('chosencard', thisuser.hand[itshere]);
+
+//         //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
+//         thisuser.removecard(itshere);
+//     }
+// });
 
 
 // function to respond to whether they are the leader or not (hiding all their cards etc if they are)
@@ -407,6 +426,14 @@ function hideAll(bool) {
         // HIDE EVERYTHING ON THE FRONT END AND DISPLAY "AY, YOU, GO TO THE HOST COMPUTER TO PICK A CARD"
     }
 }
+
+function swapHand(){
+
+    
+}
+
+
+
 //************************************    NO MORE FUNCTIONS    **************************************************************
 
 //============================================================================================================================
