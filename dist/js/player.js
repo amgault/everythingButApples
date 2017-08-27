@@ -267,7 +267,7 @@ class user {
         this.deckindex += 4;
 
         //call function to show cards to user here:
-
+        swapHand();
     }
     //adds a new card to the user's hand
     newcard() {
@@ -275,7 +275,7 @@ class user {
         this.deckindex++;
 
         //call function to show cards to user here:
-
+        swapHand();
     }
     //removes the card at the index of the argument from hand
     removecard(here) {
@@ -303,10 +303,11 @@ var myhost = '';
     thisuser.room_id = playa.room;
     myhost = playa.hostsock;
 
+    //change player names on screen
     document.getElementById("playername").innerHTML = thisuser.username;
  });
 
- //change player names on screen
+
 
 
 
@@ -317,11 +318,12 @@ var myhost = '';
 
 
 // for testing purposes
-// var cardme = new card("Test", "A Test", 0);
-// var passme = { cards: [cardme, cardme, cardme, cardme] };
-// // console.log("Object Socket Passed: " + passme); working
-// // console.log("IM WORKING I THINK");
-// thisuser.newdeck(passme);
+var cardme = new card("Test", "A Test", 0);
+var cardtwo = new card("NewCard", "A new card", 1);
+var passme = { cards: [cardme, cardme, cardme, cardme, cardtwo, cardtwo, cardtwo, cardme, cardme, cardtwo]};
+// console.log("Object Socket Passed: " + passme); working
+// console.log("IM WORKING I THINK");
+thisuser.newdeck(passme);
 
 
 // *********************************** END CARDS DEALT *******************************************************************
@@ -367,19 +369,19 @@ var myhost = '';
 
 //*************************************     FUNCTIONS      *****************************************************************
 
-
-
-
-
-
+// this function will change the html of the cards to match the local user's hand
+function swapHand(){
+    for(i=1; i<=thisuser.hand.length; i++){
+        document.getElementById("card"+i+"-noun").innerHTML = thisuser.hand[i-1].title;
+        document.getElementById("card"+i+"-desc").innerHTML = thisuser.hand[i-1].description;
+    }
+}//end swaphand
 
 
 //this function signifies the end of the game and will hide all cards and display a message for the time being
 function ENDIT() {
 
-}
-
-
+}// end endit
 
 // assuming there's a onclick="chooseCard()" in the html for the cards 
 // also going to need them to either force pass "this" in the html or keep a data tag for the title of the card
@@ -393,27 +395,29 @@ function ENDIT() {
 
 // THERE IS NOW A SUBMIT BUTTON, PUT THE LISTENER HERE
 
+$("#playerschoice").on('click', function() {
+    // // CHECK IF THE USER CAN SUBMIT A CARD YET
+    // if (!thisuser.cansub)
+    //     return;
+    // else {
+    //     //get the title of the card
+    //     var findthis = $(this).children('h2').text;
+    //     //find what index of hand array it is at
+    //     var itshere = thisuser.findcard(findthis);
+    //     if (itshere == -1)
+    //         console.log("you suck, thats not it");
 
+    //     //EMIT THE CARD THAT HAD BEEN CHOSEN
+    //     //socket.emit('chosencard', thisuser.hand[itshere]);
 
-// $(".player-hand-card").on('click', function() {
-//     // CHECK IF THE USER CAN SUBMIT A CARD YET
-//     if (!thisuser.cansub)
-//         return;
-//     else {
-//         //get the title of the card
-//         var findthis = $(this).children('h2').text;
-//         //find what index of hand array it is at
-//         var itshere = thisuser.findcard(findthis);
-//         if (itshere == -1)
-//             console.log("you suck, thats not it");
+    //     //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
+    //     thisuser.removecard(itshere);
+    // }
 
-//         //EMIT THE CARD THAT HAD BEEN CHOSEN
-//         //socket.emit('chosencard', thisuser.hand[itshere]);
-
-//         //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
-//         thisuser.removecard(itshere);
-//     }
-// });
+    //thisuser.newhand();
+    var testbool = {leader: true};
+    hideAll(testbool);
+});
 
 
 // function to respond to whether they are the leader or not (hiding all their cards etc if they are)
@@ -423,15 +427,23 @@ function hideAll(bool) {
         return;
     } else {
         thisuser.trump = true;
-        // HIDE EVERYTHING ON THE FRONT END AND DISPLAY "AY, YOU, GO TO THE HOST COMPUTER TO PICK A CARD"
+        //HIDE EVERYTHING ON THE FRONT END AND DISPLAY "AY, YOU, GO TO THE HOST COMPUTER TO PICK A CARD"
+        document.getElementById("pregame").style.display = "none";
+        document.getElementById("game").style.display = "none";
+        document.getElementById("player").style.display = "none";
+        document.getElementById("hand").style.display = "none";
+        var fingey = "....................../´¯/) \n";
+        fingey+= "....................,/¯../ \n";
+        fingey+= ".................../..../ \n";
+        fingey+= "............./´¯/'...'/´¯¯`·¸ \n";
+        fingey+= "........../'/.../..../......./¨¯\ \n";
+        fingey+= "........('(...´...´.... ¯~/'...') \n";
+        fingey+= ".........\\.................'...../ \n";
+        fingey+= "..........''............. _.·´ \n";
+        fingey+= "..............\\.............\\...\n";
+                alert("You are the leader, CHOOSE WINNER FROM THE MAIN COMPOOTER \n" + fingey);
     }
 }
-
-function swapHand(){
-
-    
-}
-
 
 
 //************************************    NO MORE FUNCTIONS    **************************************************************
