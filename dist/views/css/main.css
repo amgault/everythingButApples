@@ -268,38 +268,73 @@ body {
     left: 0px;
 }
 
-.btn {
+/* .btn {
     margin:auto;
     margin-top: 25px;
 
-    /* border:  1px solid red; */
     display:block;
     height: 100px;
     width: 100px;
-    /* background: #0087cc; */
     border-radius: 50%;
-    -webkit-box-shadow: 0 5px 0 black;
-            box-shadow: 0 5px 0 black;
-    /* color: #fff; */
+    box-shadow: 0 5px 0 black;
     cursor: pointer;
     font: inherit;
     outline: 0;
     padding: 12px 20px;
-    -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
 
 .btn:active {
-    -webkit-box-shadow: 0 2px 0 black;
-            box-shadow: 0 2px 0 black;
-    -webkit-transform: translateY(3px);
-            transform: translateY(3px);
+    box-shadow: 0 2px 0 black;
+    transform: translateY(3px);
+} */
+
+.btn {
+    height: 100%;
+    width: 45%;
+    margin-bottom: 0;
+    color: white;
+    font-weight: 700;
+    font-size: 2em;
+    /* line-height: 1.2; */
+    text-align: center;
+    background-color: purple;
+    cursor: pointer;
+    border: .1em solid transparent;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.btn:focus {
+    outline: thin dotted #333;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+.btn:hover, .btn:focus {
+    color: #AE37B2;
+    text-decoration: none;
+}
+
+.btn:active, .btn.active {
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
 }
 
 .buttonContain {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-top: 5em;
 }
 
 .card {
@@ -353,6 +388,16 @@ body {
             justify-content: center;
 }
 
+.copyright {
+    position: fixed;    
+    width: 300px;
+    bottom: -25px;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    font-size: .75em;
+}
+
 .createCards {
     width:300px;
     margin:auto;
@@ -370,8 +415,7 @@ body {
 .circleWord{
     z-index: 5;
     color: white;
-    padding-top: 25px;
-    padding-left: 8px;
+    padding: 25px;
 }
 
 .favorite {
@@ -396,9 +440,21 @@ body {
     font-size: 2em;
 }
 
+.landing-logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
 .logo {
-    width:100px;
-    margin:auto;
+    width: 10em;
+    margin-top: 3em;
 }
 
 .player-hand-card {
@@ -418,7 +474,7 @@ body {
 .spinner {
     width: 100px;
     height: 100px;
-    background-color: #A29AA9;
+    background-color: purple;
   
     margin: 100px auto;
     -webkit-animation: sk-rotateplane 5.2s infinite ease-in-out;
