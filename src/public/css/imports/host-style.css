@@ -111,12 +111,13 @@
 }
 
 .player-circle{
-    border: 2px solid var(--main-orange);
+    border: 2px solid blue;
     border-radius: 4em;
     padding: 1em;
     margin: 1em;
     min-width: 10em;
     max-width: 20em;
+    background-color: white;
 }
 
 .player-connections-container{
@@ -126,10 +127,11 @@
 }
 
 .room-code{
-    border: 1px solid var(--dark-purple);
+    border: 1px solid black;
     padding: .5em;
     margin: 0em 25%;
     font-size: 2em;
+    background-color: white;
 }
 
 .scores-list {
@@ -137,11 +139,12 @@
 }
 
 .start-game-button {
-    background-color: var(--main-yellow);
-    color: var(--darkest-blue);
-    box-shadow: 0 5px 0 var(--darkest-yellow);
+    background-color: rgba(0, 0, 0, 0.69);
+    color: white;
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.420);
     margin: 1.5em auto;
     border-radius: 5px;
+    border: 0px
 }
 
 /* https://codepen.io/shayhowe/pen/Bocnt */
