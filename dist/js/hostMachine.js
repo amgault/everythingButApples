@@ -296,7 +296,6 @@ $("#pickWinner").on("click", function(){
         alert("END OF ROUND");
     }
 
-
     // if it's not the last turn of a round, then get ready for the next turn
     else{
         //#SRM for frontend: display a temp message on the host screen that it's the next person's turn?
