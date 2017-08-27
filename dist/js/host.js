@@ -1,17 +1,14 @@
 /*===============================================================
     #SRM host functions
 ===============================================================*/
-hostGlobalVar = {
+var currentURL = window.location.origin;
+
+//An object that holds the global variables for the game that the host machine needs to track
+var hostGlobalVar = {
     deckArray: [],
     playersArray: [],
-    playersNum: 0,
-    roundsNum: 2,
     redCardsArray: [],
-    redCardsIdArray: [],
-    redCardsTotal: 0, 
     greenCardsArray: [],
-    greenCardsIdArray: [],
-    greenCardsTotal: 0, 
     playerDecks: []
 };
 
@@ -25,8 +22,8 @@ hostGlobalVar = {
 // #SRM This is hardcoded as a button press. We need to change it to a socket listener event: 
 // "5 PLAYERS HAVE JOINED ROOM"
 $("#grabPlayers").on("click", function(){
-    
-    var currentURL = window.location.origin;
+
+    hostGlobalVar.roundsNum = 2;
 
     // #SRM FIX HARDCODING: take in the players from socket, right now they're hardcoded.
     // #SRM Host pulls the players from socket
@@ -34,25 +31,30 @@ $("#grabPlayers").on("click", function(){
     hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
     hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
 
-    // #SRM Create a shuffled array of all red card ids in our db
-    // #SRM Splice it get the number of IDs representing red cards we'll need for the whole game 
-    hostGlobalVar.redCardsIdArray = generateIdArray(7461+1, 1).splice(0, 80);
-    console.log("REDCARDS IDS: " + hostGlobalVar.redCardsIdArray);
-
-    // #SRM Create a shuffled array of all green card ids in our db
-    // #SRM Splice it get the number of IDs representing green cards we'll need for the whole game
-    hostGlobalVar.greenCardsIdArray = generateIdArray(9951+1, 7471).splice(0, 10);
-    console.log("Green CARDS IDS: " + hostGlobalVar.greenCardsIdArray);
-
-    var idsList = "1, 11, 21"
+    // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
     $.ajax({
         url: currentURL + "/api/cards/draw",
         method: "POST",
-        data: {idsString: idsList}, 
-    })
-    .done(function(data){
-        console.log(data)
+        // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string
+        // NOTE: the card ids have been set to match our database as it appeared on 2017.08.26 
+        data: {idsString: ( generateIdArray( 7461+1, 1 ).splice( 0, hostGlobalVar.redCardsTotal ).toString() )} 
+    }).done(function(data){
+        hostGlobalVar.redCardsArray = data;
+        console.log(hostGlobalVar.redCardsArray)
     });
+
+   // #SRM AJAX call to grab an array of all the green cards needed for the game
+    $.ajax({
+        url: currentURL + "/api/cards/draw",
+        method: "POST",
+        // #SRM Create a shuffled array of all green card ids in our db, then splice it to match our game length, and turn it into a string
+        // NOTE: the card ids have been set to match our database as it appeared on 2017.08.26 
+        data: {idsString: ( generateIdArray( 9951+1, 7471 ).splice( 0, hostGlobalVar.greenCardsTotal ) ).toString() } 
+    }).done(function(data){
+        hostGlobalVar.greenCardsArray = data;
+        console.log(hostGlobalVar.greenCardsArray)
+    });
+   
     
 });
 
