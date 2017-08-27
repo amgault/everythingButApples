@@ -20,23 +20,6 @@
 =============================================================++==============*/
 var currentURL = window.location.origin;
 
-// An object that holds the global variables for the game that the host machine needs to track
-// #SRM More key/value pairs get created as needed in the initialization
-var hostGlobalVar = {
-    currentGreenCard: null,
-    currentGreenCardIndex: 0,
-    currentLeaderIndex: 0,
-    dealerTracker: 0,
-    greenDeck: [],
-    playersArray: [],
-    playerDecks: [],
-    roundsNum: 2,
-    roundsTracker: 1,
-    submittedCards: [],
-    winningCards: []
-};
-
-
 
 /*============================================================================
     
@@ -44,7 +27,7 @@ var hostGlobalVar = {
     HOST FUNCTIONS
 
 ============================================================================*/
-function hostBuildDeck(){
+/*function hostBuildDeck(){
     
         hostDrawGreenCards(hostGlobalVar.greenCardsTotal, 7471, 9951);
         hostDrawRedCards(hostGlobalVar.redCardsTotal, 1, 7461);
@@ -95,8 +78,9 @@ function hostBuildDeck(){
                 }
     
                 hostGlobalVar.playerDecks.push(personalDeck);
-                alert("Player in position " + i + ": " +hostGlobalVar.playerDecks[i]);
-            }01
+                io.to(playersArray[i].playerId).emit('deal cards', myCards);
+                //alert("Player in position " + i + ": " +hostGlobalVar.playerDecks[i]);
+            }
         });
     
     }
@@ -119,18 +103,31 @@ function hostBuildDeck(){
     
     }
 
-    // #Gowri added listener to create the players array
+    // #Gowri added listener to create the players array adding the varible to the start game button as data
+
     socket.on('all players joined', function(players){
-        hostInitializePlayersLocally(players)
-    })
+        var hostGlobalVar = hostInitializePlayersLocally(players);
+        
+    });
+    /*{
+        console.log('i am in host machine');
+        console.log('host machine', players);
+        hostGlobalVar.playersArray = players.slice(0);
+        console.log("received array"+players);
+        console.log("host array"+hostGlobalVar.playersArray);
+        console.log("host array length"+hostGlobalVar.playersArray.length);
+        hostGlobalVar.playersNum = hostGlobalVar.playersArray.length;
+        console.log("playnum"+hostGlobalVar.playersNum);
+        
+    })*/
     
     // #SRM FIX HARCODING, the players are hardcoded right now, needs to be switched to get them via socket
     // This sets the global variable of the players array.
     function hostInitializePlayersLocally(players){
 
         hostGlobalVar.playersArray = players;
-        console.log(hostGlobalVar.playersArray);
-    
+        hostGlobalVar.playersNum = hostGlobalVar.playersArray.length;
+        
         //#SRM WE NEED TO REPLACE THIS WITH A SOCKET CALL
        /* hostGlobalVar.playersArray = [
             {
@@ -171,9 +168,9 @@ function hostBuildDeck(){
         ];*/
 
     
-        return hostGlobalVar.playersArray.length;
+        
     
-    }
+   }
     
     
     //Bex: Generating array of ids
@@ -221,17 +218,24 @@ function hostBuildDeck(){
 
 // #SRM This is hardcoded as a button press. We need to change it to a socket listener event: 
 // "5 PLAYERS HAVE JOINED ROOM"
-$("#grabPlayers").on("click", function(){
-
+$("#start-game-button").on("click", function(){
+    //e.preventDefault();
+    var hostGlobalVar = $("#start-game-button").data("hostVar");
     // #SRM FIX HARDCODING: take in the players from socket, right now they're hardcoded.
     // #SRM Host pulls the players from socket
-    hostGlobalVar.playersNum = hostInitializePlayersLocally();
-    hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
-    hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
+    /* #Gowri removed the call to hostInitializePlayersLocally since that is called by socket once room is full 
+    so changing to directly measure the length*/
+    console.log("inside start"+hostGlobalVar.playersNum);
+    console.log("inside start"+hostGlobalVar.playersArray);
+    console.log("inside start"+hostGlobalVar.playersArray);
+    showAndHide("host-pregame-lobby", "host-game");
+    
+   hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
+   hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
 
     //Uses a series of functions to make an AJAX call to store the green cards for the whole game
     //and distribute individual red card decks to each player
-    hostGlobalVar.deckArray = hostBuildDeck();   
+   hostGlobalVar.deckArray = hostBuildDeck();   
 });
 
 //#SRM for FRONTEND:This needs to be an actual button

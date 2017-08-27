@@ -11,6 +11,7 @@ var app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 var game =  require('./dist/js/game');
+require('dotenv').config({ path: 'dotenv.env' });
 
 var port = process.env.PORT || 3010;
 
