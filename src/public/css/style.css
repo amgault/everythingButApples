@@ -120,6 +120,10 @@ body {
     justify-content: center;
 }
 
+.code {
+    margin-top: 10em; 
+}
+
 
 .container {
     margin-top:25px;
