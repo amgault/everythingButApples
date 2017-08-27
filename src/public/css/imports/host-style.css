@@ -61,10 +61,10 @@
     position: absolute;
     backface-visibility: hidden;
 }
-.played-card .front {
+.played-card .card-front {
   background: red;
 }
-.played-card .back {
+.played-card .card-back {
     background: blue;
     transform: rotateY( 180deg );
 }

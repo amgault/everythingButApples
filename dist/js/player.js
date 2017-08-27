@@ -146,7 +146,7 @@ function preparePlayedCards (cardArray){
     var index = 0;
     $(".played-card").each(function(){
         console.log(cardArray[index])
-        $(this).data(cardArray[index]);
+        $(this).find(".card-back").data("cardInfo", cardArray[index]);
         $(this).toggleClass('flipped');
         index++;
     })
@@ -185,6 +185,9 @@ function updatePlayerConnections(playerList){
 }
 
 
+$(".card-back").on("dblclick", function(){
+    console.log($(this).data("cardInfo"));
+});
 
 
 socket.on('deal cards', function(cards) {
