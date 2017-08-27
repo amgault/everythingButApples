@@ -37,7 +37,6 @@ var hostGlobalVar = {
 };
 
 
-
 /*============================================================================
     
     #SRM 
@@ -166,7 +165,6 @@ function hostBuildDeck(){
     
     }
     
-    
     //Bex: Generating array of ids
     function hostSerialArray(n, initialId){
         var arr = [];
@@ -212,7 +210,7 @@ function hostBuildDeck(){
 
 // #SRM This is hardcoded as a button press. We need to change it to a socket listener event: 
 // "5 PLAYERS HAVE JOINED ROOM"
-$("#grabPlayers").on("click", function(){
+$("#start-game-button").on("click", function(){
 
     // #SRM FIX HARDCODING: take in the players from socket, right now they're hardcoded.
     // #SRM Host pulls the players from socket
@@ -233,7 +231,9 @@ $("#showGreenCard").on("click", function(){
     console.log("CURRENT LEADER: " + hostGlobalVar.playersArray[hostGlobalVar.currentLeaderIndex].username);
 
     //green card will display on-screen
-    //#SRM PLACEHOLDER FOR FRONTEND
+    $("#adj-title").html(hostGlobalVar.currentGreenCard.title);
+    $("#adj-description").html(hostGlobalVar.currentGreenCard.description);
+    
 
     //#### EMIT: GREEN CARD PLAYED
     alert("GREEN CARD PLAYED: " + hostGlobalVar.currentGreenCard.title + ". ROUND" + hostGlobalVar.roundsTracker + ", TURN " + (hostGlobalVar.currentLeaderIndex+1) + " START!");
