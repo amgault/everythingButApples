@@ -139,7 +139,7 @@
     list-style: none;
 }
 
-.start-game-button {
+/* .start-game-button {
     background-color: rgba(0, 0, 0, 0.69);
     color: white;
     box-shadow: 0 5px 0 rgba(0, 0, 0, 0.420);
@@ -148,8 +148,7 @@
     border: 0px
 }
 
-/* https://codepen.io/shayhowe/pen/Bocnt */
 .start-game-button:active {
-  box-shadow: 0 2px 0 var(--darkest-yellow);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.420);
   transform: translateY(3px);
-}
+} */

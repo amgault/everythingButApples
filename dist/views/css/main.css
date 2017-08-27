@@ -215,24 +215,19 @@ body {
     list-style: none;
 }
 
-.start-game-button {
-    background-color: rgba(0, 0, 0, .69);
+/* .start-game-button {
+    background-color: rgba(0, 0, 0, 0.69);
     color: white;
-    -webkit-box-shadow: 0 5px 0 rgba(0, 0, 0, .420);
-            box-shadow: 0 5px 0 rgba(0, 0, 0, .420);
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.420);
     margin: 1.5em auto;
     border-radius: 5px;
     border: 0px
 }
 
-/* https://codepen.io/shayhowe/pen/Bocnt */
-
 .start-game-button:active {
-  -webkit-box-shadow: 0 2px 0 #999500;
-          box-shadow: 0 2px 0 #999500;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
-}
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.420);
+  transform: translateY(3px);
+} */
 
 * {
     -webkit-box-sizing: border-box;
@@ -427,6 +422,27 @@ body {
 .roomForm {
     width: 300px;
     margin: auto;
+}
+
+/* Bex wrote this class */
+
+.general-button{
+    background-color: #034B5F;
+    color: white;
+    -webkit-box-shadow: 0 5px 0 #35859B;
+            box-shadow: 0 5px 0 #35859B;
+    margin: 1.5em auto;
+    border-radius: 5px;
+    border: 0px
+}
+
+/* https://codepen.io/shayhowe/pen/Bocnt */
+
+.general-button:active {
+    -webkit-box-shadow: 0 2px 0 #35859B;
+            box-shadow: 0 2px 0 #35859B;
+    -webkit-transform: translateY(3px);
+            transform: translateY(3px);
 }
 
 .header {

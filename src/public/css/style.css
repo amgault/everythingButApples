@@ -166,6 +166,21 @@ body {
     margin: auto;
 }
 
+/* Bex wrote this class */
+.general-button{
+    background-color: var(--button-main);
+    color: white;
+    box-shadow: 0 5px 0 var(--button-shadow);
+    margin: 1.5em auto;
+    border-radius: 5px;
+    border: 0px
+}
+/* https://codepen.io/shayhowe/pen/Bocnt */
+.general-button:active {
+    box-shadow: 0 2px 0 var(--button-shadow);
+    transform: translateY(3px);
+}
+
 .header {
     text-align: center;
     display: flex;
