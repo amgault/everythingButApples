@@ -8,76 +8,142 @@
 var currentURL = window.location.origin;
 
 
+//1.) Host presses button to create room
+//2.) Enters room ID (and told that a game must have 5 players, and will last 2 rounds)
+//3.) Assigned a socket, object with roomName, role, players (hardcode 5), and gameLength (hardcode 2)
+
 // An object that holds the global variables for the game that the host machine needs to track
 // #SRM More key/value pairs get created as needed in the initialization
 var hostGlobalVar = {
+    currentGreenCard: null,
+    currentGreenCardIndex: 0,
+    currentLeaderIndex: 0,
     dealerTracker: 0,
     greenDeck: [],
     playersArray: [],
     playerDecks: [],
-    submittedCards: []
+    roundsNum: 2,
+    roundsTracker: 1,
+    submittedCards: [],
+    winningCards: []
 };
 
-// #SRM need to delete this part and make the server actualy work
-
-//1.) Host presses button to create room
-//2.) Enters room ID (and told that a game must have 5 players, and will last 2 rounds)
-//3.) Assigned a socket, object with roomName, role, players (hardcode 5), and gameLength (hardcode 2)
 
 
 // #SRM This is hardcoded as a button press. We need to change it to a socket listener event: 
 // "5 PLAYERS HAVE JOINED ROOM"
 $("#grabPlayers").on("click", function(){
 
-    hostGlobalVar.roundsNum = 2;
-
     // #SRM FIX HARDCODING: take in the players from socket, right now they're hardcoded.
     // #SRM Host pulls the players from socket
-    
-    hostGlobalVar.playersNum = initializePlayersLocally();
+    hostGlobalVar.playersNum = hostInitializePlayersLocally();
     hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
     hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
 
-    hostGlobalVar.deckArray = buildDeck();
-        
+    //Uses a series of functions to make an AJAX call to store the green cards for the whole game
+    //and distribute individual red card decks to each player
+    hostGlobalVar.deckArray = hostBuildDeck();   
 });
 
-//7.) Host deals the game's worth of red cards to each player via an array of card objects in socket
+//#SRM for FRONTEND:This needs to be an actual button
+$("#showGreenCard").on("click", function(){
+
+    //#SRM PLACEHOLDER FOR FRONTEND:
+    //DISPLAY CURRENT LEADER
+    alert("CURRENT LEADER: " + hostGlobalVar.playersArray[hostGlobalVar.currentLeaderIndex].username);
+
+    //green card will display on-screen
+    //#SRM PLACEHOLDER FOR FRONTEND
+
+    //#### EMIT: GREEN CARD PLAYED
+    alert("GREEN CARD PLAYED: " + hostGlobalVar.currentGreenCard.title + ". ROUND" + hostGlobalVar.roundsTracker + ", TURN " + (hostGlobalVar.currentLeaderIndex+1) + " START!");
+
+});
+
+//#### LISTENERALL 4 "RED CARD PLAYED" MESSAGES RECEIVED ####################
+//#SRM we need to replace this click event with a socket listner
+$("#grabPlayedCards").on("click", function(){
+
     
-    // #SRM create the individual player decks
-    //createDecks(function(){
-    //    console.log(hostGlobalVar.playerDecks);
-    //});
 
-//#### EMIT A: "CARDS DEALT" ####################################################
+    // Host will draw al the submitted cards from socket & store them locally in a submittedCards array
+    //FIX HARD CODING
+    hostGlobalVar.submittedCards = [
+        {"id":1,"title":"A Bad Haircut","description":"The perfect start to a bad hair day.","role":"red","room_id":0,"player_id":0},
+        {"id":11,"title":"A Bull Fight","description":"Also known as \"la fiesta brava\" (the brave festival).  A whole lot of bull..","role":"red","room_id":0,"player_id":0},
+        {"id":21,"title":"A Car Crash","description":"\"Hey, it was an accident!\"","role":"red","room_id":0,"player_id":0},
+        {"id":31,"title":"A Cheap Motel","description":"No charge for the cockroaches.","role":"red","room_id":0,"player_id":0},
+        {"id":41,"title":"A Crawl Space","description":"Where you'll find something the cat dragged in.","role":"red","room_id":0,"player_id":0}
+    ];
 
-/*===============================================================
-    PlayRound
-===============================================================*/
-//8.) Host will determine who the next leader is by who is up next in the player array
-//#### EMIT B: "YOU ARE THE LEADER" ################
-//9.) Send this message to 1 player
+    //Submitted cards will display on the host's machine
+    //#SRM PLACEHOLDER FOR FRONTEND
 
-//#### EMIT C: "YOU ARE NOT THE LEADER" #########################################
-//10.) Send this message to all other players
 
-//11.) Reveal next green card in array
-//#### EMIT D: "GREEN CARD REVEALED" ############################################
+});
 
-//#### LISTENER E: ALL 4 "RED CARD PLAYED" MESSAGES RECEIVED ####################
-//12.) Host will draw al the submitted cards from socket
-//13.) Host will store them locally in a submittedCards array
-//14.) Submitted cards will display on the host's machine
-//15.) Host will pick a card to win this turn
-//16.) Host will check the card.player_id value for teh submitted card, and update that player's score on local storage
-//17.) Host adds the winning card to a winningCards array locally
-//18.) Host clears the submittedCArds array
+//When the host 
+$("#pickWinner").on("click", function(){
 
-//19.) If it is not the last turn of a round start this section of code again from step 8
-//20.) If it is the last turn of the round, check if it is the last round as well
-//21.) If it is not also the last round, increase the local round counter
-//#### EMIT F: "END OF ROUND" ###############################################
-//22.) Go back to step 8 and repeat
+    //#SRM HARD CODED
+    var winningCard = {"id":1,"title":"A Bad Haircut","description":"The perfect start to a bad hair day.","role":"red","room_id":0,"player_id":0};
+
+    //16.) Host will check the card.player_id value for the submitted card, and update that player's score on local storage
+    for (i=0; i<hostGlobalVar.playersArray.length; i++){
+        if ( hostGlobalVar.playersArray[i].playerId == winningCard.player_id){
+            hostGlobalVar.playersArray[i].score++;
+            alert(hostGlobalVar.playersArray[i] + " just scored a point");
+        }
+    }
+
+
+    //Host adds the winning card to a winningCards array locally
+    hostGlobalVar.winningCards.push();
+
+    //Host clears the submittedCArds array
+    hostGlobalVar.submittedCards = [];
+
+    //Check if it is the last turn of the last round
+    if (hostGlobalVar.currentLeaderIndex+1 === hostGlobalVar.playersArray.length && hostGlobalVar.roundsTracker === hostGlobalVar.roundsNum){
+        
+            //#SRM for FRONT END:
+            // Hide all buttons, etc. so people can't try to keep playing
+            // Display the winner?
+
+            //#SRM EMIT AN END OF GAME MESSAGE TO ALL THE PLAYERS
+            alert("END OF GAME");
+
+    }
+    else if (hostGlobalVar.currentLeaderIndex+1 === hostGlobalVar.playersArray.length){
+    //if it is not the last round, get ready for the next round 
+
+        //increase the round tracker
+        hostGlobalVar.roundsTracker++;
+
+        //reset the leader rotation for the next round
+        hostGlobalVar.currentLeaderIndex = 0;
+
+        //# EMIT "END OF ROUND" to all players via socket
+        hostEmitRoundLeader();
+        alert("END OF ROUND");
+    }
+
+
+    // if it's not the last turn of a round, then get ready for the next turn
+    else{
+        //#SRM for frontend: display a temp message on the host screen that it's the next person's turn?
+
+        // Queue up the next green card for the next time someone presses the reveal button
+        hostGlobalVar.currentGreenCardIndex++;
+        hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
+
+        // Queue up the next leader for the next time and emit the round leader messages to prep for next turn
+        hostGlobalVar.currentLeaderIndex++;
+        hostEmitRoundLeader();
+
+    }
+    
+});
 
 /*===============================================================
     #SRM EndGame
@@ -85,15 +151,15 @@ $("#grabPlayers").on("click", function(){
 //23.) If it is the last turn of the last round, display winner on screen, and whatever else we want to do
 //#### EMIT G: "END OF GAME" ###############################################
 
-function buildDeck(){
+function hostBuildDeck(){
 
-    drawGreenCards(hostGlobalVar.greenCardsTotal, 7471, 9951);
-    drawRedCards(hostGlobalVar.redCardsTotal, 1, 7461);
+    hostDrawGreenCards(hostGlobalVar.greenCardsTotal, 7471, 9951);
+    hostDrawRedCards(hostGlobalVar.redCardsTotal, 1, 7461);
 
 }
 
 //function makes an AJAX call and sets global variable so our host Machine can access this array later;
-function drawGreenCards(cardsNum, startId, endId){
+function hostDrawGreenCards(cardsNum, startId, endId){
     
          // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
          $.ajax({
@@ -101,16 +167,18 @@ function drawGreenCards(cardsNum, startId, endId){
             method: "POST",
             // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string
             data: {
-                idsString: ( generateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString() )
+                idsString: ( hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString() )
             } 
         }).done(function(data){
-            console.log(data);
             hostGlobalVar.greenDeck = data;
+
+            // Prepare the first green card to be revealed
+            hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
         });
     
     }
 
-function drawRedCards(cardsNum, startId, endId){
+function hostDrawRedCards(cardsNum, startId, endId){
 
      // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
      $.ajax({
@@ -119,10 +187,11 @@ function drawRedCards(cardsNum, startId, endId){
         // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string
         // NOTE: the card ids have been set to match our database as it appeared on 2017.08.26 
         data: {
-            idsString: ( generateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString() )
+            idsString: ( hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString() )
         } 
     }).done(function(data){
-        console.log(data);
+
+        // Divide the cards into personal decks for each player, supplying enough red cards for the whole game
         for(i=0; i<hostGlobalVar.playersArray.length; i++){
             var cardsPerPlayer = ( (hostGlobalVar.playersArray.length-1)+4 )*hostGlobalVar.roundsNum;
             var personalDeck = [];
@@ -132,58 +201,81 @@ function drawRedCards(cardsNum, startId, endId){
                 hostGlobalVar.dealerTracker++;
             }
 
+            //send the deck to the player via socket
             hostGlobalVar.playerDecks.push(personalDeck);
- 
         }
     });
 
 }
 
+// #SRM This function takes in no argument. It is called on to emit leader/!leader messages to players via sockect,
+// The leader for the next round is determined at the end of the previous round
+function hostEmitRoundLeader(){
+
+    for (i=0; i<hostGlobalVar.playersArray.length; i++){
+        if (i === hostGlobalVar.currentLeaderIndex){
+
+            //#SRM This needs to be replaced with a socket EMIT
+            alert("YOU ARE THE LEADER");
+        }
+        else{ 
+            //#SRM This needs to be replaced with a socket EMIT
+            alert("YOU ARE NOT THE LEADER");
+        }
+    }
+
+}
+
 // #SRM FIX HARCODING, the players are hardcoded right now, needs to be switched to get them via socket
 // This sets the global variable of the players array.
-function initializePlayersLocally(){
+function hostInitializePlayersLocally(){
 
-    //#SRM REPLACE THIS WITH A SOCKET CALL
+    //#SRM WE NEED TO REPLACE THIS WITH A SOCKET CALL
     hostGlobalVar.playersArray = [
         {
             username: "Player1",
             roomId: 1,
             role: "player",
             playerId: 1,
+            score: 0
         },
         {
             username: "Player2",
             roomId: 1,
             role: "player",
             playerId: 11,
+            score: 0
         },
         {
             username: "Player3",
             roomId: 1,
             role: "player",
             playerId: 21,
+            score: 0
         },
         {
             username: "Player4",
             roomId: 1,
             role: "player",
             playerId: 31,
+            score: 0
         },
         {
             username: "Player5",
             roomId: 1,
             role: "player",
             playerId: 41,
+            score: 0
         }
     ];
 
-return hostGlobalVar.playersArray.length;
+    return hostGlobalVar.playersArray.length;
 
 }
 
 
 //Bex: Generating array of ids
-function serialArray(n, initialId){
+function hostSerialArray(n, initialId){
     var arr = [];
     for (var i = initialId; i <= n-1; i+=10) {
         arr.push(i);
@@ -192,7 +284,7 @@ function serialArray(n, initialId){
 }
 
 // Function supplied directly by Bex
-function shuffle(array) {
+function hostShuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
   
     // While there remain elements to shuffle...
@@ -213,6 +305,6 @@ function shuffle(array) {
 
 // #SRM this assumes a databse identical to the 2017.08.26 version, if cards/ids change, the query incorporating these ids risks breaking
 // #SRM This function generates a shuffled array of ids corresponding to cards in our db
-function generateIdArray(endNum, startNum){
-    return shuffle(serialArray(endNum, startNum))
+function hostGenerateIdArray(endNum, startNum){
+    return hostShuffle(hostSerialArray(endNum, startNum));
 }
