@@ -1,66 +1,17 @@
-var cards = [
-    {
-        id: 1,
-        title: 'Card 1',
-        description: 'This is card 1'
-    },
-    {
-        id: 2,
-        title: 'Card 2',
-        description: 'This is card 2'
-    },
-    {
-        id: 3,
-        title: 'Card 3',
-        description: 'This is card 3'
-    },
-    {
-        id: 4,
-        title: 'Card 4',
-        description: 'This is card 4'
-    },
-    {
-        id: 5,
-        title: 'Card 5',
-        description: 'This is card 5'
-    },
-    {
-        id: 6,
-        title: 'Card 6',
-        description: 'This is card 6'
-    },
-    {
-        id: 7,
-        title: 'Card 7',
-        description: 'This is card 7'
-    },
-    {
-        id: 8,
-        title: 'Card 8',
-        description: 'This is card 8'
-    },
-    {
-        id: 9,
-        title: 'Card 9',
-        description: 'This is card 9'
-    },
-    {
-        id: 10,
-        title: 'Card 10',
-        description: 'This is card 10'
-    }
-]
 var io;
 var socket;
 var players = [];
 var host = [];
 //var $ = require("jquery");
 var request = require("request");
-
+// #GowriImport the model to use its database functions
+var player = require("../../models/playerModels.js");
+require('dotenv').config({ path: '../../dotenv.env' });
 //var currentURL = window.location.origin;
 
 // An object that holds the global variables for the game that the host machine needs to track
 // #SRM More key/value pairs get created as needed in the initialization
+//#Gowri moved global var from hostmachine to game.js
 var hostGlobalVar = {
     currentGreenCard: null,
     currentGreenCardIndex: 0,
@@ -83,11 +34,13 @@ exports.initGame = function(sio, sock) {
     socket.emit('connected', { message: "You are connected!" });
 
     socket.on('set user', setUser);
+
+    // #Gowri when start button is clicked this listener will start the game by building the deck for each players
     socket.on('start game', function(){
         hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
         hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
         hostGlobalVar.deckArray = hostBuildDeck();
-        console.log(hostGlobalVar) ;
+        
     })
 }
 
@@ -96,7 +49,7 @@ exports.initGame = function(sio, sock) {
     
     #SRM 
     HOST FUNCTIONS
-
+    #Moved all host functions from Host Machine to Game.js
 ============================================================================*/
 function hostBuildDeck(){
     
@@ -107,7 +60,7 @@ function hostBuildDeck(){
     
     //function makes an AJAX call and sets global variable so our host Machine can access this array later;
     function hostDrawGreenCards(cardsNum, startId, endId){
-        
+            
              // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
              request.post(
                 "/api/cards/draw",
@@ -126,19 +79,9 @@ function hostBuildDeck(){
         }
     
     function hostDrawRedCards(cardsNum, startId, endId){
-    
-         // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
-         request.post(
-            "/api/cards/draw",
-            
-            // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string
-            // NOTE: the card ids have been set to match our database as it appeared on 2017.08.26 
-            {
-                idsString: ( hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString() )
-            } , 
+        player.selectAllWithinIdList(hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString(), 
         function(data){
-    
-            // Divide the cards into personal decks for each player, supplying enough red cards for the whole game
+            //data = res.json(results);
             for(i=0; i<hostGlobalVar.playersArray.length; i++){
                 var cardsPerPlayer = ( (hostGlobalVar.playersArray.length-1)+4 )*hostGlobalVar.roundsNum;
                 var personalDeck = [];
@@ -147,11 +90,14 @@ function hostBuildDeck(){
                     personalDeck.push(data[hostGlobalVar.dealerTracker]);
                     hostGlobalVar.dealerTracker++;
                 }
+                
     
                 hostGlobalVar.playerDecks.push(personalDeck);
+                
                 io.to(hostGlobalVar.playersArray[i].playerId).emit('deal cards', hostGlobalVar.playerDecks[i]);
                 //alert("Player in position " + i + ": " +hostGlobalVar.playerDecks[i]);
             }
+            console.log(hostGlobalVar.playerDecks);
         });
     
     }
@@ -182,16 +128,10 @@ function setUser(user) {
         console.log(`added ${user.userName} to the list of players`);
     }
     if( players.length === 3 ) {
-        //#Gowri send the players to Host Machine
+        //#Gowri set the players once the required number of players has joined
         hostGlobalVar.playersArray=players;
         hostGlobalVar.playersNum = hostGlobalVar.playersArray.length;
 
-        //socket.emit('all players joined', players);
-       /* players.forEach( player => {
-            var myCards = cards.splice(cards.length - 2);
-            io.to(player.playerId).emit('deal cards', myCards);
-        })
-        socket.emit('deal cards', cards);*/
     } 
     // #Gowri emit the players to Host screen
     if (players.length > 0 && players.length < 6) {
