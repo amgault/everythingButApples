@@ -172,7 +172,6 @@ function startJudging (){
 }
 
 
-
 function startGame(){
     //Bex: TODO: Generate random numbers to represent each card for each player
     //then run a query to obtain all of those cards and shuffle them
@@ -181,8 +180,11 @@ function startGame(){
     showAndHide("host-pregame-lobby", "host-game");
 }
 
+// #Gowri socket emit to the server to start the game
 $("#start-game-button").on("click", function(){
-    startGame()
+    socket.emit('start game');
+    startGame();
+
 });
 
 //#Gowri added the userName since playerlist is an object
