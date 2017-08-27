@@ -82,11 +82,13 @@ function setUser(user) {
             roomId: user.roomId,
             role: user.role,
             playerId: user.playerId,
+            score: 0,
             cards: []
         })
         console.log(`added ${user.userName} to the list of players`);
     }
     if( players.length === 5 ) {
+        socket.emit('player data', players);
         players.forEach( player => {
             var myCards = cards.splice(cards.length - 2);
             io.to(player.playerId).emit('deal cards', myCards);

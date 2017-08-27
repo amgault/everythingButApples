@@ -49,10 +49,7 @@ $('#roomCode').submit(function(e) {
     }
     console.log(userData)
     
-    socket.emit('set user', userData, function(){
-        
-        // showAndHide("", "game")
-    })
+    socket.emit('set user', userData);
     showAndHide("roomCode", "pregame")
 });
 
@@ -193,3 +190,5 @@ $(".card-back").on("dblclick", function(){
 socket.on('deal cards', function(cards) {
     cards.forEach( card => console.log(card.title));
 })
+
+
