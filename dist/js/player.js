@@ -73,7 +73,10 @@ $("#host").on("click", function(){
     }
     console.log(userData)
     //Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
-    showAndHide('landing','host-page')
+    showAndHide('landing','host-page');
+    //Bex: some setup for displaying the lobby page
+    $("#room-code").text(userData.roomId);
+    updatePlayerConnections(["Player1", "Player2"]);
     
     socket.emit('set user', userData, function(){
         
@@ -138,26 +141,54 @@ function removeItemFromArray(item, array){
 
 
 // Host Functions
-function flipAllCards (){
+
+function preparePlayedCards (cardArray){
+    var index = 0;
     $(".played-card").each(function(){
+        console.log(cardArray[index])
+        $(this).find(".card-back").data("cardInfo", cardArray[index]);
         $(this).toggleClass('flipped');
+        index++;
     })
 }
 
 function startJudging (){
     // Bex: should run whenever all player cards are submitted
-    flipAllCards();
     // Bex: switch the prompt on the host screen
     showAndHide("pre-judging-message", "mid-judging-message");
     // Bex: TODO: assign the data for the cards (and the players they belong to? might not be necessary if we keep info on player hands in the host side) on each card div
-    //there's a .each function in jquery (see flipAllCards) that can be used to assign each card div the necessary data
+    var dummySubmittedCards = ["1", "2", "3", "4"]
+
+    preparePlayedCards(dummySubmittedCards);
+    
 }
+
+
 
 function startGame(){
     //Bex: TODO: Generate random numbers to represent each card for each player
     //then run a query to obtain all of those cards and shuffle them
     //then construct an array of cards for each players hand and the remaining cards
+
+    showAndHide("host-pregame-lobby", "host-game");
 }
+
+$("#start-game-button").on("click", function(){
+    startGame()
+});
+
+function updatePlayerConnections(playerList){
+    $("#player-connections-container").empty();
+    for(var p in playerList){
+        $("#player-connections-container").append($("<div>").addClass("player-circle").text(playerList[p]))
+    }
+}
+
+
+$(".card-back").on("dblclick", function(){
+    console.log($(this).data("cardInfo"));
+});
+
 
 socket.on('deal cards', function(cards) {
     cards.forEach( card => console.log(card.title));

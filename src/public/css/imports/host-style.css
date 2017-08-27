@@ -5,8 +5,28 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid white;
     margin:auto;
+    background-color: black;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-flow:column;
+    text-align: center;
+}
+
+.host-absoluteBottom {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    border-top: 1px solid #D3D3D3;
+    text-align: center;
+    overflow-y: auto;
+    z-index: 1000;
+    position: absolute;
+    /* top: 325px; */
+    left: 0px;
 }
 
 .host-display {
@@ -16,7 +36,6 @@
     border-radius: 2px;
     margin: 0em 1em;
     padding: .75em;
-    background-color: white;
 }
 
 .host-display * {
@@ -61,11 +80,30 @@
     position: absolute;
     backface-visibility: hidden;
 }
-.played-card .front {
-  background: red;
+.played-card .card-front {
+  /* background: red; */
+  width: var(--card-width);
+  height: var(--card-width);
+  background-image: url("https://farm5.staticflickr.com/4359/36609034781_96e88f2b8f.jpg");
+  background-size: 100% 100%;
+  border: 1px solid black;
 }
-.played-card .back {
-    background: blue;
+.played-card .card-back {
+    width: var(--card-width);
+    min-height: var(--card-width);
+    padding: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-flow:column;
+    text-align: center;
+    border: 1px solid black;
+    margin:auto;
+    background-color: white;
+    color: black;
     transform: rotateY( 180deg );
 }
 .played-card.flipped {
@@ -73,12 +111,13 @@
 }
 
 .player-circle{
-    border: 2px solid var(--main-orange);
+    border: 2px solid blue;
     border-radius: 4em;
     padding: 1em;
     margin: 1em;
     min-width: 10em;
     max-width: 20em;
+    background-color: white;
 }
 
 .player-connections-container{
@@ -88,10 +127,11 @@
 }
 
 .room-code{
-    border: 1px solid var(--dark-purple);
+    border: 1px solid black;
     padding: .5em;
     margin: 0em 25%;
     font-size: 2em;
+    background-color: white;
 }
 
 .scores-list {
@@ -99,11 +139,12 @@
 }
 
 .start-game-button {
-    background-color: var(--main-yellow);
-    color: var(--darkest-blue);
-    box-shadow: 0 5px 0 var(--darkest-yellow);
+    background-color: rgba(0, 0, 0, 0.69);
+    color: white;
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.420);
     margin: 1.5em auto;
     border-radius: 5px;
+    border: 0px
 }
 
 /* https://codepen.io/shayhowe/pen/Bocnt */
