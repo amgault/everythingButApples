@@ -54,6 +54,7 @@ body {
         -ms-flex-flow:column;
             flex-flow:column;
     text-align: center;
+    padding: 25px;
 }
 
 .host-absoluteBottom {
@@ -214,24 +215,19 @@ body {
     list-style: none;
 }
 
-.start-game-button {
-    background-color: rgba(0, 0, 0, .69);
+/* .start-game-button {
+    background-color: rgba(0, 0, 0, 0.69);
     color: white;
-    -webkit-box-shadow: 0 5px 0 rgba(0, 0, 0, .420);
-            box-shadow: 0 5px 0 rgba(0, 0, 0, .420);
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.420);
     margin: 1.5em auto;
     border-radius: 5px;
     border: 0px
 }
 
-/* https://codepen.io/shayhowe/pen/Bocnt */
-
 .start-game-button:active {
-  -webkit-box-shadow: 0 2px 0 #999500;
-          box-shadow: 0 2px 0 #999500;
-  -webkit-transform: translateY(3px);
-          transform: translateY(3px);
-}
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.420);
+  transform: translateY(3px);
+} */
 
 * {
     -webkit-box-sizing: border-box;
@@ -247,6 +243,7 @@ body {
     position: fixed;
     bottom: 0px;
     right: 0px;
+    z-index: -1;
 }
 
 .absoluteTop {
@@ -258,13 +255,13 @@ body {
 .absoluteBottom {
     position: absolute;
     width: 100%;
-    height: 300px;
+    height:50%;
     border-top: 1px solid #D3D3D3;
     text-align: center;
     overflow-y: auto;
-    z-index: 1000;
+    z-index: 5;
     position: absolute;
-    top: 325px;
+    bottom:0px;
     left: 0px;
 }
 
@@ -374,6 +371,10 @@ body {
             justify-content: center;
 }
 
+.code {
+    
+}
+
 .container {
     margin-top:25px;
     display:-webkit-box;
@@ -423,9 +424,25 @@ body {
     width: 70px;
 }
 
-.roomForm {
-    width: 300px;
-    margin: auto;
+/* Bex wrote this class */
+
+.general-button{
+    background-color: #034B5F;
+    color: white;
+    -webkit-box-shadow: 0 5px 0 #35859B;
+            box-shadow: 0 5px 0 #35859B;
+    margin: 1.5em auto;
+    border-radius: 5px;
+    border: 0px
+}
+
+/* https://codepen.io/shayhowe/pen/Bocnt */
+
+.general-button:active {
+    -webkit-box-shadow: 0 2px 0 #35859B;
+            box-shadow: 0 2px 0 #35859B;
+    -webkit-transform: translateY(3px);
+            transform: translateY(3px);
 }
 
 .header {
@@ -457,8 +474,16 @@ body {
     margin-top: 3em;
 }
 
+.pregame {
+    font-size: 1.5em;
+}
+
 .player-hand-card {
     background-color: white;
+}
+
+.player-name {
+    margin:auto;
 }
 
 .player-topBumper {
@@ -508,6 +533,17 @@ body {
     /* margin-top:25px; */
     width: 60px;
     height: 2em;
+}
+
+.roomForm {
+    width: 300px;
+    margin: auto;
+    margin-top: 6em; 
+    font-size: 1.5em;
+}
+
+.roomForm-input {
+    font-size: 1em;
 }
 
 .roomFromSubmit {
