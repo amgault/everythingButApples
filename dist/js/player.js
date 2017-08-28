@@ -225,6 +225,8 @@ function isRoomFull(){
 
 $(".card-back").on("dblclick", function(){
     console.log($(this).data("cardInfo"));
+    // Get the ID and player name from the winning card's data and use it for the following function:
+    // updateScore(winningPlayerId, winningPlayerName);
 });
 
 //#Gowri listen for the players joined and update the host screen
