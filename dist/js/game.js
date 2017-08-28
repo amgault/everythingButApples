@@ -127,11 +127,22 @@ function setUser(user) {
         })
         console.log(`added ${user.userName} to the list of players`);
     }
+    //# changed from === 5 to >= 1 for testing purposes
+    if( players.length >= 1 ) {
+        //#Gowri send the players to Host Machine
+        socket.emit('all players joined', players);
+        players.forEach( player => {
+            var myCards = cards.splice(cards.length - 2);
+            io.to(player.playerId).emit('deal cards', myCards);
+            //#jordan send each player their ID & hostID
+            var sendme = {hostsock: host[0].playerId, playID: player.playerId, thename: player.userName, room: player.roomId};
+            io.to(player.playerId).emit('checkyoself', sendme);
+        })
+        socket.emit('deal cards', cards);
     if( players.length === 3 ) {
         //#Gowri set the players once the required number of players has joined
         hostGlobalVar.playersArray=players;
         hostGlobalVar.playersNum = hostGlobalVar.playersArray.length;
-
     } 
     // #Gowri emit the players to Host screen
     if (players.length > 0 && players.length < 6) {
