@@ -1,4 +1,5 @@
 let socket = io.connect();
+var currentUser;
 
 // #Max To hide first div and show second
 let showAndHide = function (id1, id2) {
@@ -69,6 +70,10 @@ $("#host").on("click", function(){
         playerId: socket.id
     }
     console.log(userData)
+
+    //Bex: getting current user to have their id later on
+    currentUser = userData;
+
     //Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
     showAndHide('landing','host-page');
     //Bex: some setup for displaying the lobby page
@@ -182,18 +187,16 @@ function startGame(){
 
 // #Gowri socket emit to the server to start the game
 $("#start-game-button").on("click", function(){
-    socket.emit('start game');
+    //Bex: send the room id with this to find the right room to activate scores on
+    socket.emit('start game', currentUser.roomId);
     startGame();
 });
 
 // Bex: get and set player array on host screen for scoring
 socket.on('get player array', function(playerArray) {
-    // console.log("PLAYERS")
-    // console.log(playerArray)
-    for(p in playerArray){
+    for(var p in playerArray){
         $("#scores-list").append($("<li>").attr("data-score", 0).attr("id", playerArray[p].playerId).text("0 : "+playerArray[p].userName))
     }
-    // console.log("END PLAYERS")
 });
 
 //#Gowri added the userName since playerlist is an object

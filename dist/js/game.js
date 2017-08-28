@@ -36,12 +36,18 @@ exports.initGame = function(sio, sock) {
     socket.on('set user', setUser);
 
     // #Gowri when start button is clicked this listener will start the game by building the deck for each players
-    socket.on('start game', function(){
+    socket.on('start game', function(senderRoom){
         hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
         hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
         hostGlobalVar.deckArray = hostBuildDeck();
         // Bex: An emit to send the host the array of players for scorekeeping. the host here is kinda hard-coded, in that it is assumed the first host in the host array is the one to use
-        socket.to(host[0].playerId).emit('get player array', hostGlobalVar.playersArray);
+        for(var h in host){
+            //if the host is the host of the room the startGame signal came from, 
+            if(host[h].roomId === senderRoom){
+                socket.to(host[0].playerId).emit('get player array', hostGlobalVar.playersArray);
+                break;
+            }
+        }
         
     })
 }
