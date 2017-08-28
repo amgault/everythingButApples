@@ -331,7 +331,7 @@ body {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    margin-top: 5em;
+    margin-top: 10%;
 }
 
 .card {
@@ -387,12 +387,13 @@ body {
 
 .copyright {
     position: fixed;    
-    width: 300px;
-    bottom: -25px;
+    width: 50%;
+    bottom: -15px;
+    text-align: center;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
-    font-size: .75em;
+    font-size: .5em;
 }
 
 .createCards {
@@ -418,6 +419,7 @@ body {
 .favorite {
     margin: auto;
     width: 70px;
+    margin-top: 5%;
 }
 
 /* Bex wrote this class */
@@ -467,7 +469,7 @@ body {
 
 .logo {
     width: 10em;
-    margin-top: 3em;
+    margin-top: 10%;
 }
 
 .pregame {
