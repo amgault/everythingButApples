@@ -6,6 +6,7 @@ let showAndHide = function (id1, id2) {
     $(`#${id2}`).show()
 }
 
+
 // #Max This was all Written before socket and is useless no
 // //This is to validate code
 // function codeComparison() {
@@ -48,10 +49,13 @@ $('#roomCode').submit(function(e) {
         role: "player",
         playerId: socket.id
     }
-    console.log(userData)
-    
-    socket.emit('set user', userData);
-    showAndHide("roomCode", "pregame")
+    console.log(userData);    
+    socket.emit('set user', userData);    
+});
+
+// #Gowri moved into a listener so as to control from server the display of player page only if there is a place in the room
+socket.on("display pregame", function(){
+    showAndHide("roomCode", "pregame");
 });
 
 //New Card submit listener
@@ -70,21 +74,30 @@ $("#host").on("click", function(){
         playerId: socket.id
     }
     console.log(userData)
-    //Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
-    showAndHide('landing','host-page');
+  
     //Bex: some setup for displaying the lobby page
-    $("#room-code").text(userData.roomId);
-    
-    socket.emit('set user', userData, function(){
-        
-    })
+    $("#room-code").text(userData.roomId);    
+    socket.emit('set user', userData);
 })
 
+//Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
+// #Gowri moved into a listener so as to control from server the display of host page only if there are no hosts
+socket.on("display host", function(){
+    showAndHide('landing','host-page')}
+);
+
+//#Gowri changed this button to emit a check function to know if a player can join
 $("#play-a-game").on("click", function(){
-    showAndHide('landing','player');
-    isRoomFull();
+    socket.emit("can player join");
 })
 
+//#Gowri on receiving confirmation from server then display the player page
+socket.on("display player", function(){
+    showAndHide('landing','player')}
+);
+
+//#Gowri added listener to know when room is full and call function to display room full message
+socket.on('player limit reached', isRoomFull);
 
 
 //#Max Writing card click to favorite
@@ -204,12 +217,10 @@ function updateScore(winningPlayerId, winningPlayerName){
 
 }
 
-function isRoomFull(){
-    //Bex: dummy hard coding
-    var fullRoom = false;
-    if (fullRoom){
-        showAndHide("room-form", "room-full-message");
-    }
+//#Bex added function with dummy variable
+//# Gowri changed isRoomFull to receive the div name that should be hidden
+function isRoomFull(where){
+    showAndHide(where, "room-full-message");
 }
 
 $(".card-back").on("dblclick", function(){
