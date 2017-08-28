@@ -3,6 +3,20 @@
 @import "imports/width-vars.css";
 @import "imports/host-style.css";
 
+
+/* #Max  this code holds the screen into a vertical position */
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+    html {
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      width: 100vh;
+      overflow-x: hidden;
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+}
+
 * {
     box-sizing: border-box;
     font-family: 'Varela Round', sans-serif;
@@ -74,7 +88,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10%;
+    margin-top: 3em;
 }
 
 .card {
@@ -100,7 +114,7 @@ body {
 }
 
 .container {
-    margin-top:25px;
+    /* margin-top:25px; */
     display:flex;
     flex-flow:column;
     justify-content: center;
@@ -175,7 +189,7 @@ body {
 
 .logo {
     width: 10em;
-    margin-top: 10%;
+    margin-top: 3em;
 }
 
 .pregame {
