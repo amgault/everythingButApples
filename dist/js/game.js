@@ -40,6 +40,8 @@ exports.initGame = function(sio, sock) {
         hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
         hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
         hostGlobalVar.deckArray = hostBuildDeck();
+        // Bex: An emit to send the host the array of players for scorekeeping. the host here is kinda hard-coded, in that it is assumed the first host in the host array is the one to use
+        socket.to(host[0].playerId).emit('get player array', hostGlobalVar.playersArray);
         
     })
 }

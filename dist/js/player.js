@@ -184,7 +184,16 @@ function startGame(){
 $("#start-game-button").on("click", function(){
     socket.emit('start game');
     startGame();
+});
 
+// Bex: get and set player array on host screen for scoring
+socket.on('get player array', function(playerArray) {
+    // console.log("PLAYERS")
+    // console.log(playerArray)
+    for(p in playerArray){
+        $("#scores-list").append($("<li>").attr("data-score", 0).attr("id", playerArray[p].playerId).text("0 : "+playerArray[p].userName))
+    }
+    // console.log("END PLAYERS")
 });
 
 //#Gowri added the userName since playerlist is an object
