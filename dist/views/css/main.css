@@ -229,6 +229,20 @@ body {
   transform: translateY(3px);
 } */
 
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+    html {
+      -webkit-transform: rotate(-90deg);
+              transform: rotate(-90deg);
+      -webkit-transform-origin: left top;
+              transform-origin: left top;
+      width: 100vh;
+      overflow-x: hidden;
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+}
+
 * {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
@@ -264,27 +278,6 @@ body {
     bottom:0px;
     left: 0px;
 }
-
-/* .btn {
-    margin:auto;
-    margin-top: 25px;
-
-    display:block;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    box-shadow: 0 5px 0 black;
-    cursor: pointer;
-    font: inherit;
-    outline: 0;
-    padding: 12px 20px;
-    transition: all .1s linear;
-}
-
-.btn:active {
-    box-shadow: 0 2px 0 black;
-    transform: translateY(3px);
-} */
 
 .btn {
     height: 100%;
@@ -331,7 +324,7 @@ body {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    margin-top: 5em;
+    margin-top: 3em;
 }
 
 .card {
@@ -371,12 +364,8 @@ body {
             justify-content: center;
 }
 
-.code {
-    
-}
-
 .container {
-    margin-top:25px;
+    /* margin-top:25px; */
     display:-webkit-box;
     display:-ms-flexbox;
     display:flex;
@@ -391,12 +380,13 @@ body {
 
 .copyright {
     position: fixed;    
-    width: 300px;
-    bottom: -25px;
+    width: 50%;
+    bottom: -15px;
+    text-align: center;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
-    font-size: .75em;
+    font-size: .5em;
 }
 
 .createCards {
@@ -422,6 +412,7 @@ body {
 .favorite {
     margin: auto;
     width: 70px;
+    margin-top: 5%;
 }
 
 /* Bex wrote this class */
