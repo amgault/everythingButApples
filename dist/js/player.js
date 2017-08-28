@@ -318,6 +318,7 @@ class user {
 var thisuser = new user("", "", "player", "");
 var myhost = '';
  socket.on('checkyoself', function(playa){
+    
     thisuser.player_id = playa.playID;
     thisuser.username = playa.thename;
     thisuser.room_id = playa.room;
@@ -452,15 +453,35 @@ function hideAll(bool) {
         document.getElementById("game").style.display = "none";
         document.getElementById("player").style.display = "none";
         document.getElementById("hand").style.display = "none";
-        var fingey = "....................../´¯/) \n";
-        fingey+= "....................,/¯../ \n";
-        fingey+= ".................../..../ \n";
-        fingey+= "............./´¯/'...'/´¯¯`·¸ \n";
-        fingey+= "........../'/.../..../......./¨¯\ \n";
-        fingey+= "........('(...´...´.... ¯~/'...') \n";
-        fingey+= ".........\\.................'...../ \n";
-        fingey+= "..........''............. _.·´ \n";
-        fingey+= "..............\\.............\\...\n";
+
+var fingey="░░░░░░░░░░░░░░░░█████████\n";
+   fingey+="░░███████░░░░░███▒▒▒▒▒▒███\n";
+   fingey+="░░█▒▒▒▒▒▒█░░░░███▒▒▒▒▒▒▒▒▒███\n";
+   fingey+="░░░█▒▒▒▒▒▒█░░░░██▒▒▒▒▒▒▒▒▒▒▒▒██\n";
+   fingey+="░░░░█▒▒▒▒▒█░░██▒▒▒██▒▒▒▒██▒▒▒███\n";
+   fingey+="░░░░░█▒▒▒█░░█▒▒▒▒████▒▒████▒▒▒▒██\n";
+   fingey+="░░░█████████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██\n";
+   fingey+="░░░█▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒█▒▒▒▒▒▒▒██\n";
+   fingey+="░██▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒██▒▒▒▒▒▒██▒▒██\n";
+   fingey+="██▒▒▒███████████▒▒▒▒██▒▒▒▒██▒▒▒██\n";
+   fingey+="█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒██████▒▒▒▒██\n";
+   fingey+="██▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒██\n";
+   fingey+="░█▒▒▒███████████▒▒▒▒▒▒▒▒▒▒▒▒██\n";
+   fingey+="░██▒▒▒▒▒▒▒▒▒▒████▒▒▒▒▒▒▒▒▒▒█\n";
+   fingey+="░░████████████░░███████████\n";
+
+        // var fingey = "  ______________          |*\\_/*|_______\n";
+        // fingey+= " |  ___________  |        ||_/-\\_|______  |\n";
+        // fingey+= " | |                | |        | |                     | |\n";
+        // fingey+= " | |   0   0       | |        | |   0   0           | |\n";
+        // fingey+= " | |     -          | |        | |     -               | |\n";
+        // fingey+= " | |   \\___/      | |        | |   \\___/          | |\n";
+        // fingey+= " | |___     ___   | |        | |______________   | |\n";
+        // fingey+= " |_____|\\_/|_____|        |_______________|\n";
+        // fingey+= "    _|__|/ \\|_|_.............._|________|_\n";
+        // fingey+= "   / ********** \\            / ********** \\\n";
+        // fingey+= " /  ************  \\        /  ************  \\\n";
+        // fingey+= "--------------------      --------------------\n";
                 alert("You are the leader, CHOOSE WINNER FROM THE MAIN COMPOOTER \n" + fingey);
     }
 }
