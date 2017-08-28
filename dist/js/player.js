@@ -420,3 +420,153 @@ function hideAll(bool) {
 //============================================================================================================================
 //************************************* END JORDAN'S DUMB SHIT ***************************************************************
 //============================================================================================================================
+
+
+/*============================================================================
+  
+    #SRM 
+    host functions
+
+============================================================================*/
+
+
+
+
+//1.) Host presses button to create room
+//2.) Enters room ID (and told that a game must have 5 players, and will last 2 rounds)
+//3.) Assigned a socket, object with roomName, role, players (hardcode 5), and gameLength (hardcode 2)
+
+/*============================================================================
+    
+    #SRM
+    HOST GLOBAL VARIABLES
+
+=============================================================++==============*/
+var currentURL = window.location.origin;
+
+
+/*============================================================================
+    
+    #SRM 
+    HOST FUNCTIONS
+
+============================================================================*/
+
+// Function supplied directly by Bex
+function hostShuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+    
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+    
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    
+    return array;
+}
+
+// #SRM this assumes a databse identical to the 2017.08.26 version, if cards/ids change, the query incorporating these ids risks breaking
+// #SRM This function generates a shuffled array of ids corresponding to cards in our db
+function hostGenerateIdArray(endNum, startNum){
+    return hostShuffle(hostSerialArray(endNum, startNum));
+}
+
+/*============================================================================
+    
+    #SRM 
+    HOST GAME LOGIC
+
+============================================================================*/
+
+
+//#SRM for FRONTEND:This needs to be an actual button
+$("#showGreenCard").on("click", function(){
+
+    //#SRM PLACEHOLDER FOR FRONTEND:
+    //DISPLAY CURRENT LEADER
+    $("#judging-player").html(hostGlobalVar.playersArray[hostGlobalVar.currentLeaderIndex].username);
+
+    //green card will display on-screen
+    $("#adj-title").text(hostGlobalVar.currentGreenCard.title);
+    $("#adj-description").text(hostGlobalVar.currentGreenCard.description);
+    
+    //#### EMIT: GREEN CARD PLAYED
+    alert("GREEN CARD PLAYED: " + hostGlobalVar.currentGreenCard.title + ". ROUND" + hostGlobalVar.roundsTracker + ", TURN " + (hostGlobalVar.currentLeaderIndex+1) + " START!");
+
+});
+
+//#### LISTENERALL 4 "RED CARD PLAYED" MESSAGES RECEIVED ####################
+//#SRM we need to replace this click event with a socket listner
+$("#grabPlayedCards").on("click", function(){
+
+    // Host will draw al the submitted cards from socket & store them locally in a submittedCards array
+    //FIX HARD CODING
+    hostGlobalVar.submittedCards = [
+        {"id":1,"title":"A Bad Haircut","description":"The perfect start to a bad hair day.","role":"red","room_id":0,"player_id":1},
+        {"id":11,"title":"A Bull Fight","description":"Also known as \"la fiesta brava\" (the brave festival).  A whole lot of bull..","role":"red","room_id":0,"player_id":11},
+        {"id":21,"title":"A Car Crash","description":"\"Hey, it was an accident!\"","role":"red","room_id":0,"player_id":41},
+        {"id":31,"title":"A Cheap Motel","description":"No charge for the cockroaches.","role":"red","room_id":0,"player_id":31},
+        {"id":41,"title":"A Crawl Space","description":"Where you'll find something the cat dragged in.","role":"red","room_id":0,"player_id":41}
+    ];
+
+    //Submitted cards will display on the host's machine
+    hostStartJudging (hostGlobalVar.submittedCards);
+
+});
+
+//#SRM When the host clicks on their favorite card
+$(".card-back").on("dblclick", function(){
+
+    //Host adds the winning card to a winningCards array locally
+    hostGlobalVar.winningCards.push();
+
+    //Host clears the submittedCArds array
+    hostGlobalVar.submittedCards = [];
+
+    //Check if it is the last turn of the last round
+    if (hostGlobalVar.currentLeaderIndex+1 === hostGlobalVar.playersArray.length && hostGlobalVar.roundsTracker === hostGlobalVar.roundsNum){
+        
+            //#SRM for FRONT END:
+            // Hide all buttons, etc. so people can't try to keep playing
+            // Display the winner?
+
+            //#SRM EMIT AN END OF GAME MESSAGE TO ALL THE PLAYERS
+            alert("END OF GAME");
+
+    }
+    else if (hostGlobalVar.currentLeaderIndex+1 === hostGlobalVar.playersArray.length){
+    //if it is not the last round, get ready for the next round 
+
+        //increase the round tracker
+        hostGlobalVar.roundsTracker++;
+
+        //reset the leader rotation for the next round
+        hostGlobalVar.currentLeaderIndex = 0;
+
+        //# EMIT "END OF ROUND" to all players via socket
+        hostEmitRoundLeader();
+        alert("END OF ROUND");
+    }
+
+    // if it's not the last turn of a round, then get ready for the next turn
+    else{
+        //#SRM for frontend: display a temp message on the host screen that it's the next person's turn?
+
+        // Queue up the next green card for the next time someone presses the reveal button
+        hostGlobalVar.currentGreenCardIndex++;
+        hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
+
+        // Queue up the next leader for the next time and emit the round leader messages to prep for next turn
+        hostGlobalVar.currentLeaderIndex++;
+        hostEmitRoundLeader();
+
+    }
+    
+});
