@@ -33,6 +33,16 @@ exports.initGame = function(sio, sock) {
     socket = sock;
     socket.emit('connected', { message: "You are connected!" });
 
+    //#Gowri when a user clicks start a game and there are already 5 players then room full message will display
+    socket.on("can player join", function(){
+        if(players.length>=5){
+            socket.emit('player limit reached',"landing");
+        } //#Gowri else display the player page
+        else{
+            socket.emit('display player');
+        }
+    })
+    
     socket.on('set user', setUser);
 
     // #Gowri when start button is clicked this listener will start the game by building the deck for each players
@@ -81,7 +91,6 @@ function hostBuildDeck(){
     function hostDrawRedCards(cardsNum, startId, endId){
         player.selectAllWithinIdList(hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString(), 
         function(data){
-            //data = res.json(results);
             for(i=0; i<hostGlobalVar.playersArray.length; i++){
                 var cardsPerPlayer = ( (hostGlobalVar.playersArray.length-1)+4 )*hostGlobalVar.roundsNum;
                 var personalDeck = [];
@@ -89,8 +98,7 @@ function hostBuildDeck(){
                 for (j=0; j<cardsPerPlayer; j++){
                     personalDeck.push(data[hostGlobalVar.dealerTracker]);
                     hostGlobalVar.dealerTracker++;
-                }
-                
+                }               
     
                 hostGlobalVar.playerDecks.push(personalDeck);
                 
@@ -107,7 +115,8 @@ function hostBuildDeck(){
 // #Amanda creates a new user and assigns them to an array based on their role.
 function setUser(user) {
     console.log('setting user')
-    if(user.role === 'host') {
+    //#Gowri added conditions to check if limit is reached and send the player to no game message
+    if(user.role === 'host' && host.length===0) {
         host.push({
             userName: user.userName,
             roomId: user.roomId,
@@ -116,7 +125,9 @@ function setUser(user) {
             cards: []
         })
         console.log(`added ${user.userName} to the list of hosts`);
-    } else {
+        // #Gowri emit to initiate display of host after adding to array
+        socket.emit('display host');
+    } else if(user.role === "player" && players.length < 5) {
         players.push({
             userName: user.userName,
             roomId: user.roomId,
@@ -125,16 +136,27 @@ function setUser(user) {
             score: 0,
             cards: []
         })
-        console.log(`added ${user.userName} to the list of players`);
+        console.log(`added ${user.userName} to the list of players ${players.length}`);
+        // #Gowri emit to initiate display of player page after adding to array
+        socket.emit('display pregame');
+    } else{
+        // #Gowri emit to display room full message if host and player limits reached the 2nd param should be the div id that should be hidden
+        console.log("emit room full")
+        if(user.role==="host"){
+            socket.emit('player limit reached',"landing");
+        } else{
+            console.log("i am in player full server")
+            io.to(user.playerId).emit('player limit reached',"player");
+        }
     }
-    if( players.length === 3 ) {
+    if( players.length === 5 ) {
         //#Gowri set the players once the required number of players has joined
         hostGlobalVar.playersArray=players;
         hostGlobalVar.playersNum = hostGlobalVar.playersArray.length;
 
     } 
     // #Gowri emit the players to Host screen
-    if (players.length > 0 && players.length < 6) {
+    if (players.length > 0 && players.length <= 5) {
          io.to(host[0].playerId).emit('player joined', players);
     }
 }
