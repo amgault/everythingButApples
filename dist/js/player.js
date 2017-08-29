@@ -102,9 +102,20 @@ socket.on('player limit reached', isRoomFull);
 
 //#Max Writing card click to favorite
 function cardClickToFavorite(cardNum) {
-    let card = document.getElementById(cardNum).innerHTML
-    // console.log(document.getElementById(cardNum).innerHTML)
-    document.getElementById("fav").innerHTML = card
+    // let card = document.getElementById(cardNum).innerHTML
+    // // console.log(document.getElementById(cardNum).innerHTML)
+    // document.getElementById("fav").innerHTML = card
+
+ //#Jordan This is to fix having to change two cards html when changing hand. First option is a copy and puts the IDs of the
+ // card chosen in the fav div as well. This option only changes the text. 
+    var clickedcardtitle = document.getElementById(cardNum).childNodes[1].innerHTML;
+    var clickedcarddescription = document.getElementById(cardNum).childNodes[3].innerHTML;
+    // console.log("number of children: " + document.getElementById(cardNum).childNodes.length);
+    // for(i=0; i<document.getElementById(cardNum).childNodes.length; i++)
+    //     console.log("Child node "+i+" :" + document.getElementById(cardNum).childNodes[i]);
+    
+    document.getElementById("fav").childNodes[1].innerHTML = clickedcardtitle;
+    document.getElementById("fav").childNodes[3].innerHTML = clickedcarddescription;
 }
 //#Max  These listeners are for switching each specific card into the fav div.
 $("#card1").on("click", function() {
@@ -443,6 +454,9 @@ function swapHand() {
         document.getElementById("card" + i + "-noun").innerHTML = thisuser.hand[i - 1].title;
         document.getElementById("card" + i + "-desc").innerHTML = thisuser.hand[i - 1].description;
     }
+    document.getElementById("fav").childNodes[1].innerHTML = thisuser.hand[thisuser.hand.length-1].title;
+    document.getElementById("fav").childNodes[3].innerHTML = thisuser.hand[thisuser.hand.length-1].description;
+
 } //end swaphand
 
 
