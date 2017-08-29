@@ -11,12 +11,14 @@ require('dotenv').config({ path: '../../dotenv.env' });
 // An object that holds the global variables for the game that the host machine needs to track
 // #SRM More key/value pairs get created as needed in the initialization
 //#Gowri moved global var from hostmachine to game.js
+//#Gowri added host array and added this variable to anywhere the host gets referred
 var hostGlobalVar = {
     currentGreenCard: null,
     currentGreenCardIndex: 0,
     currentLeaderIndex: 0,
     dealerTracker: 0,
     greenDeck: [],
+    hostArray: [],
     playersArray: [],
     playerDecks: [],
     roundsNum: 2,
@@ -71,19 +73,18 @@ function hostBuildDeck() {
 function hostDrawGreenCards(cardsNum, startId, endId) {
 
     // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
-    request.post(
-        "/api/cards/draw",
-        // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string
-        {
-            idsString: (hostGenerateIdArray(endId + 1, startId).splice(0, cardsNum).toString())
-        },
-        function(data) {
-            //console.log("i am in host draw green")
-            hostGlobalVar.greenDeck = data;
-
-            // Prepare the first green card to be revealed
-            hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
-        });
+-        // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string        
+-    player.selectAllWithinIdList(hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString(),
+-    function(data){
+-        console.log("i am in host draw green")
+-        hostGlobalVar.greenDeck = data;
+-        //console.log(hostGlobalVar.greenDeck);
+-        
+-        // Prepare the first green card to be revealed
+-        hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
+-        //#Gowri emitting green cards to the host
+-        io.to(hostGlobalVar.hostArray[0].playerId).emit('green cards', hostGlobalVar.greenDeck);
+-    });
 
 }
 
@@ -124,6 +125,7 @@ function setUser(user) {
             playerId: user.playerId,
             cards: []
         })
+        hostGlobalVar.hostArray=host;
         console.log(`added ${user.userName} to the list of hosts`);
         // #Gowri emit to initiate display of host after adding to array
         socket.emit('display host');
