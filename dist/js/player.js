@@ -208,7 +208,6 @@ function updatePlayerConnections(players) {
     for (var p in players) {
         $("#player-connections-container").append($("<div>").addClass("player-circle").text(players[p].userName))
     }
-    hostLocalVar.playersArray = players;
 }
 
 function updateScore(winningPlayerId, winningPlayerName) {
@@ -230,10 +229,15 @@ $(".card-back").on("dblclick", function() {
 });
 
 //#Gowri listen for the players joined and update the host screen
-socket.on('all players joined', function(hostGlobalVar) {
-    console.log("IN THE SOCKET ON FUNCTION we received: " + hostGlobalVar);
-    updatePlayerConnections(hostGlobalVar.playersArray);
+
+socket.on('player joined', function(players) {
+    updatePlayerConnections(players);
 })
+
+socket.on('all players joined', function(hostGlobalVar){
+    hostLocalVar = hostGlobalVar;
+})
+
 
 //#Gowri listen for the deal cards after host starts game and switch the users to play screen
 socket.on('deal cards', function(cards) {
@@ -242,8 +246,8 @@ socket.on('deal cards', function(cards) {
 })
 
 //#Gowri listen for the start game and get the green cards for Host
-socket.on('green cards', function(cards){
-    cards.forEach( card => hostLocalVar.greenDeck.push(card));
+socket.on('green cards',  function(hostGlobalVar){
+    hostLocalVar = hostGlobalVar;
 })
 
 
@@ -524,13 +528,16 @@ var hostLocalVar = {
     currentGreenCard: null,
     currentGreenCardIndex: 0,
     currentLeaderIndex: 0,
+    dealerTracker: 0,
     greenDeck: [],
-    greenCardsIndexTracker: [],
+    hostArray: [],
     playersArray: [],
+    playerDecks: [],
     roundsNum: 2,
-    roundsTracker: 0,
+    roundsTracker: 1,
     submittedCards: [],
-    winningCards: []
+    winningCards: [],
+    playersNum: 0
 };
 
 
@@ -552,16 +559,16 @@ $("#start-game-button").on("click", function(){
     
         var hostStartGameVar = $("#start-game-button").data("hostVar");
         showAndHide("host-pregame-lobby", "host-game");
-        console.log("GREEN DECK: " + hostLocalVar.greenDeck);
             
 });
 
 //#SRM for FRONTEND:This needs to be an actual button
 $("#showGreenCard").on("click", function(){
 
+    hostLocalVar.currentGreenCard = hostLocalVar.greenDeck[hostLocalVar.currentGreenCardIndex];
     //#SRM PLACEHOLDER FOR FRONTEND:
     //DISPLAY CURRENT LEADER
-    $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].username);
+    $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
 
     //green card will display on-screen
     $("#adj-title").text(hostLocalVar.currentGreenCard.title);

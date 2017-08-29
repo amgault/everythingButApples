@@ -2,7 +2,6 @@ var io;
 var socket;
 var players = [];
 var host = [];
-//var $ = require("jquery");
 var request = require("request");
 // #GowriImport the model to use its database functions
 var player = require("../../models/playerModels.js");
@@ -78,12 +77,11 @@ function hostDrawGreenCards(cardsNum, startId, endId){
     function(data){
         console.log("i am in host draw green")
         hostGlobalVar.greenDeck = data;
-        //console.log(hostGlobalVar.greenDeck);
         
-        // Prepare the first green card to be revealed
-        hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
+        console.log(hostGlobalVar.greenDeck);
+        
         //#Gowri emitting green cards to the host
-        io.to(hostGlobalVar.hostArray[0].playerId).emit('green cards', hostGlobalVar.greenDeck);
+        io.to(hostGlobalVar.hostArray[0].playerId).emit('green cards', hostGlobalVar);
     });
 
 }
@@ -105,7 +103,7 @@ function hostDrawRedCards(cardsNum, startId, endId) {
                 io.to(hostGlobalVar.playersArray[i].playerId).emit('deal cards', hostGlobalVar.playerDecks[i]);
                 //alert("Player in position " + i + ": " +hostGlobalVar.playerDecks[i]);
             }
-            console.log(hostGlobalVar.playerDecks);
+            //console.log(hostGlobalVar.playerDecks);
         });
 
 }
@@ -154,11 +152,12 @@ function setUser(user) {
         //#Gowri set the players once the required number of players has joined
         hostGlobalVar.playersArray = players;
         hostGlobalVar.playersNum = hostGlobalVar.playersArray.length;
-
+        io.to(hostGlobalVar.hostArray[0].playerId).emit('all players joined', hostGlobalVar);
+        
     }
     // #Gowri emit the players to Host screen
     if (players.length > 0 && players.length <= 5) {
-        io.to(hostGlobalVar.hostArray[0].playerId).emit('player joined', hostGlobalVar);
+        io.to(hostGlobalVar.hostArray[0].playerId).emit('player joined', players);
     }
     //#jordan send each player their ID & hostID
     if (players.length >= 1) {
