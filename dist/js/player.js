@@ -58,11 +58,17 @@ socket.on("display pregame", function() {
     showAndHide("roomCode", "pregame");
 });
 
-//New Card submit listener
+// #Max New Card submit listener
 $("#createCards").submit(function(e) {
     e.preventDefault();
     submitCards()
 })
+
+//#Max  Posting new cards to database
+function submitCards() {
+    $.post("/api/cards/create", $("#card-form").val().trim())
+    $("#card-form").val("");
+}
 
 //listener for host a game 
 $("#host").on("click", function() {
@@ -122,6 +128,9 @@ $("#card4").on("click", function() {
 $("#card5").on("click", function() {
     cardClickToFavorite('card5')
 })
+
+
+
 
 
 

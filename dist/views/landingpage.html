@@ -176,7 +176,7 @@
             <div class="spinner"></div>
             <p class="spinnerText">Waiting for opponents...</p>
     
-            <form class="create-update-form createCards" action="/" method="POST" id="createCards">
+            <form class="create-update-form createCards" id="createCards">
                 <div class="player-topBumper">
                     <p>Come up with noun cards to add to our deck:</p>
                     <input type="text" id="card-form" name="card">
@@ -184,7 +184,7 @@
                 </div>
             </form>
 
-            
+
             <button class="general-button" onclick="showAndHide('pregame', 'game')">Go to Game</button>
         </div>
     
@@ -197,7 +197,7 @@
             <div id="favorite" class="absoluteTop">
                 <div class="favorite">
                     <p class="favorite">Favorite</p>
-                    <input type="submit" placeholder="submit" class="submit player-topBumper">
+                    <input type="submit" placeholder="submit" class="submit player-topBumper general-button">
                 </div>
                 <div class="player-hand-card cardContainer card" id='fav'>
                     <p class="nounTitleText">card.title</p>

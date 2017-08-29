@@ -27,10 +27,6 @@ body {
 
 /* http://paletton.com/#uid=71P1-0kqPtygJCSlLvntVobxLjb */
 
-:root {
-    /* --new-card-blue: #3373f7; */
-}
-
 .adj-card {
     display: block;
     width: 12em;

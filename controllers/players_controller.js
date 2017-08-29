@@ -32,6 +32,12 @@ router.get("/api/cards", function(req, res) {
     });
 });
 
+router.post("api/cards/create", function(req, res) {
+    player.addNewCard([req.body, "A card made by players like you", "red"], function(data){
+        return res.json(data)
+    })
+})
+
 router.post("/api/cards/draw", function(req, res) {
     player.selectAllWithinIdList(req.body.idsString, function(data){
         return res.json(data);
