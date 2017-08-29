@@ -533,6 +533,7 @@ body {
 .players-connected{
     margin-bottom: 1em;
     font-size: 2em;
+    word-wrap: break-word;
 }
 
 .player-hand-card {
