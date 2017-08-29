@@ -230,8 +230,13 @@ $(".card-back").on("dblclick", function() {
 
 //#Gowri listen for the players joined and update the host screen
 socket.on('player joined', function(players) {
-    updatePlayerConnections(players.playersArray);
+    updatePlayerConnections(players);
 })
+
+socket.on('all players joined', function(hostGlobalVar){
+    console.log(hostGlobalVar);
+})
+
 
 //#Gowri listen for the deal cards after host starts game and switch the users to play screen
 socket.on('deal cards', function(cards) {
