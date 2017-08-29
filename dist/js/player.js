@@ -168,11 +168,32 @@ function flipPlayedCards(cardArray) {
 function preparePlayedCards(cardArray) {
     var index = 0;
     $(".played-card").each(function() {
-        console.log(cardArray[index])
-        $(this).find(".card-back").data("cardInfo", cardArray[index]);
-        $(this).toggleClass('flipped');
-        index++;
+         //Change display of of red cards to fill them with text and flip them over
+         $(this).find(".nounTitleText").html(cardArray[index].title);
+         $(this).find(".nounDescriptionText").html(cardArray[index].description);
+         //.data("cardInfo", cardArray[index]);
+         $(this).toggleClass('flipped');
+         
+         //change the data attribute of the card so we can access it later when we pick a winner
+         $(this).attr("data-player-id", cardArray[index].player_id);
+         $(this).attr("data-player-username", cardArray[index].userName);
+
+         index++;
     })
+}
+
+function clearPlayedCards(){
+    $(".played-card").each(function() {
+        //Change display of of red cards to fill them with text and flip them over
+        $(this).find(".nounTitleText").html();
+        $(this).find(".nounDescriptionText").html();
+        $(this).toggleClass('flipped');
+        
+        //change the data attribute of the card so we can access it later when we pick a winner
+        $(this).attr("data-player-id", "null");
+        $(this).attr("data-player-username", "null");
+
+   })
 }
 
 function hostStartJudging(submittedCards) {
@@ -224,9 +245,6 @@ function isRoomFull(where) {
     showAndHide(where, "room-full-message");
 }
 
-$(".card-back").on("dblclick", function() {
-    console.log($(this).data("cardInfo"));
-});
 
 //#Gowri listen for the players joined and update the host screen
 
@@ -237,7 +255,6 @@ socket.on('player joined', function(players) {
 socket.on('all players joined', function(hostGlobalVar){
     hostLocalVar = hostGlobalVar;
 })
-
 
 //#Gowri listen for the deal cards after host starts game and switch the users to play screen
 socket.on('deal cards', function(cards) {
@@ -257,7 +274,7 @@ socket.on('green cards',  function(hostGlobalVar){
 // card object 
 class card {
     // title, description, role(green or red), isused, roomid, pid
-    constructor(t, d, r, pid) {
+    constructor(t, d, pid) {
         this.id = null;
         this.title = t;
         this.description = d;
@@ -288,20 +305,20 @@ class user {
         // //keep track if they are the leader or nah...... DONT NEED LUL.. wait maybe i do
         this.trump = false;
         // can the user submit a card yet? or nah
-        this.cansub = false;
+        this.cansub = true;
     }
     // receive an object with an array of cards within, put dem in da deck
     newdeck(dek) {
         // assuming cards is the key to the array value within passed object 'dek'
-        this.deck = dek.cards;
-        this.markcards();
+        this.deck = dek;
+        //this.markcards();
         this.newhand();
     }
-    // dis function assigns all the cards in the player's deck with the player's ID 
-    markcards() {
-        for (var i = 0; i < this.deck.length; i++)
-            this.deck[i].player_id = this.player_id;
-    }
+    // // dis function assigns all the cards in the player's deck with the player's ID///// OBSOLETE
+    // markcards() {
+    //     for (var i = 0; i < this.deck.length; i++)
+    //         this.deck[i].player_id = this.player_id;
+    // }
     // dis function will give le player 4 new cards in their hand while destroying their current hand
     newhand() {
         //erase their hand
@@ -337,7 +354,6 @@ class user {
         }
         return -1;
     } //end findcard
-
 } //end player
 
 //*************************************** LISTEN FOR PLAYERS  ***********************************************************
@@ -356,23 +372,29 @@ socket.on('checkyoself', function(playa) {
     }
 });
 
-
-
-
-
-
 // *********************************** LISTEN FOR CARDS TO BE DEALT *****************************************************
 // listener for "cardsout" message from socket goes here:
 // socket.on('cardsout', thisuser.newdeck(data))
 
 
 // for testing purposes
-var cardme = new card("Test", "A Test", 0);
-var cardtwo = new card("NewCard", "A new card", 1);
-var passme = { cards: [cardme, cardme, cardme, cardme, cardtwo, cardtwo, cardtwo, cardme, cardme, cardtwo] };
+//var cardme = new card("Test", "A Test", 0);
+//var cardtwo = new card("NewCard", "A new card", 1);
+var tempcard = '';
+var passme = [];
 // console.log("Object Socket Passed: " + passme); working
 // console.log("IM WORKING I THINK");
-thisuser.newdeck(passme);
+//thisuser.newdeck(passme);
+
+//#Gowri listen for the deal cards after host starts game and switch the users to play screen
+socket.on('deal cards', function(cards) {
+    showAndHide('pregame', 'game');
+    //console.log("cards dealt");
+    for(i=0; i<cards.length; i++){
+        passme.push(new card(cards[i].title, cards[i].description, thisuser.player_id));
+    }
+    thisuser.newdeck(passme);
+})
 
 
 // *********************************** END CARDS DEALT *******************************************************************
@@ -445,29 +467,38 @@ function ENDIT() {
 // THERE IS NOW A SUBMIT BUTTON, PUT THE LISTENER HERE
 
 $("#playerschoice").on('click', function() {
-    // // CHECK IF THE USER CAN SUBMIT A CARD YET
-    // if (!thisuser.cansub)
-    //     return;
-    // else {
-    //     //get the title of the card
-    //     var findthis = $(this).children('h2').text;
-    //     //find what index of hand array it is at
-    //     var itshere = thisuser.findcard(findthis);
-    //     if (itshere == -1)
-    //         console.log("you suck, thats not it");
+    // CHECK IF THE USER CAN SUBMIT A CARD YET
+    if (!thisuser.cansub){
+        console.log("you cant submit a card yet");
+        return;
+    }
+    else{
+        //get the title of the card
+        var findthis = document.getElementById("fav").childNodes[1].innerHTML;
+        //console.log("child node 1: " + document.getElementById("fav").childNodes[1]);
+        //find what index of hand array it is at
+        //console.log("find this: " + findthis);
+        var itshere = thisuser.findcard(findthis);
+        //if (itshere == -1){
+        //    console.log("you suck, thats not it");
+        //}
+        //EMIT THE CARD THAT HAD BEEN CHOSEN
+        //console.log("card position in hand: " + itshere);
+        console.log("card emitted: " + thisuser.hand[itshere]);
+        socket.emit('chosencard', thisuser.hand[itshere]);
+        console.log("SUBMITTED?");
 
-    //     //EMIT THE CARD THAT HAD BEEN CHOSEN
-    //     //socket.emit('chosencard', thisuser.hand[itshere]);
+        //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
+        thisuser.removecard(itshere);
 
-    //     //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
-    //     thisuser.removecard(itshere);
-    // }
+        //DISALLOW FURTHER SUBMISSIONS
+        thisuser.cansub = false;
+    }
 
     //thisuser.newhand();
-    var testbool = { leader: true };
-    hideAll(testbool);
+    // var testbool = { leader: true };
+    // hideAll(testbool);
 });
-
 
 // function to respond to whether they are the leader or not (hiding all their cards etc if they are)
 function hideAll(bool) {
@@ -498,22 +529,31 @@ function hideAll(bool) {
         fingey += "░██▒▒▒▒▒▒▒▒▒▒████▒▒▒▒▒▒▒▒▒▒█\n";
         fingey += "░░████████████░░███████████\n";
 
-        // var fingey = "  ______________          |*\\_/*|_______\n";
-        // fingey+= " |  ___________  |        ||_/-\\_|______  |\n";
-        // fingey+= " | |                | |        | |                     | |\n";
-        // fingey+= " | |   0   0       | |        | |   0   0           | |\n";
-        // fingey+= " | |     -          | |        | |     -               | |\n";
-        // fingey+= " | |   \\___/      | |        | |   \\___/          | |\n";
-        // fingey+= " | |___     ___   | |        | |______________   | |\n";
-        // fingey+= " |_____|\\_/|_____|        |_______________|\n";
-        // fingey+= "    _|__|/ \\|_|_.............._|________|_\n";
-        // fingey+= "   / ********** \\            / ********** \\\n";
-        // fingey+= " /  ************  \\        /  ************  \\\n";
-        // fingey+= "--------------------      --------------------\n";
         alert("You are the leader, CHOOSE WINNER FROM THE MAIN COMPOOTER \n" + fingey);
     }
 }
 
+//#SRM when the next leader id is sent out, check to see if it matches their own
+socket.on('next leader', function(idString){
+    if (idString == thisuser.player_id ){
+        thisuser.trump = true;
+        alert("you're the new leader for the next round");
+    }
+    else {
+        thisuser.trump = false;
+    }
+})
+
+//#SRM when they receive the signal that the turn has started, check if they are the leader and decide if they can submit a card
+socket.on('turn started', function(){
+    if (thisuser.trump){
+        thisuser.cansub = false;
+        alert("DON'T YOU DARE SUBMIT A CARD");
+    }
+    else{
+        thisuser.cansub = true;
+    }
+})
 
 //************************************    NO MORE FUNCTIONS    **************************************************************
 
@@ -559,7 +599,9 @@ $("#start-game-button").on("click", function(){
     
         var hostStartGameVar = $("#start-game-button").data("hostVar");
         showAndHide("host-pregame-lobby", "host-game");
-            
+        socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId );
+        $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
+        $("#host-round-number").html(hostLocalVar.roundsTracker);    
 });
 
 //#SRM for FRONTEND:This needs to be an actual button
@@ -568,7 +610,6 @@ $("#showGreenCard").on("click", function(){
     hostLocalVar.currentGreenCard = hostLocalVar.greenDeck[hostLocalVar.currentGreenCardIndex];
     //#SRM PLACEHOLDER FOR FRONTEND:
     //DISPLAY CURRENT LEADER
-    $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
 
     //green card will display on-screen
     $("#adj-title").text(hostLocalVar.currentGreenCard.title);
@@ -577,43 +618,42 @@ $("#showGreenCard").on("click", function(){
 
 });
 
-//#### LISTENERALL 4 "RED CARD PLAYED" MESSAGES RECEIVED ####################
-//#SRM we need to replace this click event with a socket listner
-$("#grabPlayedCards").on("click", function(){
+// #SRM This is the listener for red cards received
+socket.on('here goes nothing and a red card', function(card) {
+    console.log(card);
+    hostLocalVar.submittedCards.push(card);
+    //If all cards have now been submitted, start judging
+    if(hostLocalVar.submittedCards.length === (hostLocalVar.playersArray.length - 1)){
+        hostStartJudging(hostLocalVar.submittedCards);
+    }
+})
 
-    // Host will draw al the submitted cards from socket & store them locally in a submittedCards array
-    //FIX HARD CODING
-    hostLocalVar.submittedCards = [
-        {"id":1,"title":"A Bad Haircut","description":"The perfect start to a bad hair day.","role":"red","room_id":0,"player_id":1},
-        {"id":11,"title":"A Bull Fight","description":"Also known as \"la fiesta brava\" (the brave festival).  A whole lot of bull..","role":"red","room_id":0,"player_id":11},
-        {"id":21,"title":"A Car Crash","description":"\"Hey, it was an accident!\"","role":"red","room_id":0,"player_id":41},
-        {"id":31,"title":"A Cheap Motel","description":"No charge for the cockroaches.","role":"red","room_id":0,"player_id":31},
-        {"id":41,"title":"A Crawl Space","description":"Where you'll find something the cat dragged in.","role":"red","room_id":0,"player_id":41}
-    ];
+//#SRM When the host double-clicks on their favorite card
+$(".played-card").on("dblclick", function(){
 
-    //Submitted cards will display on the host's machine
-    hostStartJudging(hostLocalVar.submittedCards);
+    /*
+    for (i=0; i<hostLocalVar.playersArray.length; i++{
+        if (hostLocalVar.playersArray)
+    }
+    */
 
-});
-
-//#SRM When the host clicks on their favorite card
-$(".card-back").on("dblclick", function(){
-
+    $("#adj-title").text('ヘ(^o^ヘ)');
+    $("#adj-description").text("+1 pt");
     //Host adds the winning card to a winningCards array locally
     //hostLocalVar.winningCards.push();
 
     //Host clears the submittedCArds array
     hostLocalVar.submittedCards = [];
+    clearPlayedCards();
 
     //Check if it is the last turn of the last round
     if (hostLocalVar.currentLeaderIndex+1 === hostLocalVar.playersArray.length && hostLocalVar.roundsTracker === hostLocalVar.roundsNum){
         
-            //#SRM for FRONT END:
-            // Hide all buttons, etc. so people can't try to keep playing
             // Display the winner?
 
             //#SRM EMIT AN END OF GAME MESSAGE TO ALL THE PLAYERS
             socket.emit('end of game', { message: "End of Game!" });
+            alert("END OF GAME");
 
     }
     else if (hostLocalVar.currentLeaderIndex+1 === hostLocalVar.playersArray.length){
@@ -621,13 +661,15 @@ $(".card-back").on("dblclick", function(){
 
         //increase the round tracker
         hostLocalVar.roundsTracker++;
+        $("#host-round-number").html(hostLocalVar.roundsTracker);   
 
         //reset the leader rotation for the next round
         hostLocalVar.currentLeaderIndex = 0;
 
         //# EMIT "END OF ROUND" to all players via socket
-        socket.emit('next leader', { message: hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId });
+        socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId );
         socket.emit('end of round', { message: "End of Round!" });
+        $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
     }
 
     // if it's not the last turn of a round, then get ready for the next turn
@@ -640,8 +682,8 @@ $(".card-back").on("dblclick", function(){
 
         // Queue up the next leader for the next time and emit the round leader messages to prep for next turn
         hostLocalVar.currentLeaderIndex++;
-        socket.emit('next leader', { message: hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId });
-
+        socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId );
+        $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
     }
     
 });
