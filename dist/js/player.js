@@ -355,7 +355,6 @@ socket.on('checkyoself', function(playa) {
 // for testing purposes
 //var cardme = new card("Test", "A Test", 0);
 //var cardtwo = new card("NewCard", "A new card", 1);
-var tempcard = '';
 var passme = [];
 // console.log("Object Socket Passed: " + passme); working
 // console.log("IM WORKING I THINK");
@@ -400,7 +399,7 @@ socket.on('deal cards', function(cards) {
 //************************************* LISTEN FOR END OF ROUND ************************************************************
 
 //socket listener for endofround goes here:
-//socket.on('endofround', thisuser.newhand());
+//socket.on('end of round', thisuser.newhand());
 
 
 //************************************* END LISTEN FOR ROUND END ************************************************************

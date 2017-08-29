@@ -22,6 +22,9 @@ else {
     });
     var pool = mysql.createPool({
         connectionLimit: 10,
+        connectTimeout: 60 * 60 * 1000,
+        aquireTimeout: 60 * 60 * 1000,
+        timeout: 60 * 60 * 1000,
         host: "us-cdbr-iron-east-05.cleardb.net",
         port: "3306",
         user: "bc389e17ac8656",
