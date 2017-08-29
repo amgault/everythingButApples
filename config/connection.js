@@ -3,9 +3,6 @@ var mysql = require("mysql");
 // access environmental variables for username, password, host
 require('dotenv').config({ path: '../dotenv.env' });
 
-var connection;
-
-
     var pool = mysql.createPool({
         connectionLimit: 10,
         connectTimeout: 60 * 60 * 1000,
@@ -17,6 +14,5 @@ var connection;
         password: "dc0c3ab7",
         database: "heroku_6aafb0838fd5e56"
     });
-
 
 module.exports = pool;
