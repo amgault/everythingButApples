@@ -1,29 +1,43 @@
 let socket = io.connect();
 
 // #Max To hide first div and show second
-let showAndHide = function (id1, id2) {
+let showAndHide = function(id1, id2) {
     $(`#${id1}`).hide()
     $(`#${id2}`).show()
 }
 
-function submitUsername() {
-    //#Max  I don't think there needs to be validation if name is already taken but it may mess us up.  Unless each player is named player i to our programming
 
-    //AJAX post user name to room
-        //This should post it to the host to display the name on the players box
+// #Max This was all Written before socket and is useless no
+// //This is to validate code
+// function codeComparison() {
+//     let inputCode = $("#code-input").val();
+//     console.log(inputCode)
+//     //Compare input code to room codes available
+//     // if (input code exists)
+//         showAndHide("roomCode", "pregame")
+//     // else
+//     // Request new code
+// } /#Max
 
-    //Shows next input if they want /#Max
-    showAndHide("username", "createCards")
-}
+// function submitUsername() {
+//     //#Max  I don't think there needs to be validation if name is already taken but it may mess us up.  Unless each player is named player i to our programming
 
-function Card(text, player) {
-    this.text = text;
-    this.description = "A homemade card, made with love from " + player
-}
+//     //AJAX post user name to room
+//         //This should post it to the host to display the name on the players box
+
+//     //Shows next input if they want /#Max
+//     showAndHide("username", "createCards")
+// }
+
+// #Max This is currently not really doing anything so I'm commenting it out.
+// function Card(text, player) {
+//     this.text = text;
+//     this.description = "A homemade card, made with love from " + player
+// }
 
 
-function getRandNum(){
-		return (Math.floor(Math.random()*(99999-10000+1)+10000));
+function getRandNum() {
+    return (Math.floor(Math.random() * (99999 - 10000 + 1) + 10000));
 }
 
 //Code comparison listener
@@ -35,10 +49,13 @@ $('#roomCode').submit(function(e) {
         role: "player",
         playerId: socket.id
     }
-    console.log(userData)
-    
+    console.log(userData);
     socket.emit('set user', userData);
-    showAndHide("roomCode", "pregame")
+});
+
+// #Gowri moved into a listener so as to control from server the display of player page only if there is a place in the room
+socket.on("display pregame", function() {
+    showAndHide("roomCode", "pregame");
 });
 
 //New Card submit listener
@@ -48,30 +65,39 @@ $("#createCards").submit(function(e) {
 })
 
 //listener for host a game 
-$("#host").on("click", function(){
+$("#host").on("click", function() {
     let room = getRandNum()
     let userData = {
-        userName: "Host-"+room,
+        userName: "Host-" + room,
         roomId: room,
         role: "host",
         playerId: socket.id
     }
     console.log(userData)
-    //Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
-    showAndHide('landing','host-page');
+
     //Bex: some setup for displaying the lobby page
     $("#room-code").text(userData.roomId);
-    
-    socket.emit('set user', userData, function(){
-        
-    })
+    socket.emit('set user', userData);
 })
 
-$("#play-a-game").on("click", function(){
-    showAndHide('landing','player');
-    isRoomFull();
+//Bex: I moved this out here so I can see the host page while I'm working on it; it wasn't working before
+// #Gowri moved into a listener so as to control from server the display of host page only if there are no hosts
+socket.on("display host", function() {
+    showAndHide('landing', 'host-page')
+});
+
+//#Gowri changed this button to emit a check function to know if a player can join
+$("#play-a-game").on("click", function() {
+    socket.emit("can player join");
 })
 
+//#Gowri on receiving confirmation from server then display the player page
+socket.on("display player", function() {
+    showAndHide('landing', 'player')
+});
+
+//#Gowri added listener to know when room is full and call function to display room full message
+socket.on('player limit reached', isRoomFull);
 
 
 //#Max Writing card click to favorite
@@ -80,20 +106,20 @@ function cardClickToFavorite(cardNum) {
     // console.log(document.getElementById(cardNum).innerHTML)
     document.getElementById("fav").innerHTML = card
 }
- //#Max  These listeners are for switching each specific card into the fav div.
-$("#card1").on("click", function(){
+//#Max  These listeners are for switching each specific card into the fav div.
+$("#card1").on("click", function() {
     cardClickToFavorite('card1')
 })
-$("#card2").on("click", function(){
+$("#card2").on("click", function() {
     cardClickToFavorite('card2')
 })
-$("#card3").on("click", function(){
+$("#card3").on("click", function() {
     cardClickToFavorite('card3')
 })
-$("#card4").on("click", function(){
+$("#card4").on("click", function() {
     cardClickToFavorite('card4')
 })
-$("#card5").on("click", function(){
+$("#card5").on("click", function() {
     cardClickToFavorite('card5')
 })
 
@@ -101,46 +127,47 @@ $("#card5").on("click", function(){
 
 
 // general functions for running Host
-function getRandNumByInterval(min, max){
-  return Math.floor(Math.random()*(max-min+1)+min);
+function getRandNumByInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 //from: https://stackoverflow.com/a/2450976
 function shuffleArray(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
 
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
 
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
 
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
 
-  return array;
+    return array;
 }
 
-function removeItemFromArray(item, array){
-    return array.splice($.inArray(item, array),1);
+function removeItemFromArray(item, array) {
+    return array.splice($.inArray(item, array), 1);
 }
 
 
 // Host Functions
 
-function flipPlayedCards (cardArray){
-    $(".played-card").each(function(){
+function flipPlayedCards(cardArray) {
+    $(".played-card").each(function() {
         $(this).toggleClass('flipped');
     })
 }
 
-function preparePlayedCards (cardArray){
+function preparePlayedCards(cardArray) {
     var index = 0;
-    $(".played-card").each(function(){
+    $(".played-card").each(function() {
         console.log(cardArray[index])
         $(this).find(".card-back").data("cardInfo", cardArray[index]);
         $(this).toggleClass('flipped');
@@ -148,7 +175,7 @@ function preparePlayedCards (cardArray){
     })
 }
 
-function startJudging (){
+function startJudging() {
     // Bex: should run whenever all player cards are submitted
     // Bex: switch the prompt on the host screen
     showAndHide("pre-judging-message", "mid-judging-message");
@@ -156,11 +183,11 @@ function startJudging (){
     var dummySubmittedCards = ["1", "2", "3", "4"]
 
     preparePlayedCards(dummySubmittedCards);
-    
+
 }
 
 
-function startGame(){
+function startGame() {
     //Bex: TODO: Generate random numbers to represent each card for each player
     //then run a query to obtain all of those cards and shuffle them
     //then construct an array of cards for each players hand and the remaining cards
@@ -169,54 +196,59 @@ function startGame(){
 }
 
 // #Gowri socket emit to the server to start the game
-$("#start-game-button").on("click", function(){
+$("#start-game-button").on("click", function() {
     socket.emit('start game');
     startGame();
 
 });
 
 //#Gowri added the userName since playerlist is an object
-function updatePlayerConnections(playerList){
+function updatePlayerConnections(playerList) {
     $("#player-connections-container").empty();
-    for(var p in playerList){
+    for (var p in playerList) {
         $("#player-connections-container").append($("<div>").addClass("player-circle").text(playerList[p].userName))
         hostLocalVar.playersArray = playerList;
         console.log(hostLocalVar.playersArray);
     }
 }
 
-function updateScore(winningPlayerId, winningPlayerName){
+function updateScore(winningPlayerId, winningPlayerName) {
     // Increment the score of the winner
-    var winnerJqueryObj = $("#"+winningPlayerId);
+    var winnerJqueryObj = $("#" + winningPlayerId);
     var updatedScore = parseInt(winnerJqueryObj.attr("data-score")) + 1;
-    winnerJqueryObj.attr("data-score", updatedScore).text(updatedScore+" : "+winningPlayerName);
+    winnerJqueryObj.attr("data-score", updatedScore).text(updatedScore + " : " + winningPlayerName);
 
 }
 
-function isRoomFull(){
-    //Bex: dummy hard coding
-    var fullRoom = false;
-    if (fullRoom){
-        showAndHide("room-form", "room-full-message");
-    }
+//#Bex added function with dummy variable
+//# Gowri changed isRoomFull to receive the div name that should be hidden
+function isRoomFull(where) {
+    showAndHide(where, "room-full-message");
 }
 
-$(".card-back").on("dblclick", function(){
+$(".card-back").on("dblclick", function() {
     console.log($(this).data("cardInfo"));
 });
 
 //#Gowri listen for the players joined and update the host screen
-socket.on('player joined', function(players){
-    updatePlayerConnections(players);
+socket.on('player joined', function(players) {
+    updatePlayerConnections(players.playersArray);
 })
 
+//#Gowri listen for the deal cards after host starts game and switch the users to play screen
 socket.on('deal cards', function(cards) {
+    showAndHide('pregame', 'game')
+    cards.forEach(card => console.log(card.title));
+})
+
+//#Gowri listen for the start game and get the green cards for Host
+socket.on('green cards', function(cards){
     cards.forEach( card => console.log(card.title));
 })
 
 
 //============================================================================================================================
-//***************************************** JORDAN'S DUMB SHIT ***************************************************************
+//***************************************** JORDAN'S DUMB Stuff **********************************************************
 //============================================================================================================================
 // card object 
 class card {
@@ -277,7 +309,7 @@ class user {
         this.deckindex += 4;
 
         //call function to show cards to user here:
-
+        swapHand();
     }
     //adds a new card to the user's hand
     newcard() {
@@ -285,7 +317,7 @@ class user {
         this.deckindex++;
 
         //call function to show cards to user here:
-
+        swapHand();
     }
     //removes the card at the index of the argument from hand
     removecard(here) {
@@ -305,12 +337,23 @@ class user {
 } //end player
 
 //*************************************** LISTEN FOR PLAYERS  ***********************************************************
-// socket.on('sendplayers', DIDNT WRITE FUNCTION YET TO MAKE PLAYER)
+var thisuser = new user("", "", "player", "");
+var myhost = '';
+socket.on('checkyoself', function(playa) {
+    if (thisuser.player_id == "") {
+        //console.log("player emit recieved");
+        thisuser.player_id = playa.playID;
+        thisuser.username = playa.thename;
+        thisuser.room_id = playa.room;
+        myhost = playa.hostsock;
+
+        //change player names on screen
+        document.getElementById("playername").innerHTML = thisuser.username;
+    }
+});
 
 
-// create the player object (not sure where im going to get the variables listed below from so ill hardcode for now)
-// (playerID / username. role is always 'player' so i think its a bit redundant) 
-// var thisuser = new user(2, "Smitty Werbenjagermanjensen", "player", 1);
+
 
 
 
@@ -320,11 +363,12 @@ class user {
 
 
 // for testing purposes
-// var cardme = new card("Test", "A Test", 0);
-// var passme = { cards: [cardme, cardme, cardme, cardme] };
-// // console.log("Object Socket Passed: " + passme); working
-// // console.log("IM WORKING I THINK");
-// thisuser.newdeck(passme);
+var cardme = new card("Test", "A Test", 0);
+var cardtwo = new card("NewCard", "A new card", 1);
+var passme = { cards: [cardme, cardme, cardme, cardme, cardtwo, cardtwo, cardtwo, cardme, cardme, cardtwo] };
+// console.log("Object Socket Passed: " + passme); working
+// console.log("IM WORKING I THINK");
+thisuser.newdeck(passme);
 
 
 // *********************************** END CARDS DEALT *******************************************************************
@@ -370,12 +414,19 @@ class user {
 
 //*************************************     FUNCTIONS      *****************************************************************
 
+// this function will change the html of the cards to match the local user's hand
+function swapHand() {
+    for (i = 1; i <= thisuser.hand.length; i++) {
+        document.getElementById("card" + i + "-noun").innerHTML = thisuser.hand[i - 1].title;
+        document.getElementById("card" + i + "-desc").innerHTML = thisuser.hand[i - 1].description;
+    }
+} //end swaphand
+
+
 //this function signifies the end of the game and will hide all cards and display a message for the time being
 function ENDIT() {
 
-}
-
-
+} // end endit
 
 // assuming there's a onclick="chooseCard()" in the html for the cards 
 // also going to need them to either force pass "this" in the html or keep a data tag for the title of the card
@@ -386,24 +437,31 @@ function ENDIT() {
 //     else {}
 // }
 // or i can just have an event listener for "player-hand-card"
-$(".player-hand-card").on('click', function() {
-    // CHECK IF THE USER CAN SUBMIT A CARD YET
-    if (!thisuser.cansub)
-        return;
-    else {
-        //get the title of the card
-        var findthis = $(this).children('h2').text;
-        //find what index of hand array it is at
-        var itshere = thisuser.findcard(findthis);
-        if (itshere == -1)
-            console.log("you suck, thats not it");
 
-        //EMIT THE CARD THAT HAD BEEN CHOSEN
-        //socket.emit('chosencard', thisuser.hand[itshere]);
+// THERE IS NOW A SUBMIT BUTTON, PUT THE LISTENER HERE
 
-        //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
-        thisuser.removecard(itshere);
-    }
+$("#playerschoice").on('click', function() {
+    // // CHECK IF THE USER CAN SUBMIT A CARD YET
+    // if (!thisuser.cansub)
+    //     return;
+    // else {
+    //     //get the title of the card
+    //     var findthis = $(this).children('h2').text;
+    //     //find what index of hand array it is at
+    //     var itshere = thisuser.findcard(findthis);
+    //     if (itshere == -1)
+    //         console.log("you suck, thats not it");
+
+    //     //EMIT THE CARD THAT HAD BEEN CHOSEN
+    //     //socket.emit('chosencard', thisuser.hand[itshere]);
+
+    //     //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
+    //     thisuser.removecard(itshere);
+    // }
+
+    //thisuser.newhand();
+    var testbool = { leader: true };
+    hideAll(testbool);
 });
 
 
@@ -414,34 +472,52 @@ function hideAll(bool) {
         return;
     } else {
         thisuser.trump = true;
-        // HIDE EVERYTHING ON THE FRONT END AND DISPLAY "AY, YOU, GO TO THE HOST COMPUTER TO PICK A CARD"
+        //HIDE EVERYTHING ON THE FRONT END AND DISPLAY "AY, YOU, GO TO THE HOST COMPUTER TO PICK A CARD"
+        document.getElementById("pregame").style.display = "none";
+        document.getElementById("game").style.display = "none";
+        document.getElementById("player").style.display = "none";
+        document.getElementById("hand").style.display = "none";
+
+        var fingey = "░░░░░░░░░░░░░░░░█████████\n";
+        fingey += "░░███████░░░░░███▒▒▒▒▒▒███\n";
+        fingey += "░░█▒▒▒▒▒▒█░░░░███▒▒▒▒▒▒▒▒▒███\n";
+        fingey += "░░░█▒▒▒▒▒▒█░░░░██▒▒▒▒▒▒▒▒▒▒▒▒██\n";
+        fingey += "░░░░█▒▒▒▒▒█░░██▒▒▒██▒▒▒▒██▒▒▒███\n";
+        fingey += "░░░░░█▒▒▒█░░█▒▒▒▒████▒▒████▒▒▒▒██\n";
+        fingey += "░░░█████████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██\n";
+        fingey += "░░░█▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒█▒▒▒▒▒▒▒██\n";
+        fingey += "░██▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒██▒▒▒▒▒▒██▒▒██\n";
+        fingey += "██▒▒▒███████████▒▒▒▒██▒▒▒▒██▒▒▒██\n";
+        fingey += "█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒██████▒▒▒▒██\n";
+        fingey += "██▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒██\n";
+        fingey += "░█▒▒▒███████████▒▒▒▒▒▒▒▒▒▒▒▒██\n";
+        fingey += "░██▒▒▒▒▒▒▒▒▒▒████▒▒▒▒▒▒▒▒▒▒█\n";
+        fingey += "░░████████████░░███████████\n";
+
+        // var fingey = "  ______________          |*\\_/*|_______\n";
+        // fingey+= " |  ___________  |        ||_/-\\_|______  |\n";
+        // fingey+= " | |                | |        | |                     | |\n";
+        // fingey+= " | |   0   0       | |        | |   0   0           | |\n";
+        // fingey+= " | |     -          | |        | |     -               | |\n";
+        // fingey+= " | |   \\___/      | |        | |   \\___/          | |\n";
+        // fingey+= " | |___     ___   | |        | |______________   | |\n";
+        // fingey+= " |_____|\\_/|_____|        |_______________|\n";
+        // fingey+= "    _|__|/ \\|_|_.............._|________|_\n";
+        // fingey+= "   / ********** \\            / ********** \\\n";
+        // fingey+= " /  ************  \\        /  ************  \\\n";
+        // fingey+= "--------------------      --------------------\n";
+        alert("You are the leader, CHOOSE WINNER FROM THE MAIN COMPOOTER \n" + fingey);
     }
 }
+
+
 //************************************    NO MORE FUNCTIONS    **************************************************************
 
-//============================================================================================================================
-//************************************* END JORDAN'S DUMB SHIT ***************************************************************
-//============================================================================================================================
-
-
-/*============================================================================
-  
-    #SRM 
-    host functions
-
-============================================================================*/
-
-
-
-
-//1.) Host presses button to create room
-//2.) Enters room ID (and told that a game must have 5 players, and will last 2 rounds)
-//3.) Assigned a socket, object with roomName, role, players (hardcode 5), and gameLength (hardcode 2)
 
 /*============================================================================
     
     #SRM
-    HOST GLOBAL VARIABLES
+    HOST Local VARIABLES
 
 =============================================================++==============*/
 var hostLocalVar = {
@@ -772,3 +848,7 @@ $(".card-back").on("dblclick", function(){
     }
     
 });
+=======
+//************************************* END JORDAN'S DUMB Stuff ***************************************************************
+//============================================================================================================================
+>>>>>>> e2bd3cde4449c9d0366a1fffe6196f5c5a93acef
