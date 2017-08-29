@@ -180,6 +180,8 @@ function updatePlayerConnections(playerList){
     $("#player-connections-container").empty();
     for(var p in playerList){
         $("#player-connections-container").append($("<div>").addClass("player-circle").text(playerList[p].userName))
+        hostLocalVar.playersArray = playerList;
+        console.log(hostLocalVar.playersArray);
     }
 }
 
@@ -442,7 +444,18 @@ function hideAll(bool) {
     HOST GLOBAL VARIABLES
 
 =============================================================++==============*/
-var currentURL = window.location.origin;
+var hostLocalVar = {
+    currentGreenCard: null,
+    currentGreenCardIndex: 0,
+    currentLeaderIndex: 0,
+    greenDeck: [],
+    greenCardsIndexTracker: [],
+    playersArray: [],
+    roundsNum: 2,
+    roundsTracker: 0,
+    submittedCards: [],
+    winningCards: []
+}
 
 
 /*============================================================================
@@ -452,32 +465,6 @@ var currentURL = window.location.origin;
 
 ============================================================================*/
 
-// Function supplied directly by Bex
-function hostShuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-    
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-    
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-    
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-    
-    return array;
-}
-
-// #SRM this assumes a databse identical to the 2017.08.26 version, if cards/ids change, the query incorporating these ids risks breaking
-// #SRM This function generates a shuffled array of ids corresponding to cards in our db
-function hostGenerateIdArray(endNum, startNum){
-    return hostShuffle(hostSerialArray(endNum, startNum));
-}
-
 /*============================================================================
     
     #SRM 
@@ -485,20 +472,235 @@ function hostGenerateIdArray(endNum, startNum){
 
 ============================================================================*/
 
+$("#start-game-button").on("click", function(){
+    
+        var hostStartGameVar = $("#start-game-button").data("hostVar");
+        showAndHide("host-pregame-lobby", "host-game");
+        hostLocalVar.greenDeck=[
+            {"id": 9701,
+            "title": "Tame",
+            "description": "subdued, gentle, trained",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9711,
+            "title": "Technological",
+            "description": "scientific, futuristic, mechanical",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9721,
+            "title": "Temperamental",
+            "description": "moody, irritable, short-tempered",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9731,
+            "title": "Timeless",
+            "description": "classic, ageless, well-established",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9741,
+            "title": "Touchy-Feely",
+            "description": "affectionate, tactile, huggy",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9751,
+            "title": "Tough",
+            "description": "strong, firm, difficult",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9761,
+            "title": "Trustworthy",
+            "description": "honest, reliable, unfailing",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9771,
+            "title": "Twisted",
+            "description": "distorted, warped, perverted",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9781,
+            "title": "Unbelievable",
+            "description": "incredible, far-fetched, impossible",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9791,
+            "title": "Unforgettable",
+            "description": "notable, impressive, remarkable",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9801,
+            "title": "Unhealthy",
+            "description": "risky, sickly, dangerous",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9811,
+            "title": "Unnatural",
+            "description": "abnormal, artificial, bizarre",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9821,
+            "title": "Unreal",
+            "description": "imaginary, illusionary, unbelievable",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9831,
+            "title": "Unscrupulous",
+            "description": "unethical, corrupt, unprincipled",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9841,
+            "title": "Unusual",
+            "description": "rare, odd, uncommon",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9851,
+            "title": "Useless",
+            "description": "worthless, ineffective, unneeded",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9861,
+            "title": "Violent",
+            "description": "furious, vicious, destructive",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9871,
+            "title": "Virtuous",
+            "description": "worthy, righteous, chaste",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9881,
+            "title": "Visionary",
+            "description": "idealistic, prophetic, far-seeing",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9891,
+            "title": "Weird",
+            "description": "abnormal, peculiar, odd",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9901,
+            "title": "Wicked",
+            "description": "evil, corrupt, depraved",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9911,
+            "title": "Wild",
+            "description": "untamed, savage, ferocious",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9921,
+            "title": "Witty",
+            "description": "clever, humorous, cunning",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9931,
+            "title": "Woebegone",
+            "description": "dismal, sorrowful, bummed out",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9941,
+            "title": "Worldly",
+            "description": "experienced, sophisticated, materialistic",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            },
+            {
+            "id": 9951,
+            "title": "Zany",
+            "description": "crazy, funny, wacky",
+            "role": "green",
+            "room_id": 0,
+            "player_id": 0
+            }];
+        hostLocalVar.currentGreenCard = hostLocalVar.greenDeck[hostLocalVar.currentGreenCardIndex];
+            
+});
 
 //#SRM for FRONTEND:This needs to be an actual button
 $("#showGreenCard").on("click", function(){
 
     //#SRM PLACEHOLDER FOR FRONTEND:
     //DISPLAY CURRENT LEADER
-    $("#judging-player").html(hostGlobalVar.playersArray[hostGlobalVar.currentLeaderIndex].username);
+    $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].username);
 
     //green card will display on-screen
-    $("#adj-title").text(hostGlobalVar.currentGreenCard.title);
-    $("#adj-description").text(hostGlobalVar.currentGreenCard.description);
+    $("#adj-title").text(hostLocalVar.currentGreenCard.title);
+    $("#adj-description").text(hostLocalVar.currentGreenCard.description);
     
     //#### EMIT: GREEN CARD PLAYED
-    alert("GREEN CARD PLAYED: " + hostGlobalVar.currentGreenCard.title + ". ROUND" + hostGlobalVar.roundsTracker + ", TURN " + (hostGlobalVar.currentLeaderIndex+1) + " START!");
+    console.log("GREEN CARD PLAYED: " + hostLocalVar.currentGreenCard.title + ". ROUND" + hostLocalVar.roundsTracker + ", TURN " + (hostLocalVar.currentLeaderIndex+1) + " START!");
 
 });
 
@@ -508,7 +710,7 @@ $("#grabPlayedCards").on("click", function(){
 
     // Host will draw al the submitted cards from socket & store them locally in a submittedCards array
     //FIX HARD CODING
-    hostGlobalVar.submittedCards = [
+    hostLocalVar.submittedCards = [
         {"id":1,"title":"A Bad Haircut","description":"The perfect start to a bad hair day.","role":"red","room_id":0,"player_id":1},
         {"id":11,"title":"A Bull Fight","description":"Also known as \"la fiesta brava\" (the brave festival).  A whole lot of bull..","role":"red","room_id":0,"player_id":11},
         {"id":21,"title":"A Car Crash","description":"\"Hey, it was an accident!\"","role":"red","room_id":0,"player_id":41},
@@ -517,7 +719,7 @@ $("#grabPlayedCards").on("click", function(){
     ];
 
     //Submitted cards will display on the host's machine
-    hostStartJudging (hostGlobalVar.submittedCards);
+    hostStartJudging(hostLocallVar.submittedCards);
 
 });
 
@@ -525,13 +727,13 @@ $("#grabPlayedCards").on("click", function(){
 $(".card-back").on("dblclick", function(){
 
     //Host adds the winning card to a winningCards array locally
-    hostGlobalVar.winningCards.push();
+    hostLocalVar.winningCards.push();
 
     //Host clears the submittedCArds array
-    hostGlobalVar.submittedCards = [];
+    hostLocalVar.submittedCards = [];
 
     //Check if it is the last turn of the last round
-    if (hostGlobalVar.currentLeaderIndex+1 === hostGlobalVar.playersArray.length && hostGlobalVar.roundsTracker === hostGlobalVar.roundsNum){
+    if (hostLocalVar.currentLeaderIndex+1 === hostLocalVar.playersArray.length && hostLocalVar.roundsTracker === hostLocalVar.roundsNum){
         
             //#SRM for FRONT END:
             // Hide all buttons, etc. so people can't try to keep playing
@@ -541,7 +743,7 @@ $(".card-back").on("dblclick", function(){
             alert("END OF GAME");
 
     }
-    else if (hostGlobalVar.currentLeaderIndex+1 === hostGlobalVar.playersArray.length){
+    else if (hostLocalVar.currentLeaderIndex+1 === hostLocalVar.playersArray.length){
     //if it is not the last round, get ready for the next round 
 
         //increase the round tracker
@@ -560,11 +762,11 @@ $(".card-back").on("dblclick", function(){
         //#SRM for frontend: display a temp message on the host screen that it's the next person's turn?
 
         // Queue up the next green card for the next time someone presses the reveal button
-        hostGlobalVar.currentGreenCardIndex++;
-        hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
+        hostLocalVar.currentGreenCardIndex++;
+        hostLocalVar.currentGreenCard = hostLocalVar.greenDeck[hostLocalVar.currentGreenCardIndex];
 
         // Queue up the next leader for the next time and emit the round leader messages to prep for next turn
-        hostGlobalVar.currentLeaderIndex++;
+        hostLocalVar.currentLeaderIndex++;
         hostEmitRoundLeader();
 
     }

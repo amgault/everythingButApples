@@ -214,7 +214,7 @@ function hostEmitRoundLeader(){
     
         
     
-   }
+  // }
     
 // Function supplied directly by Bex
 function hostShuffle(array) {
@@ -252,39 +252,7 @@ function hostGenerateIdArray(endNum, startNum){
 
 // #SRM This is hardcoded as a button press. We need to change it to a socket listener event: 
 // "5 PLAYERS HAVE JOINED ROOM"
-$("#start-game-button").on("click", function(){
-<<<<<<< HEAD
 
-    // #SRM FIX HARDCODING: take in the players from socket, right now they're hardcoded.
-    // #SRM Host pulls the players from socket
-    hostGlobalVar.playersNum = hostInitializePlayersLocally(players);
-    hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
-    hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
-
-    //Uses a series of functions to make an AJAX call to store the green cards for the whole game
-    //and distribute individual red card decks to each player
-    hostGlobalVar.deckArray = hostBuildDeck();
-
-=======
-    //e.preventDefault();
-    var hostGlobalVar = $("#start-game-button").data("hostVar");
-    // #SRM FIX HARDCODING: take in the players from socket, right now they're hardcoded.
-    // #SRM Host pulls the players from socket
-    /* #Gowri removed the call to hostInitializePlayersLocally since that is called by socket once room is full 
-    so changing to directly measure the length*/
-    console.log("inside start"+hostGlobalVar.playersNum);
-    console.log("inside start"+hostGlobalVar.playersArray);
-    console.log("inside start"+hostGlobalVar.playersArray);
-    showAndHide("host-pregame-lobby", "host-game");
-    
-   hostGlobalVar.greenCardsTotal = (hostGlobalVar.playersNum*hostGlobalVar.roundsNum);
-   hostGlobalVar.redCardsTotal = ( ((hostGlobalVar.playersNum*4)*hostGlobalVar.roundsNum) + ( ( (hostGlobalVar.playersNum - 1)*(hostGlobalVar.playersNum) )*hostGlobalVar.roundsNum ) );
-
-    //Uses a series of functions to make an AJAX call to store the green cards for the whole game
-    //and distribute individual red card decks to each player
-   hostGlobalVar.deckArray = hostBuildDeck();   
->>>>>>> 2e109da463cc32a0631cf7e5f9648a61235bcb6d
-});
 
 //#SRM for FRONTEND:This needs to be an actual button
 $("#showGreenCard").on("click", function(){
