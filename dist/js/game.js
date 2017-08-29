@@ -60,17 +60,20 @@ exports.initGame = function(sio, sock) {
         io.to(hostGlobalVar.hostArray[0].playerId).emit('here goes nothing and a red card', card);
     })
 
-    //#SRM listen for the message from the host that the green card has been revealed. 
+    //#SRM listen for the message from the host that the green card has been revealed.
+    // HELP no one receives this right now?
     socket.on('green card revealed', function() {
         //#SRM send a message out to everyone that cards can be played now
-        socket.emit('turn started');
+        socket.emit('turn started', { message: 'turn started' });
     })
 
+    /* Not tested yet
     //#SRM listenfor the message from the host containing the next turn leader's id
     socket.on('next leader', function(idString){
         //#SRM emit the message and the id back to players
         socket.emit('check this id', idString);
     })
+    */
 
 }
 

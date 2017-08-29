@@ -533,26 +533,12 @@ function hideAll(bool) {
     }
 }
 
-//#SRM when the next leader id is sent out, check to see if it matches their own
-socket.on('next leader', function(idString){
-    if (idString == thisuser.player_id ){
-        thisuser.trump = true;
-        alert("you're the new leader for the next round");
-    }
-    else {
-        thisuser.trump = false;
-    }
-})
 
 //#SRM when they receive the signal that the turn has started, check if they are the leader and decide if they can submit a card
+//HELP only the last player who joined can receive this socket?
 socket.on('turn started', function(){
-    if (thisuser.trump){
-        thisuser.cansub = false;
-        alert("DON'T YOU DARE SUBMIT A CARD");
-    }
-    else{
-        thisuser.cansub = true;
-    }
+    console.log("The turn has started")  ;  
+    thisuser.cansub = true;
 })
 
 //************************************    NO MORE FUNCTIONS    **************************************************************
@@ -614,7 +600,7 @@ $("#showGreenCard").on("click", function(){
     //green card will display on-screen
     $("#adj-title").text(hostLocalVar.currentGreenCard.title);
     $("#adj-description").text(hostLocalVar.currentGreenCard.description);
-    socket.emit('green card revealed', { message: "Turn start!" });
+    socket.emit('green card revealed');
 
 });
 
@@ -682,6 +668,8 @@ $(".played-card").on("dblclick", function(){
 
         // Queue up the next leader for the next time and emit the round leader messages to prep for next turn
         hostLocalVar.currentLeaderIndex++;
+
+        //When I console log this mess of a variable in the window after the emit was supposed to go out,I still get something.
         socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId );
         $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
     }
