@@ -168,33 +168,33 @@ function flipPlayedCards(cardArray) {
 function preparePlayedCards(cardArray) {
     var index = 0;
     $(".played-card").each(function() {
-         //Change display of of red cards to fill them with text and flip them over
-         $(this).find(".nounTitleText").html(cardArray[index].title);
-         $(this).find(".nounDescriptionText").html(cardArray[index].description);
-         //.data("cardInfo", cardArray[index]);
-         $(this).toggleClass('flipped');
-         
-         //change the data attribute of the card so we can access it later when we pick a winner
-         $(this).attr("data-player-id", cardArray[index].player_id);
-         $(this).attr("data-player-username", cardArray[index].userName);
+        //Change display of of red cards to fill them with text and flip them over
+        $(this).find(".nounTitleText").html(cardArray[index].title);
+        $(this).find(".nounDescriptionText").html(cardArray[index].description);
+        //.data("cardInfo", cardArray[index]);
+        $(this).toggleClass('flipped');
 
-         index++;
+        //change the data attribute of the card so we can access it later when we pick a winner
+        $(this).attr("data-player-id", cardArray[index].player_id);
+        $(this).attr("data-player-username", cardArray[index].userName);
+
+        index++;
     })
 }
 
 
-function clearPlayedCards(){
+function clearPlayedCards() {
     $(".played-card").each(function() {
         //Change display of of red cards to fill them with text and flip them over
         $(this).find(".nounTitleText").html();
         $(this).find(".nounDescriptionText").html();
         $(this).toggleClass('flipped');
-        
+
         //change the data attribute of the card so we can access it later when we pick a winner
         $(this).attr("data-player-id", "null");
         $(this).attr("data-player-username", "null");
 
-   })
+    })
 }
 
 function hostStartJudging(submittedCards) {
@@ -253,7 +253,7 @@ socket.on('player joined', function(players) {
     updatePlayerConnections(players);
 })
 
-socket.on('all players joined', function(hostGlobalVar){
+socket.on('all players joined', function(hostGlobalVar) {
     hostLocalVar = hostGlobalVar;
 })
 
@@ -264,7 +264,7 @@ socket.on('deal cards', function(cards) {
 })
 
 //#Gowri listen for the start game and get the green cards for Host
-socket.on('green cards',  function(hostGlobalVar){
+socket.on('green cards', function(hostGlobalVar) {
     hostLocalVar = hostGlobalVar;
 })
 
@@ -335,7 +335,7 @@ class user {
     }
     //adds a new card to the user's hand
     newcard() {
-        console.log("adding "+this.deck[this.deckindex].title)
+        console.log("adding " + this.deck[this.deckindex].title)
         this.hand.push(this.deck[this.deckindex]);
         this.deckindex++;
 
@@ -392,7 +392,7 @@ var passme = [];
 socket.on('deal cards', function(cards) {
     showAndHide('pregame', 'game');
     //console.log("cards dealt");
-    for(i=0; i<cards.length; i++){
+    for (i = 0; i < cards.length; i++) {
         passme.push(new card(cards[i].title, cards[i].description, thisuser.player_id));
     }
     thisuser.newdeck(passme);
@@ -404,32 +404,18 @@ socket.on('deal cards', function(cards) {
 
 
 
-//************************************ LISTEN FOR LEADER TO BE ASSIGNED **************************************************
+//************************************ LISTEN FOR LEADER (start turn) ******************************************************
 // listener for "assignleader" message from socket goes here (assuming passed argument looks like object{leader: true} or object{leader: false})
 // socket.on('assignleader', hideAll(CREAMFILLING));
 
-socket.on('next leader', function(turnlead){ console.log("next leader received"); hideAll(turnlead);});
+socket.on('turn lead', function(turnlead) {
+    console.log("next leader received");
+    hideAll(turnlead);
+});
 
 
 //************************************* END LISTEN FOR LEADER **************************************************************
 
-
-//************************************* LISTEN FOR GREEN CARD **************************************************************
-
-// thought about this for a while and decided best course of action to avoid a listener within a listener is having a bool 
-// within the user and setting it to true when they can click a card to submit it. 
-
-// listen for socket (beginturn) goes here: 
-
-//#SRM when they receive the signal that the turn has started, check if they are the leader and decide if they can submit a card
-//HELP only the last player who joined can receive this socket?
-socket.on('turn started', function(){
-    console.log("The turn has started");  
-    thisuser.cansub = true;
-})
-
-
-//************************************* END LISTEN FOR GREEN ***************************************************************
 
 
 //************************************* LISTEN FOR END OF ROUND ************************************************************
@@ -453,7 +439,7 @@ socket.on('turn started', function(){
 // this function will change the html of the cards to match the local user's hand
 function swapHand() {
     for (i = 1; i <= thisuser.hand.length; i++) {
-        console.log("card "+i+": "+thisuser.hand[i-1].title);
+        console.log("card " + i + ": " + thisuser.hand[i - 1].title);
         document.getElementById("card" + i + "-noun").innerHTML = thisuser.hand[i - 1].title;
         document.getElementById("card" + i + "-desc").innerHTML = thisuser.hand[i - 1].description;
     }
@@ -479,11 +465,10 @@ function ENDIT() {
 
 $("#playerschoice").on('click', function() {
     // CHECK IF THE USER CAN SUBMIT A CARD YET
-    if (!thisuser.cansub){
+    if (!thisuser.cansub) {
         console.log("you cant submit a card yet");
         return;
-    }
-    else{
+    } else {
         //get the title of the card
         var findthis = document.getElementById("fav").childNodes[1].innerHTML;
         //console.log("child node 1: " + document.getElementById("fav").childNodes[1]);
@@ -495,7 +480,7 @@ $("#playerschoice").on('click', function() {
         //}
         //EMIT THE CARD THAT HAD BEEN CHOSEN
         //console.log("card position in hand: " + itshere);
-       // console.log("card emitted: " + thisuser.hand[itshere]);
+        // console.log("card emitted: " + thisuser.hand[itshere]);
         socket.emit('chosencard', thisuser.hand[itshere]);
         //console.log("SUBMITTED?");
 
@@ -539,13 +524,14 @@ function hideAll(pid) {
         fingey += "░░████████████░░███████████\n";
 
         alert("You are the leader, CHOOSE WINNER FROM THE MAIN COMPOOTER \n" + fingey);
-    } else {        
-        thisuser.trump = false;
+    } else {
         thisuser.cansub = true;
-        $("#pregame").show();
-        $("#game").show();
-        $("#player").show();
-        $("#hand").show();
+        if (thisuser.trump == true) {
+            thisuser.trump = false;
+            $("#game").show();
+            $("#player").show();
+            $("#hand").show();
+        }
         return;
     }
 }
@@ -591,17 +577,17 @@ var hostLocalVar = {
 
 ============================================================================*/
 
-$("#start-game-button").on("click", function(){
-    
-        var hostStartGameVar = $("#start-game-button").data("hostVar");
-        showAndHide("host-pregame-lobby", "host-game");
-        socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId );
-        $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
-        $("#host-round-number").html(hostLocalVar.roundsTracker);    
+$("#start-game-button").on("click", function() {
+
+    var hostStartGameVar = $("#start-game-button").data("hostVar");
+    showAndHide("host-pregame-lobby", "host-game");
+    socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId);
+    $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
+    $("#host-round-number").html(hostLocalVar.roundsTracker);
 });
 
 //#SRM for FRONTEND:This needs to be an actual button
-$("#showGreenCard").on("click", function(){
+$("#showGreenCard").on("click", function() {
 
     hostLocalVar.currentGreenCard = hostLocalVar.greenDeck[hostLocalVar.currentGreenCardIndex];
     //#SRM PLACEHOLDER FOR FRONTEND:
@@ -612,9 +598,6 @@ $("#showGreenCard").on("click", function(){
     $("#adj-description").text(hostLocalVar.currentGreenCard.description);
     socket.emit('green card revealed');
 
-    //#jordan "start-game-button" seems to never be clicked so im adding the newleader emit here
-    socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId);
-
 });
 
 // #SRM This is the listener for red cards received
@@ -622,13 +605,13 @@ socket.on('here goes nothing and a red card', function(card) {
     console.log(card);
     hostLocalVar.submittedCards.push(card);
     //If all cards have now been submitted, start judging
-    if(hostLocalVar.submittedCards.length === (hostLocalVar.playersArray.length - 1)){
+    if (hostLocalVar.submittedCards.length === (hostLocalVar.playersArray.length - 1)) {
         hostStartJudging(hostLocalVar.submittedCards);
     }
 })
 
 //#SRM When the host double-clicks on their favorite card
-$(".played-card").on("dblclick", function(){
+$(".played-card").on("dblclick", function() {
 
     /*
     for (i=0; i<hostLocalVar.playersArray.length; i++{
@@ -646,33 +629,32 @@ $(".played-card").on("dblclick", function(){
     clearPlayedCards();
 
     //Check if it is the last turn of the last round
-    if (hostLocalVar.currentLeaderIndex+1 === hostLocalVar.playersArray.length && hostLocalVar.roundsTracker === hostLocalVar.roundsNum){
-        
-            // Display the winner?
+    if (hostLocalVar.currentLeaderIndex + 1 === hostLocalVar.playersArray.length && hostLocalVar.roundsTracker === hostLocalVar.roundsNum) {
 
-            //#SRM EMIT AN END OF GAME MESSAGE TO ALL THE PLAYERS
-            socket.emit('end of game', { message: "End of Game!" });
-            alert("END OF GAME");
+        // Display the winner?
 
-    }
-    else if (hostLocalVar.currentLeaderIndex+1 === hostLocalVar.playersArray.length){
-    //if it is not the last round, get ready for the next round 
+        //#SRM EMIT AN END OF GAME MESSAGE TO ALL THE PLAYERS
+        socket.emit('end of game', { message: "End of Game!" });
+        alert("END OF GAME");
+
+    } else if (hostLocalVar.currentLeaderIndex + 1 === hostLocalVar.playersArray.length) {
+        //if it is not the last round, get ready for the next round 
 
         //increase the round tracker
         hostLocalVar.roundsTracker++;
-        $("#host-round-number").html(hostLocalVar.roundsTracker);   
+        $("#host-round-number").html(hostLocalVar.roundsTracker);
 
         //reset the leader rotation for the next round
         hostLocalVar.currentLeaderIndex = 0;
 
         //# EMIT "END OF ROUND" to all players via socket
-        socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId );
+        socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId);
         socket.emit('end of round', { message: "End of Round!" });
         $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
     }
 
     // if it's not the last turn of a round, then get ready for the next turn
-    else{
+    else {
         //#SRM for frontend: display a temp message on the host screen that it's the next person's turn?
 
         // Queue up the next green card for the next time someone presses the reveal button
@@ -683,8 +665,8 @@ $(".played-card").on("dblclick", function(){
         hostLocalVar.currentLeaderIndex++;
 
         //When I console log this mess of a variable in the window after the emit was supposed to go out,I still get something.
-        socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId );
+        socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId);
         $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
     }
-    
+
 });
