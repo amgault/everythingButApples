@@ -182,6 +182,7 @@ function preparePlayedCards(cardArray) {
     })
 }
 
+
 function clearPlayedCards(){
     $(".played-card").each(function() {
         //Change display of of red cards to fill them with text and flip them over
