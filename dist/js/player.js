@@ -590,8 +590,10 @@ $("#start-game-button").on("click", function() {
 $("#showGreenCard").on("click", function() {
 
     hostLocalVar.currentGreenCard = hostLocalVar.greenDeck[hostLocalVar.currentGreenCardIndex];
-    //#SRM PLACEHOLDER FOR FRONTEND:
+
     //DISPLAY CURRENT LEADER
+    showAndHide("pre-judging-message", "mid-judging-message");
+    $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
 
     //green card will display on-screen
     $("#adj-title").text(hostLocalVar.currentGreenCard.title);
@@ -650,6 +652,7 @@ $(".played-card").on("dblclick", function() {
         //# EMIT "END OF ROUND" to all players via socket
         socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId);
         socket.emit('end of round', { message: "End of Round!" });
+        showAndHide("mid-judging-message", "pre-judging-message");
         $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
     }
 
@@ -666,6 +669,8 @@ $(".played-card").on("dblclick", function() {
 
         //When I console log this mess of a variable in the window after the emit was supposed to go out,I still get something.
         socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId);
+        //DISPLAY CURRENT LEADER
+        showAndHide("mid-judging-message","pre-judging-message");
         $("#judging-player").html(hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].userName);
     }
 
