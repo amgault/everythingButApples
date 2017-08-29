@@ -70,17 +70,18 @@ function hostBuildDeck() {
 }
 
 //function makes an AJAX call and sets global variable so our host Machine can access this array later;
-function hostDrawGreenCards(cardsNum, startId, endId){
+function hostDrawGreenCards(cardsNum, startId, endId) {
+
     // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
         // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string        
     player.selectAllWithinIdList(hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString(),
     function(data){
-        console.log("i am in host draw green")
-        hostGlobalVar.greenDeck = data;
-        //console.log(hostGlobalVar.greenDeck);
-        
-        // Prepare the first green card to be revealed
-        hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
+      //console.log("i am in host draw green");
+      hostGlobalVar.greenDeck = data;
+       //console.log(hostGlobalVar.greenDeck);
+       
+       // Prepare the first green card to be revealed
+       hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
         //#Gowri emitting green cards to the host
         io.to(hostGlobalVar.hostArray[0].playerId).emit('green cards', hostGlobalVar.greenDeck);
     });
@@ -88,6 +89,7 @@ function hostDrawGreenCards(cardsNum, startId, endId){
 }
 
 function hostDrawRedCards(cardsNum, startId, endId) {
+   // console.log(hostGenerateIdArray(endId + 1, startId).splice(0, cardsNum).toString());
     player.selectAllWithinIdList(hostGenerateIdArray(endId + 1, startId).splice(0, cardsNum).toString(),
         function(data) {
             for (i = 0; i < hostGlobalVar.playersArray.length; i++) {
@@ -104,7 +106,7 @@ function hostDrawRedCards(cardsNum, startId, endId) {
                 io.to(hostGlobalVar.playersArray[i].playerId).emit('deal cards', hostGlobalVar.playerDecks[i]);
                 //alert("Player in position " + i + ": " +hostGlobalVar.playerDecks[i]);
             }
-            console.log(hostGlobalVar.playerDecks);
+            //console.log(hostGlobalVar.playerDecks);
         });
 
 }

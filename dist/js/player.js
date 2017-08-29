@@ -237,13 +237,6 @@ socket.on('all players joined', function(hostGlobalVar){
     console.log(hostGlobalVar);
 })
 
-
-//#Gowri listen for the deal cards after host starts game and switch the users to play screen
-socket.on('deal cards', function(cards) {
-    showAndHide('pregame', 'game')
-    cards.forEach(card => console.log(card.title));
-})
-
 //#Gowri listen for the start game and get the green cards for Host
 socket.on('green cards', function(cards){
     cards.forEach( card => console.log(card.title));
@@ -256,7 +249,7 @@ socket.on('green cards', function(cards){
 // card object 
 class card {
     // title, description, role(green or red), isused, roomid, pid
-    constructor(t, d, r, pid) {
+    constructor(t, d, pid) {
         this.id = null;
         this.title = t;
         this.description = d;
@@ -287,20 +280,20 @@ class user {
         // //keep track if they are the leader or nah...... DONT NEED LUL.. wait maybe i do
         this.trump = false;
         // can the user submit a card yet? or nah
-        this.cansub = false;
+        this.cansub = true;
     }
     // receive an object with an array of cards within, put dem in da deck
     newdeck(dek) {
         // assuming cards is the key to the array value within passed object 'dek'
-        this.deck = dek.cards;
-        this.markcards();
+        this.deck = dek;
+        //this.markcards();
         this.newhand();
     }
-    // dis function assigns all the cards in the player's deck with the player's ID 
-    markcards() {
-        for (var i = 0; i < this.deck.length; i++)
-            this.deck[i].player_id = this.player_id;
-    }
+    // // dis function assigns all the cards in the player's deck with the player's ID///// OBSOLETE
+    // markcards() {
+    //     for (var i = 0; i < this.deck.length; i++)
+    //         this.deck[i].player_id = this.player_id;
+    // }
     // dis function will give le player 4 new cards in their hand while destroying their current hand
     newhand() {
         //erase their hand
@@ -336,7 +329,6 @@ class user {
         }
         return -1;
     } //end findcard
-
 } //end player
 
 //*************************************** LISTEN FOR PLAYERS  ***********************************************************
@@ -355,23 +347,29 @@ socket.on('checkyoself', function(playa) {
     }
 });
 
-
-
-
-
-
 // *********************************** LISTEN FOR CARDS TO BE DEALT *****************************************************
 // listener for "cardsout" message from socket goes here:
 // socket.on('cardsout', thisuser.newdeck(data))
 
 
 // for testing purposes
-var cardme = new card("Test", "A Test", 0);
-var cardtwo = new card("NewCard", "A new card", 1);
-var passme = { cards: [cardme, cardme, cardme, cardme, cardtwo, cardtwo, cardtwo, cardme, cardme, cardtwo] };
+//var cardme = new card("Test", "A Test", 0);
+//var cardtwo = new card("NewCard", "A new card", 1);
+var tempcard = '';
+var passme = [];
 // console.log("Object Socket Passed: " + passme); working
 // console.log("IM WORKING I THINK");
-thisuser.newdeck(passme);
+//thisuser.newdeck(passme);
+
+//#Gowri listen for the deal cards after host starts game and switch the users to play screen
+socket.on('deal cards', function(cards) {
+    showAndHide('pregame', 'game');
+    //console.log("cards dealt");
+    for(i=0; i<cards.length; i++){
+        passme.push(new card(cards[i].title, cards[i].description, thisuser.player_id));
+    }
+    thisuser.newdeck(passme);
+})
 
 
 // *********************************** END CARDS DEALT *******************************************************************
@@ -444,27 +442,36 @@ function ENDIT() {
 // THERE IS NOW A SUBMIT BUTTON, PUT THE LISTENER HERE
 
 $("#playerschoice").on('click', function() {
-    // // CHECK IF THE USER CAN SUBMIT A CARD YET
-    // if (!thisuser.cansub)
-    //     return;
-    // else {
-    //     //get the title of the card
-    //     var findthis = $(this).children('h2').text;
-    //     //find what index of hand array it is at
-    //     var itshere = thisuser.findcard(findthis);
-    //     if (itshere == -1)
-    //         console.log("you suck, thats not it");
+    // CHECK IF THE USER CAN SUBMIT A CARD YET
+    if (!thisuser.cansub){
+        console.log("you cant submit a card yet");
+        return;
+    }
+    else{
+        //get the title of the card
+        var findthis = document.getElementById("fav").childNodes[1].innerHTML;
+        //console.log("child node 1: " + document.getElementById("fav").childNodes[1]);
+        //find what index of hand array it is at
+        //console.log("find this: " + findthis);
+        var itshere = thisuser.findcard(findthis);
+        if (itshere == -1)
+            console.log("you suck, thats not it");
 
-    //     //EMIT THE CARD THAT HAD BEEN CHOSEN
-    //     //socket.emit('chosencard', thisuser.hand[itshere]);
+        //EMIT THE CARD THAT HAD BEEN CHOSEN
+        //console.log("card position in hand: " + itshere);
+        //console.log("card emitted: " + thisuser.hand[itshere]);
+        io.to(myhost).emit('chosencard', thisuser.hand[itshere]);
 
-    //     //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
-    //     thisuser.removecard(itshere);
-    // }
+        //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
+        thisuser.removecard(itshere);
+
+        //DISALLOW FURTHER SUBMISSIONS
+        thisuser.cansub = false;
+    }
 
     //thisuser.newhand();
-    var testbool = { leader: true };
-    hideAll(testbool);
+    // var testbool = { leader: true };
+    // hideAll(testbool);
 });
 
 
@@ -497,18 +504,6 @@ function hideAll(bool) {
         fingey += "░██▒▒▒▒▒▒▒▒▒▒████▒▒▒▒▒▒▒▒▒▒█\n";
         fingey += "░░████████████░░███████████\n";
 
-        // var fingey = "  ______________          |*\\_/*|_______\n";
-        // fingey+= " |  ___________  |        ||_/-\\_|______  |\n";
-        // fingey+= " | |                | |        | |                     | |\n";
-        // fingey+= " | |   0   0       | |        | |   0   0           | |\n";
-        // fingey+= " | |     -          | |        | |     -               | |\n";
-        // fingey+= " | |   \\___/      | |        | |   \\___/          | |\n";
-        // fingey+= " | |___     ___   | |        | |______________   | |\n";
-        // fingey+= " |_____|\\_/|_____|        |_______________|\n";
-        // fingey+= "    _|__|/ \\|_|_.............._|________|_\n";
-        // fingey+= "   / ********** \\            / ********** \\\n";
-        // fingey+= " /  ************  \\        /  ************  \\\n";
-        // fingey+= "--------------------      --------------------\n";
         alert("You are the leader, CHOOSE WINNER FROM THE MAIN COMPOOTER \n" + fingey);
     }
 }
