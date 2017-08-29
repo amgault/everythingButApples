@@ -2,7 +2,6 @@ var io;
 var socket;
 var players = [];
 var host = [];
-//var $ = require("jquery");
 var request = require("request");
 // #GowriImport the model to use its database functions
 var player = require("../../models/playerModels.js");
@@ -71,17 +70,18 @@ function hostBuildDeck() {
 }
 
 //function makes an AJAX call and sets global variable so our host Machine can access this array later;
-function hostDrawGreenCards(cardsNum, startId, endId){
+function hostDrawGreenCards(cardsNum, startId, endId) {
+
     // #SRM AJAX call to grab an array of all the red cards that all players will need for the game
         // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string        
     player.selectAllWithinIdList(hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString(),
     function(data){
-        console.log("i am in host draw green")
-        hostGlobalVar.greenDeck = data;
-        //console.log(hostGlobalVar.greenDeck);
-        
-        // Prepare the first green card to be revealed
-        hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
+      //console.log("i am in host draw green");
+      hostGlobalVar.greenDeck = data;
+       //console.log(hostGlobalVar.greenDeck);
+       
+       // Prepare the first green card to be revealed
+       hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
         //#Gowri emitting green cards to the host
         io.to(hostGlobalVar.hostArray[0].playerId).emit('green cards', hostGlobalVar.greenDeck);
     });
@@ -89,6 +89,7 @@ function hostDrawGreenCards(cardsNum, startId, endId){
 }
 
 function hostDrawRedCards(cardsNum, startId, endId) {
+   // console.log(hostGenerateIdArray(endId + 1, startId).splice(0, cardsNum).toString());
     player.selectAllWithinIdList(hostGenerateIdArray(endId + 1, startId).splice(0, cardsNum).toString(),
         function(data) {
             for (i = 0; i < hostGlobalVar.playersArray.length; i++) {
@@ -105,7 +106,7 @@ function hostDrawRedCards(cardsNum, startId, endId) {
                 io.to(hostGlobalVar.playersArray[i].playerId).emit('deal cards', hostGlobalVar.playerDecks[i]);
                 //alert("Player in position " + i + ": " +hostGlobalVar.playerDecks[i]);
             }
-            console.log(hostGlobalVar.playerDecks);
+            //console.log(hostGlobalVar.playerDecks);
         });
 
 }
@@ -154,11 +155,12 @@ function setUser(user) {
         //#Gowri set the players once the required number of players has joined
         hostGlobalVar.playersArray = players;
         hostGlobalVar.playersNum = hostGlobalVar.playersArray.length;
-
+        io.to(hostGlobalVar.hostArray[0].playerId).emit('all players joined', hostGlobalVar);
+        
     }
     // #Gowri emit the players to Host screen
     if (players.length > 0 && players.length <= 5) {
-        io.to(hostGlobalVar.hostArray[0].playerId).emit('player joined', hostGlobalVar);
+        io.to(hostGlobalVar.hostArray[0].playerId).emit('player joined', players);
     }
     //#jordan send each player their ID & hostID
     if (players.length >= 1) {
