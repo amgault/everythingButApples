@@ -60,6 +60,8 @@ body {
             flex-flow:column;
     text-align: center;
     padding: 25px;
+    -webkit-box-shadow: inset 0 0 0 10px #f7b733;
+            box-shadow: inset 0 0 0 10px #f7b733;
 }
 
 .host-absoluteBottom {
@@ -244,6 +246,8 @@ body {
   transform: translateY(3px);
 } */
 
+/* #Max  this code holds the screen into a vertical position */
+
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
     html {
       -webkit-transform: rotate(-90deg);
@@ -414,15 +418,6 @@ body {
     margin:auto;
 }
 
-.circle {
-    display:block;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    /* border: 1px solid red; */
-    background-color: #A29AA9;
-}
-
 .circleWord{
     text-align: center;
     z-index: 5;
@@ -489,6 +484,10 @@ body {
             box-shadow: 0 2px 0 #dfdce3;
     -webkit-transform: translateY(3px);
             transform: translateY(3px);
+}
+
+.general-button:hover {
+    cursor: pointer;
 }
 
 .header {
