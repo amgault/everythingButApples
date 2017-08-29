@@ -53,6 +53,30 @@ exports.initGame = function(sio, sock) {
         hostGlobalVar.deckArray = hostBuildDeck();
 
     })
+
+    //#SRM listen for the message from the players with a crd object attached.
+    socket.on('chosencard', function(card) {
+        //emit that object to the host -- but really everyone?
+        io.to(hostGlobalVar.hostArray[0].playerId).emit('here goes nothing and a red card', card);
+    })
+
+    //#SRM listen for the message from the host that the green card has been revealed.
+    socket.on('green card revealed', function() {
+        //#SRM send a message out to everyone that cards can be played now
+        for (i = 0; i < hostGlobalVar.playersArray.length; i++) {
+            io.to(hostGlobalVar.playersArray[i].playerId).emit('turn started');
+        }
+
+    })
+
+    /* Not tested yet
+    //#SRM listenfor the message from the host containing the next turn leader's id
+    socket.on('next leader', function(idString){
+        //#SRM emit the message and the id back to players
+        socket.emit('check this id', idString);
+    })
+    */
+
 }
 
 
@@ -76,14 +100,9 @@ function hostDrawGreenCards(cardsNum, startId, endId) {
         // #SRM Create a shuffled array of all red card ids in our db, then splice it to match our game length, and turn it into a string        
     player.selectAllWithinIdList(hostGenerateIdArray( endId+1, startId ).splice( 0, cardsNum ).toString(),
     function(data){
-      //console.log("i am in host draw green");
-      hostGlobalVar.greenDeck = data;
-       //console.log(hostGlobalVar.greenDeck);
-       
-       // Prepare the first green card to be revealed
-       hostGlobalVar.currentGreenCard = hostGlobalVar.greenDeck[hostGlobalVar.currentGreenCardIndex];
+        hostGlobalVar.greenDeck = data;
         //#Gowri emitting green cards to the host
-        io.to(hostGlobalVar.hostArray[0].playerId).emit('green cards', hostGlobalVar.greenDeck);
+        io.to(hostGlobalVar.hostArray[0].playerId).emit('green cards', hostGlobalVar);
     });
 
 }
