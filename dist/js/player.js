@@ -306,7 +306,7 @@ class user {
         // //keep track if they are the leader or nah...... DONT NEED LUL.. wait maybe i do
         this.trump = false;
         // can the user submit a card yet? or nah
-        this.cansub = true;
+        this.cansub = false;
     }
     // receive an object with an array of cards within, put dem in da deck
     newdeck(dek) {
@@ -335,6 +335,7 @@ class user {
     }
     //adds a new card to the user's hand
     newcard() {
+        console.log("adding "+this.deck[this.deckindex].title)
         this.hand.push(this.deck[this.deckindex]);
         this.deckindex++;
 
@@ -343,6 +344,7 @@ class user {
     }
     //removes the card at the index of the argument from hand
     removecard(here) {
+        console.log("removing " + this.hand[here].title + " from hand");
         this.hand.splice(here, 1);
         this.newcard();
         this.cansub = false;
@@ -406,6 +408,8 @@ socket.on('deal cards', function(cards) {
 // listener for "assignleader" message from socket goes here (assuming passed argument looks like object{leader: true} or object{leader: false})
 // socket.on('assignleader', hideAll(CREAMFILLING));
 
+socket.on('next leader', function(turnlead){ console.log("next leader received"); hideAll(turnlead);});
+
 
 //************************************* END LISTEN FOR LEADER **************************************************************
 
@@ -416,7 +420,13 @@ socket.on('deal cards', function(cards) {
 // within the user and setting it to true when they can click a card to submit it. 
 
 // listen for socket (beginturn) goes here: 
-// socket.on('beginturn', function(){ thisuser.cansub = true; } );
+
+//#SRM when they receive the signal that the turn has started, check if they are the leader and decide if they can submit a card
+//HELP only the last player who joined can receive this socket?
+socket.on('turn started', function(){
+    console.log("The turn has started");  
+    thisuser.cansub = true;
+})
 
 
 //************************************* END LISTEN FOR GREEN ***************************************************************
@@ -443,6 +453,7 @@ socket.on('deal cards', function(cards) {
 // this function will change the html of the cards to match the local user's hand
 function swapHand() {
     for (i = 1; i <= thisuser.hand.length; i++) {
+        console.log("card "+i+": "+thisuser.hand[i-1].title);
         document.getElementById("card" + i + "-noun").innerHTML = thisuser.hand[i - 1].title;
         document.getElementById("card" + i + "-desc").innerHTML = thisuser.hand[i - 1].description;
     }
@@ -484,9 +495,9 @@ $("#playerschoice").on('click', function() {
         //}
         //EMIT THE CARD THAT HAD BEEN CHOSEN
         //console.log("card position in hand: " + itshere);
-        console.log("card emitted: " + thisuser.hand[itshere]);
+       // console.log("card emitted: " + thisuser.hand[itshere]);
         socket.emit('chosencard', thisuser.hand[itshere]);
-        console.log("SUBMITTED?");
+        //console.log("SUBMITTED?");
 
         //REMOVE THE CHOSEN CARD FROM HAND & DRAW NEED CARD
         thisuser.removecard(itshere);
@@ -501,17 +512,15 @@ $("#playerschoice").on('click', function() {
 });
 
 // function to respond to whether they are the leader or not (hiding all their cards etc if they are)
-function hideAll(bool) {
-    if (bool.leader == false) {
-        thisuser.trump = false;
-        return;
-    } else {
+function hideAll(pid) {
+    if (thisuser.player_id == pid) {
         thisuser.trump = true;
+        thisuser.cansub = false;
         //HIDE EVERYTHING ON THE FRONT END AND DISPLAY "AY, YOU, GO TO THE HOST COMPUTER TO PICK A CARD"
-        document.getElementById("pregame").style.display = "none";
-        document.getElementById("game").style.display = "none";
-        document.getElementById("player").style.display = "none";
-        document.getElementById("hand").style.display = "none";
+        $("#pregame").hide();
+        $("#game").hide();
+        $("#player").hide();
+        $("#hand").hide();
 
         var fingey = "░░░░░░░░░░░░░░░░█████████\n";
         fingey += "░░███████░░░░░███▒▒▒▒▒▒███\n";
@@ -530,16 +539,17 @@ function hideAll(bool) {
         fingey += "░░████████████░░███████████\n";
 
         alert("You are the leader, CHOOSE WINNER FROM THE MAIN COMPOOTER \n" + fingey);
+    } else {        
+        thisuser.trump = false;
+        thisuser.cansub = true;
+        $("#pregame").show();
+        $("#game").show();
+        $("#player").show();
+        $("#hand").show();
+        return;
     }
 }
 
-
-//#SRM when they receive the signal that the turn has started, check if they are the leader and decide if they can submit a card
-//HELP only the last player who joined can receive this socket?
-socket.on('turn started', function(){
-    console.log("The turn has started")  ;  
-    thisuser.cansub = true;
-})
 
 //************************************    NO MORE FUNCTIONS    **************************************************************
 
@@ -601,6 +611,9 @@ $("#showGreenCard").on("click", function(){
     $("#adj-title").text(hostLocalVar.currentGreenCard.title);
     $("#adj-description").text(hostLocalVar.currentGreenCard.description);
     socket.emit('green card revealed');
+
+    //#jordan "start-game-button" seems to never be clicked so im adding the newleader emit here
+    socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId);
 
 });
 
