@@ -62,24 +62,6 @@
                 <p>This game will last 2 rounds.</p>
             </div>
         </div>
-
-<!-- #SRM TESTDIV -->
-                <div>
-                    <a id="grabPlayers">
-                        <p class="circleWord" style="color:blue;">Grab Players</p>
-                    </a>
-                    <a id="showGreenCard">
-                        <p class="circleWord" style="color:blue;">Show Green Card</p>
-                    </a>
-                    <a id="grabPlayedCards">
-                        <p class="circleWord" style="color:blue;">Grab Played Cards</p>
-                    </a>
-                    <a id="pickWinner">
-                        <p class="circleWord" style="color:blue;">Pick WInner</p>
-                    </a>
-                </div>
-    <!-- END SRM TEST DIV -->
-
         <!-- DURING THE GAME -->
         <div id="host-game" class="host-display host-game" style="display:none;">
             <div class="host-topside">
@@ -105,46 +87,46 @@
                     </ul> -->
                 </div>
                 <div class="adj-card">
-                    <p class="nounTitleText">Noun</p>
-                    <p>Description</p>
+                    <p id="adj-title" class="nounTitleText">????</p>
+                    <p id="adj-description">(╯°□°）╯︵ ┻━┻</p>
                 </div>
-                <button  onclick="updateScore('player1', 'player1')">Function Testing Button</button>
-                <!-- <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
-                <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="judging-player">???</span> is the judge. Please pick your favorite card.</p> -->
+                <button id="showGreenCard">Reveal Card</button>
+                <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
+                <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="judging-player">???</span> is the judge. Please pick your favorite card.</p>
             </div>
             <div class="host-played-cards">
                 <!-- container holding all the cards that have been played -->
                 <div class="played-cards-container host-absoluteBottom">
-                    <div class="played-card">
+                    <div class="played-card" data-player-id="0"  data-player-username="name1">
                         <div class="card-front">
                         </div>
                         <div class="card-back">
                             <p class="nounTitleText">Noun</p>
-                            <p>Description</p>
+                            <p class="nounDescriptionText">Description</p>
                         </div>
                     </div>
-                    <div class="played-card">
+                    <div class="played-card" data-player-id="0" data-player-username="name2">
                         <div class="card-front">
                         </div>
                         <div class="card-back">
                             <p class="nounTitleText">Noun</p>
-                            <p>Description</p>
+                            <p class="nounDescriptionText">Description</p>
                         </div>
                     </div>
-                    <div class="played-card">
+                    <div class="played-card" data-player-id="0" data-player-username="name3">
                         <div class="card-front">
                         </div>
                         <div class="card-back">
                             <p class="nounTitleText">Noun</p>
-                            <p>Description</p>
+                            <p class="nounDescriptionText">Description</p>
                         </div>
                     </div>
-                    <div class="played-card">
+                    <div class="played-card" data-player-id="0" data-player-username="name4">
                         <div class="card-front">
                         </div>
-                        <div class="card-back">
+                        <div class="card-back" >
                             <p class="nounTitleText">Noun</p>
-                            <p>Description</p>
+                            <p class="nounDescriptionText">Description</p>
                         </div>
                     </div>
                 </div>
@@ -193,7 +175,7 @@
             <div class="player-name">
                 <span>Your name here: </span>
                 <!-- This player name should populate based on the username given on last  -->
-                <span>${playerName}</span>
+                <span id="playername">${playerName}</span>
             </div>
             <div id="favorite" class="absoluteTop">
                 <div class="favorite favorite-container">
@@ -222,10 +204,10 @@
                     <p class="nounTitleText" id="card4-noun">Jquery</p>
                     <p id="card4-desc">Javascript framework</p>
                 </div>
-                <div class="player-hand-card cardContainer card" id="card5" cardId="socketInfo">
+<!--                 <div class="player-hand-card cardContainer card" id="card5" cardId="socketInfo">
                     <p class="nounTitleText" id="card5-noun">Noun</p>
                     <p id="card5-desc">Description</p>
-                </div>
+                </div> -->
             </div>
         </div>
     
