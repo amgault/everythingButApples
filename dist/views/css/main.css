@@ -27,6 +27,10 @@ body {
 
 /* http://paletton.com/#uid=71P1-0kqPtygJCSlLvntVobxLjb */
 
+:root {
+    /* --new-card-blue: #3373f7; */
+}
+
 .adj-card {
     display: block;
     width: 12em;
@@ -36,10 +40,10 @@ body {
     -webkit-transition: 0.3s;
     transition: 0.3s;
     border-radius: 5px;
-    border: 1px solid white;
+    border: 10px solid white;
     margin:auto;
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -55,6 +59,8 @@ body {
             flex-flow:column;
     text-align: center;
     padding: 25px;
+    -webkit-box-shadow: inset 0 0 0 10px #f7b733;
+            box-shadow: inset 0 0 0 10px #f7b733;
 }
 
 .host-absoluteBottom {
@@ -229,6 +235,8 @@ body {
   transform: translateY(3px);
 } */
 
+/* #Max  this code holds the screen into a vertical position */
+
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
     html {
       -webkit-transform: rotate(-90deg);
@@ -250,7 +258,7 @@ body {
 }
 
 body {
-    background-color:#FCFBE3;
+    background-color:#4abbac;
 }
 
 .absolute {
@@ -346,8 +354,10 @@ body {
     display: -ms-flexbox;
     display: flex;
     text-align: center;
-    border: 1px solid black;
+    border: 10px solid White;
     margin:auto;
+    -webkit-box-shadow: inset 0 0 0 10px #fc4a1a;
+            box-shadow: inset 0 0 0 10px #fc4a1a;
 }
 
 .cardContainer {
@@ -394,15 +404,6 @@ body {
     margin:auto;
 }
 
-.circle {
-    display:block;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    /* border: 1px solid red; */
-    background-color: #A29AA9;
-}
-
 .circleWord{
     z-index: 5;
     color: white;
@@ -418,10 +419,10 @@ body {
 /* Bex wrote this class */
 
 .general-button{
-    background-color: #034B5F;
+    background-color: #fc4a1a;
     color: white;
-    -webkit-box-shadow: 0 5px 0 #35859B;
-            box-shadow: 0 5px 0 #35859B;
+    -webkit-box-shadow: 0 5px 0 #f7b733;
+            box-shadow: 0 5px 0 #f7b733;
     margin: 1.5em auto;
     border-radius: 5px;
     border: 0px
@@ -430,10 +431,14 @@ body {
 /* https://codepen.io/shayhowe/pen/Bocnt */
 
 .general-button:active {
-    -webkit-box-shadow: 0 2px 0 #35859B;
-            box-shadow: 0 2px 0 #35859B;
+    -webkit-box-shadow: 0 2px 0 #f7b733;
+            box-shadow: 0 2px 0 #f7b733;
     -webkit-transform: translateY(3px);
             transform: translateY(3px);
+}
+
+.general-button:hover {
+    cursor: pointer;
 }
 
 .header {

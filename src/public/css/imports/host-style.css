@@ -5,16 +5,17 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
-    border: 1px solid white;
+    border: 10px solid white;
     margin:auto;
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     justify-content: center;
     align-items: center;
     display: flex;
     flex-flow:column;
     text-align: center;
     padding: 25px;
+    box-shadow: inset 0 0 0 10px var(--new-card-orange);
 }
 
 .host-absoluteBottom {

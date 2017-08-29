@@ -23,7 +23,7 @@
 }
 
 body {
-    background-color:var(--new-main-cream);
+    background-color:var(--new-main-bkgr);
 }
 
 .absolute {
@@ -102,8 +102,9 @@ body {
     align-items: center;
     display: flex;
     text-align: center;
-    border: 1px solid black;
+    border: 10px solid White;
     margin:auto;
+    box-shadow: inset 0 0 0 10px var(--new-contr-button);
 }
 
 .cardContainer {
@@ -135,15 +136,6 @@ body {
     margin:auto;
 }
 
-.circle {
-    display:block;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    /* border: 1px solid red; */
-    background-color: var(--new-opp-purple);
-}
-
 .circleWord{
     z-index: 5;
     color: white;
@@ -169,6 +161,10 @@ body {
 .general-button:active {
     box-shadow: 0 2px 0 var(--button-shadow);
     transform: translateY(3px);
+}
+
+.general-button:hover {
+    cursor: pointer;
 }
 
 .header {

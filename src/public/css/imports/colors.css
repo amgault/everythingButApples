@@ -31,9 +31,14 @@
     --new-right-green: #F1FCE3;
     --new-opp-purple: #A29AA9;
 
+    --new-main-bkgr: #4abbac;
+    --new-contr-button: #fc4a1a;
+    --new-card-orange: #f7b733;
+    /* --new-card-blue: #3373f7; */
+
     --dark-grey: rgba(0, 0, 0, 0.69);
     --light-grey: rgba(0, 0, 0, 0.420);
 
-    --button-main: var(--darkest-blue);
-    --button-shadow: var(--light-blue);
+    --button-main: var(--new-contr-button);
+    --button-shadow: var(--new-card-orange);
 }
