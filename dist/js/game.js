@@ -2,7 +2,6 @@ var io;
 var socket;
 var players = [];
 var host = [];
-//var $ = require("jquery");
 var request = require("request");
 // #GowriImport the model to use its database functions
 var player = require("../../models/playerModels.js");
@@ -154,11 +153,12 @@ function setUser(user) {
         //#Gowri set the players once the required number of players has joined
         hostGlobalVar.playersArray = players;
         hostGlobalVar.playersNum = hostGlobalVar.playersArray.length;
-
+        io.to(hostGlobalVar.hostArray[0].playerId).emit('all players joined', hostGlobalVar);
+        
     }
     // #Gowri emit the players to Host screen
     if (players.length > 0 && players.length <= 5) {
-        io.to(hostGlobalVar.hostArray[0].playerId).emit('player joined', hostGlobalVar);
+        io.to(hostGlobalVar.hostArray[0].playerId).emit('player joined', players);
     }
     //#jordan send each player their ID & hostID
     if (players.length >= 1) {
