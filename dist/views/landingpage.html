@@ -14,20 +14,20 @@
 
     <div class="container" id="landing">
         <header class="header">
-            <h1>Everything but Apples</h1>
+            <h1>Everything But Apples</h1>
         </header>
             
         <div class='landing-logo'>
-            <img class="logo" src="../img/logo.png">
+            <img class="logo logo-landing" src="../img/logo.png">
         </div>
 
         <!-- #Max  These buttons are currently broken on iphone 5 but works on anything else -->
         <div class="buttonContain">
-            <a id="host" class="btn">
-                <p class="circleWord">Host a game</p>
+            <a id="host" class="btn btn-create">
+                <p class="circleWord">CREATE</p>
             </a>
-            <a class="btn" id="play-a-game">
-                    <p class="circleWord">Play a game</p>
+            <a class="btn btn-join" id="play-a-game">
+                <p class="circleWord">JOIN</p>
             </a>
         </div>
         <div class="copyright">
@@ -49,7 +49,8 @@
                 <div class="lobby-connections-display">
                     <!-- this section might take some shuffling around depending on how we display the current connected players -->
                     <div class="player-connections">
-                        <p>Players connected:</p>
+                        <p class='players-connected'>Go to <em>everythingbutapples.heroku.com</em> and enter the code above!</p>
+                        <p class='players-connected'>Players connected:</p>
                         <div id="player-connections-container" class="player-connections-container">
                             <!-- player connections will go here -->
                         </div>
@@ -156,13 +157,13 @@
         <form class="container" id="roomCode">
                 <div id="room-form" class="roomForm">
                     <div>
-                        <p>As the wild wind blows, the trees say:</p>
-                        <input type="text" id="code-input" name="room-code" class="roomForm-input"  placeholder="Room code goes here">
+                        <input type="text" id="code-input" name="room-code" class="roomForm-input"  placeholder="ex: 12345">
+                        <p class='room-code-p'>ROOM CODE</p>
                         <!-- Bex: adding message for room being full -->
                     </div>
                     <div class="player-topBumper">
-                        <p>What do you want to go by:</p>
-                        <input type="text" id="player-name-form" name="player-name" class="roomForm-input" placeholder="Username goes here">
+                        <input type="text" id="player-name-form" name="player-name" class="roomForm-input" placeholder="ex: eba4lyf">
+                        <p class='room-code-p'>USERNAME</p>
                     </div>
                     <input type="submit" placeholder="submit" class="submit roomFromSubmit general-button" id="code-button">
                     <!-- #Max Here compare this code to other codes that are in use -->
@@ -173,18 +174,19 @@
     
         <div class="container pregame" id="pregame" style="display:none;">
 
-            <div class="spinner"></div>
+            <!-- <div class="spinner"></div> -->
             <p class="spinnerText">Waiting for opponents...</p>
     
             <form class="create-update-form createCards" action="/" method="POST" id="createCards">
                 <div class="player-topBumper">
-                    <p>Come up with noun cards to add to our deck:</p>
-                    <input type="text" id="card-form" name="card">
-                    <input class="general-button" type="submit" placeholder="submit" class="submit">
+                    <p class='contribute'>Contribute to the deck by submitting noun cards!</p>
+                    <input class='card-input' placeholder='enter noun' type="text" id="card-form" name="card">
+                    <input class="general-button submit-input-card" type="submit" placeholder="submit" class="submit">
+                    <!-- <p>Contribute to the deck by submitting noun cards!</p> -->
                 </div>
             </form>
 
-            <button class="general-button" onclick="showAndHide('pregame', 'game')">Go to Game</button>
+            <button class="general-button btn-go-to-game" onclick="showAndHide('pregame', 'game')">Go to Game</button>
         </div>
     
         <div class="container" id="game" style="display:none;">        
@@ -194,9 +196,9 @@
                 <span>${playerName}</span>
             </div>
             <div id="favorite" class="absoluteTop">
-                <div class="favorite">
-                    <p class="favorite">Favorite</p>
-                    <input type="submit" placeholder="submit" class="submit player-topBumper">
+                <div class="favorite favorite-container">
+                    <p class="favorite">Favorite Card:</p>
+                    <input type="submit" placeholder="submit" class="submit player-topBumper btn-player-submit">
                 </div>
                 <div class="player-hand-card cardContainer card" id='fav'>
                     <p class="nounTitleText">card.title</p>
@@ -229,7 +231,7 @@
     
         <script src="../js/player.js"></script>
         <!--script src="../js/hostMachine.js"></script-->
-        <img class="logo absolute" src="../img/logo.png">
+        <img class="logo absolute logo-absolute" src="../img/logo.png">
     </div>
 </body>
 </html>
