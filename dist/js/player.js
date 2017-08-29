@@ -6,36 +6,6 @@ let showAndHide = function(id1, id2) {
     $(`#${id2}`).show()
 }
 
-
-// #Max This was all Written before socket and is useless no
-// //This is to validate code
-// function codeComparison() {
-//     let inputCode = $("#code-input").val();
-//     console.log(inputCode)
-//     //Compare input code to room codes available
-//     // if (input code exists)
-//         showAndHide("roomCode", "pregame")
-//     // else
-//     // Request new code
-// } /#Max
-
-// function submitUsername() {
-//     //#Max  I don't think there needs to be validation if name is already taken but it may mess us up.  Unless each player is named player i to our programming
-
-//     //AJAX post user name to room
-//         //This should post it to the host to display the name on the players box
-
-//     //Shows next input if they want /#Max
-//     showAndHide("username", "createCards")
-// }
-
-// #Max This is currently not really doing anything so I'm commenting it out.
-// function Card(text, player) {
-//     this.text = text;
-//     this.description = "A homemade card, made with love from " + player
-// }
-
-
 function getRandNum() {
     return (Math.floor(Math.random() * (99999 - 10000 + 1) + 10000));
 }
