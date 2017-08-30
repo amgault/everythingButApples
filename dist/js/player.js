@@ -614,7 +614,7 @@ socket.on('here goes nothing and a red card', function(card) {
 })
 
 //#SRM When the host double-clicks on their favorite card
-$(".played-card").on("dblclick", function() {
+$(".played-card").on("click", function() {
 
     /*
     for (i=0; i<hostLocalVar.playersArray.length; i++{
