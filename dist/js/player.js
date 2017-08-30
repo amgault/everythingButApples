@@ -4,7 +4,7 @@ let socket = io.connect();
 let showAndHide = function(id1, id2) {
     $(`#${id1}`).hide()
     $(`#${id2}`).show()
-    console.log(`hiding:${id1}  showing:${id2}`)
+   // console.log(`hiding:${id1}  showing:${id2}`)
 }
 
 function getRandNum() {
@@ -20,7 +20,7 @@ $('#roomCode').submit(function(e) {
         role: "player",
         playerId: socket.id
     }
-    console.log(userData);
+   // console.log(userData);
     socket.emit('set user', userData);
 });
 
@@ -50,7 +50,7 @@ $("#host").on("click", function() {
         role: "host",
         playerId: socket.id
     }
-    console.log(userData)
+    //console.log(userData)
 
     //Bex: some setup for displaying the lobby page
     $("#room-code").text(userData.roomId);
@@ -205,7 +205,7 @@ function startGame() {
     //then construct an array of cards for each players hand and the remaining cards
 
     $(".player-circle").each(function(){
-        console.log($(this).attr("socketId"))
+       // console.log($(this).attr("socketId"))
         $("#scores-list").append($("<li>").attr("id", $(this).data("socketId")).attr("data-score", 0).text("0 : "+$(this).text()))
     })
 
@@ -221,7 +221,7 @@ $("#start-game-button").on("click", function() {
 
 //#Gowri added the userName since playerlist is an object
 function updatePlayerConnections(players) {
-    console.log("IN updatePlayerCOnnections we received: " + players);
+   // console.log("IN updatePlayerCOnnections we received: " + players);
     $("#player-connections-container").empty();
     for (var p in players) {
         $("#player-connections-container").append($("<div>").addClass("player-circle").text(players[p].userName).data("socketId", players[p].playerId));
@@ -333,7 +333,7 @@ class user {
     }
     //adds a new card to the user's hand
     newcard() {
-        console.log("adding " + this.deck[this.deckindex].title)
+       // console.log("adding " + this.deck[this.deckindex].title)
         this.hand.push(this.deck[this.deckindex]);
         this.deckindex++;
 
@@ -342,7 +342,7 @@ class user {
     }
     //removes the card at the index of the argument from hand
     removecard(here) {
-        console.log("removing " + this.hand[here].title + " from hand");
+        //console.log("removing " + this.hand[here].title + " from hand");
         this.hand.splice(here, 1);
         this.newcard();
         this.cansub = false;
@@ -407,14 +407,19 @@ socket.on('deal cards', function(cards) {
 // socket.on('assignleader', hideAll(CREAMFILLING));
 
 socket.on('turn lead', function(turnlead) {
-    console.log("next leader received");
+   // console.log("next leader received");
     hideAll(turnlead);
 });
 
 
 //************************************* END LISTEN FOR LEADER **************************************************************
 
+//************************************* LISTEN FOR START TURN **************************************************************
+socket.on('turn started', function(){if(thisuser.trump) thisuser.cansub = false; else thisuser.cansub = true;});
 
+
+
+//*********************************** END LISTEN FOR START TURN ************************************************************
 
 //************************************* LISTEN FOR END OF ROUND ************************************************************
 
@@ -437,7 +442,7 @@ socket.on('turn lead', function(turnlead) {
 // this function will change the html of the cards to match the local user's hand
 function swapHand() {
     for (i = 1; i <= thisuser.hand.length; i++) {
-        console.log("card " + i + ": " + thisuser.hand[i - 1].title);
+       // console.log("card " + i + ": " + thisuser.hand[i - 1].title);
         document.getElementById("card" + i + "-noun").innerHTML = thisuser.hand[i - 1].title;
         document.getElementById("card" + i + "-desc").innerHTML = thisuser.hand[i - 1].description;
     }
@@ -467,7 +472,7 @@ function ENDIT() {
 $("#playerschoice").on('click', function() {
     // CHECK IF THE USER CAN SUBMIT A CARD YET
     if (!thisuser.cansub) {
-        console.log("you cant submit a card yet");
+       // console.log("you cant submit a card yet");
         return;
     } else {
         //get the title of the card
@@ -501,36 +506,17 @@ $("#playerschoice").on('click', function() {
 function hideAll(pid) {
     if (thisuser.player_id == pid) {
         thisuser.trump = true;
-        thisuser.cansub = false;
-        //HIDE EVERYTHING ON THE FRONT END AND DISPLAY "AY, YOU, GO TO THE HOST COMPUTER TO PICK A CARD"
         $("#pregame").hide();
         $("#game").hide();
-        $("#player").hide();
+        $("#favorite").hide();
         $("#hand").hide();
-
-        var fingey = "░░░░░░░░░░░░░░░░█████████\n";
-        fingey += "░░███████░░░░░███▒▒▒▒▒▒███\n";
-        fingey += "░░█▒▒▒▒▒▒█░░░░███▒▒▒▒▒▒▒▒▒███\n";
-        fingey += "░░░█▒▒▒▒▒▒█░░░░██▒▒▒▒▒▒▒▒▒▒▒▒██\n";
-        fingey += "░░░░█▒▒▒▒▒█░░██▒▒▒██▒▒▒▒██▒▒▒███\n";
-        fingey += "░░░░░█▒▒▒█░░█▒▒▒▒████▒▒████▒▒▒▒██\n";
-        fingey += "░░░█████████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██\n";
-        fingey += "░░░█▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒█▒▒▒▒▒▒▒██\n";
-        fingey += "░██▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒██▒▒▒▒▒▒██▒▒██\n";
-        fingey += "██▒▒▒███████████▒▒▒▒██▒▒▒▒██▒▒▒██\n";
-        fingey += "█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒██████▒▒▒▒██\n";
-        fingey += "██▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒██\n";
-        fingey += "░█▒▒▒███████████▒▒▒▒▒▒▒▒▒▒▒▒██\n";
-        fingey += "░██▒▒▒▒▒▒▒▒▒▒████▒▒▒▒▒▒▒▒▒▒█\n";
-        fingey += "░░████████████░░███████████\n";
-
-        alert("You are the leader, CHOOSE WINNER FROM THE MAIN COMPOOTER \n" + fingey);
+        $("#leader").show();
     } else {
-        thisuser.cansub = true;
         if (thisuser.trump == true) {
             thisuser.trump = false;
+            $("#leader").hide();
+            $("#favorite").show();
             $("#game").show();
-            $("#player").show();
             $("#hand").show();
         }
         return;
@@ -605,7 +591,7 @@ $("#showGreenCard").on("click", function() {
 
 // #SRM This is the listener for red cards received
 socket.on('here goes nothing and a red card', function(card) {
-    console.log(card);
+    //console.log(card);
     hostLocalVar.submittedCards.push(card);
     //If all cards have now been submitted, start judging
     if (hostLocalVar.submittedCards.length === (hostLocalVar.playersArray.length - 1)) {

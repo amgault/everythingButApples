@@ -88,7 +88,7 @@ exports.initGame = function(sio, sock) {
     */
     //#jordan next leader listener
     socket.on('next leader', function(nextlead){ 
-        console.log("emitting next leader");
+        //console.log("emitting next leader");
         players.forEach(player => {
         io.to(player.playerId).emit('turn lead', nextlead);
         })
