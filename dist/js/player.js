@@ -419,7 +419,7 @@ socket.on('turn lead', function(turnlead) {
 //************************************* LISTEN FOR END OF ROUND ************************************************************
 
 //socket listener for endofround goes here:
-//socket.on('end of round', thisuser.newhand());
+//socket.on('round ended', thisuser.newhand());
 
 
 //************************************* END LISTEN FOR ROUND END ************************************************************
@@ -650,6 +650,10 @@ $(".played-card").on("dblclick", function() {
 
         //reset the leader rotation for the next round
         hostLocalVar.currentLeaderIndex = 0;
+
+        //go to the next green card
+        hostLocalVar.currentGreenCardIndex++;
+        hostLocalVar.currentGreenCard = hostLocalVar.greenDeck[hostLocalVar.currentGreenCardIndex];
 
         //# EMIT "END OF ROUND" to all players via socket
         socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId);

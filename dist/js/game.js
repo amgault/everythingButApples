@@ -70,6 +70,15 @@ exports.initGame = function(sio, sock) {
 
     })
 
+    //#SRM listen for the message from the host that the green card has been revealed.
+    socket.on('end of round', function() {
+        //#SRM send a message out to everyone that cards can be played now
+        for (i = 0; i < hostGlobalVar.playersArray.length; i++) {
+            io.to(hostGlobalVar.playersArray[i].playerId).emit('round ended');
+        }
+
+    })
+
     /* Not tested yet
     //#SRM listenfor the message from the host containing the next turn leader's id
     socket.on('next leader', function(idString){
