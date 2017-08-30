@@ -68,7 +68,7 @@
 
 .played-card {
     width: var(--card-width);
-    height: var(--card-width);
+    min-height: var(--card-width);
     margin:1em;
     transition: transform 1s;
     transform-style: preserve-3d;
@@ -76,7 +76,7 @@
 }
 .played-card div {
     display: block;
-    height: var(--card-width);
+    min-height: var(--card-width);
     width: var(--card-width);
     text-align: center;
     position: absolute;
@@ -85,7 +85,7 @@
 .played-card .card-front {
   /* background: red; */
   width: var(--card-width);
-  height: var(--card-width);
+  min-height: var(--card-width);
   background-image: url("https://farm5.staticflickr.com/4359/36609034781_96e88f2b8f.jpg");
   background-size: 100% 100%;
   border: 1px solid black;
