@@ -37,7 +37,7 @@
     </div>
 
     <div id="room-full-message" class="container" style="display:none">
-        <p style="text-align:center">Sorry, those trees said the room is full, so you can't join right now!</p>
+        <p style="text-align:center" class='room-full'>Sorry, those trees said the room is full, so you can't join right now!</p>
         <!--p id="room-full-message" style="display:none; text-align:center">Sorry, those trees said the room is full, so you can't join right now!</p-->
     </div>
 
@@ -67,9 +67,9 @@
         <div id="host-game" class="host-display host-game" style="display:none;">
             <div class="host-topside">
                 <div class="host-stats">
-                    <p>ROUND <span id="host-round-number">?</span></p>
+                    <p class='round'>ROUND <span id="host-round-number">?</span></p>
                     <p>SCORES:</p>
-                    <ul id="scores-list" style="list-style: none;">
+                    <ul id="waitings-list" class="scores-list">
 
                     </ul>
                 </div>
@@ -77,7 +77,7 @@
                     <p id="adj-title" class="nounTitleText">????</p>
                     <p id="adj-description">(╯°□°）╯︵ ┻━┻</p>
                 </div>
-                <button id="showGreenCard" class="general-button">Reveal Card</button>
+                <button id="showGreenCard" class="general-button btn-reveal">Reveal Card</button>
                 <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
                 <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="mid-judging-player">???</span> is the judge. Please pick your favorite card.</p>
             </div>
@@ -172,7 +172,7 @@
                     <p>card.description</p>
                 </div>
                 <div class="favorite favorite-container">
-                    <button id="playerschoice" placeholder="submit" class="submit player-topBumper btn-player-submit">SUBMIT</button>
+                    <button id="playerschoice" placeholder="submit" class="general-button submit player-topBumper btn-player-submit">SUBMIT</button>
                 </div>    
             </div>
             <div id="hand" class="absoluteBottom">
