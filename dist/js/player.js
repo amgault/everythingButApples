@@ -643,6 +643,10 @@ $(".played-card").on("dblclick", function() {
         //reset the leader rotation for the next round
         hostLocalVar.currentLeaderIndex = 0;
 
+        //go to the next green card
+        hostLocalVar.currentGreenCardIndex++;
+        hostLocalVar.currentGreenCard = hostLocalVar.greenDeck[hostLocalVar.currentGreenCardIndex];
+
         //# EMIT "END OF ROUND" to all players via socket
         socket.emit('next leader', hostLocalVar.playersArray[hostLocalVar.currentLeaderIndex].playerId);
         socket.emit('end of round', { message: "End of Round!" });
