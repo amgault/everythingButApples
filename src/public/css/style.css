@@ -362,6 +362,16 @@ h1{
     border: .1em solid white;
 }
 
+.leader-div {
+    text-align: center;
+    color:white;
+}
+
+.end-game-div {
+    text-align: center;
+    color:white; 
+}
+
 .btn-go-to-game{
     padding: .5em;
     margin: .5em auto;
