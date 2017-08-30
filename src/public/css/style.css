@@ -5,7 +5,7 @@
 
 
 /* #Max  this code holds the screen into a vertical position */
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+/* @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
     html {
       transform: rotate(-90deg);
       transform-origin: left top;
@@ -15,7 +15,7 @@
       top: 100%;
       left: 0;
     }
-}
+} */
 
 * {
     box-sizing: border-box;
