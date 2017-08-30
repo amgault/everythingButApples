@@ -417,7 +417,14 @@ socket.on('turn lead', function(turnlead) {
 //************************************* END LISTEN FOR LEADER **************************************************************
 
 //************************************* LISTEN FOR START TURN **************************************************************
-socket.on('turn started', function(){if(thisuser.trump) thisuser.cansub = false; else thisuser.cansub = true;});
+socket.on('turn started', function(){
+    if(thisuser.trump) thisuser.cansub = false; 
+    else{ 
+        thisuser.cansub = true;
+        $("#playerschoice").show();
+    }
+
+});
 
 
 
@@ -497,6 +504,7 @@ $("#playerschoice").on('click', function() {
 
         //DISALLOW FURTHER SUBMISSIONS
         thisuser.cansub = false;
+        $("#playerschoice").hide();
     }
 
     //thisuser.newhand();
