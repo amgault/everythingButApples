@@ -616,6 +616,8 @@ $(document).on("click", ".flipped", function() {
         if (hostLocalVar.playersArray)
     }
     */
+
+    console.log($(this).attr("data-player-id"))
     updateScore($(this).attr("data-player-id"))
 
     $("#adj-title").text('ヘ(^o^ヘ)');
