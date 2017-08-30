@@ -35,15 +35,15 @@ exports.initGame = function(sio, sock) {
     socket.emit('connected', { message: "You are connected!" });
 
     //#Gowri when a user clicks start a game and there are already 5 players then room full message will display
-    socket.on("can player join", function() {
-        if (players.length >= 5) {
-            socket.emit('player limit reached', "landing");
-        } //#Gowri else display the player page
-        else {
-            // socket.emit('display player');
-            socket.emit('display player')
-        }
-    })
+    // socket.on("can player join", function() {
+    //     if (players.length >= 5) {
+    //         socket.emit('player limit reached', "landing");
+    //     } //#Gowri else display the player page
+    //     else {
+    //         // socket.emit('display player');
+    //         socket.emit('display player')
+    //     }
+    // })
 
     socket.on('set user', setUser);
 
