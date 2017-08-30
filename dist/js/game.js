@@ -37,10 +37,11 @@ exports.initGame = function(sio, sock) {
     //#Gowri when a user clicks start a game and there are already 5 players then room full message will display
     socket.on("can player join", function() {
         if (players.length >= 5) {
-            socket.emit('player limit reached', "landing");
+            io.to(user.playerId).emit('player limit reached', "landing");
         } //#Gowri else display the player page
         else {
-            socket.emit('display player');
+            // socket.emit('display player');
+            io.to(user.playerId).emit('display player')
         }
     })
 
@@ -154,7 +155,7 @@ function setUser(user) {
         hostGlobalVar.hostArray=host;
         console.log(`added ${user.userName} to the list of hosts`);
         // #Gowri emit to initiate display of host after adding to array
-        socket.emit('display host');
+        io.to(user.playerId).emit('display host');
     } else if (user.role === "player" && players.length < 5) {
         players.push({
             userName: user.userName,
@@ -166,12 +167,12 @@ function setUser(user) {
         })
         console.log(`added ${user.userName} to the list of players ${players.length}`);
         // #Gowri emit to initiate display of player page after adding to array
-        socket.emit('display pregame');
+        io.to(user.playerId).emit('display pregame');
     } else {
         // #Gowri emit to display room full message if host and player limits reached the 2nd param should be the div id that should be hidden
         console.log("emit room full")
         if (user.role === "host") {
-            socket.emit('player limit reached', "landing");
+            io.to(user.playerId).emit('player limit reached', "landing");
         } else {
             console.log("i am in player full server")
             io.to(user.playerId).emit('player limit reached', "player");
