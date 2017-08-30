@@ -5,10 +5,10 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
-    border: 10px solid white;
+    border: 5px solid #f7b733;
     margin:auto;
     background-color: white;
-    color: black;
+    color: #4abdac;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -38,6 +38,7 @@
     border-radius: 2px;
     margin: 0em 1em;
     padding: .75em;
+    color: white;
 }
 
 .host-display * {
@@ -48,6 +49,7 @@
     display: flex;
     align-items: center;
     padding-bottom: var(--content-border-width);
+    color: white;
 }
 
 .host-topside {
@@ -102,10 +104,10 @@
     display: flex;
     flex-flow:column;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid #f7b733;
     margin:auto;
     background-color: white;
-    color: black;
+    color: #4abdac;
     transform: rotateY( 180deg );
 }
 .played-card.flipped {
@@ -113,13 +115,15 @@
 }
 
 .player-circle{
-    border: 2px solid blue;
+    border: 3px solid #f7b733;
     border-radius: 4em;
-    padding: 1em;
+    padding: .5em;
+    font-size: 1.5em;
     margin: 1em;
     min-width: 10em;
     max-width: 20em;
     background-color: white;
+    color: #fc4a1a;
 }
 
 .player-connections-container{
@@ -129,10 +133,11 @@
 }
 
 .room-code{
-    border: 1px solid black;
+    border: 0px;
     padding: .5em;
-    margin: 0em 25%;
+    margin: 2em 25% 1em 25%;
     font-size: 2em;
+    color: #fc4a1a;
     background-color: white;
 }
 

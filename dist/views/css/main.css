@@ -36,10 +36,10 @@ body {
     -webkit-transition: 0.3s;
     transition: 0.3s;
     border-radius: 5px;
-    border: 10px solid white;
+    border: 5px solid #f7b733;
     margin:auto;
     background-color: white;
-    color: black;
+    color: #4abdac;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -80,6 +80,7 @@ body {
     border-radius: 2px;
     margin: 0em 1em;
     padding: .75em;
+    color: white;
 }
 
 .host-display * {
@@ -94,6 +95,7 @@ body {
         -ms-flex-align: center;
             align-items: center;
     padding-bottom: .2em;
+    color: white;
 }
 
 .host-topside {
@@ -171,10 +173,10 @@ body {
         -ms-flex-flow:column;
             flex-flow:column;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid #f7b733;
     margin:auto;
     background-color: white;
-    color: black;
+    color: #4abdac;
     -webkit-transform: rotateY( 180deg );
             transform: rotateY( 180deg );
 }
@@ -185,13 +187,15 @@ body {
 }
 
 .player-circle{
-    border: 2px solid blue;
+    border: 3px solid #f7b733;
     border-radius: 4em;
-    padding: 1em;
+    padding: .5em;
+    font-size: 1.5em;
     margin: 1em;
     min-width: 10em;
     max-width: 20em;
     background-color: white;
+    color: #fc4a1a;
 }
 
 .player-connections-container{
@@ -206,10 +210,11 @@ body {
 }
 
 .room-code{
-    border: 1px solid black;
+    border: 0px;
     padding: .5em;
-    margin: 0em 25%;
+    margin: 2em 25% 1em 25%;
     font-size: 2em;
+    color: #fc4a1a;
     background-color: white;
 }
 
@@ -254,7 +259,11 @@ body {
 }
 
 body {
-    background-color:#4abbac;
+    background-color: #4abdac;
+}
+
+h1{
+    color: white;
 }
 
 .absolute {
@@ -273,7 +282,7 @@ body {
 .absoluteBottom {
     position: absolute;
     width: 100%;
-    height:50%;
+    height:60%;
     border-top: 1px solid #D3D3D3;
     text-align: center;
     overflow-y: auto;
@@ -289,12 +298,14 @@ body {
     margin-bottom: 0;
     color: white;
     font-weight: 700;
-    font-size: 2em;
+    font-size: 1.8em;
+    margin: 0px 10px;
     /* line-height: 1.2; */
     text-align: center;
-    background-color: purple;
+    background-color:#fc4a1a;
     cursor: pointer;
-    border: .1em solid transparent;
+    border: .1em solid white;
+    border-radius: 5px;
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
@@ -334,7 +345,8 @@ body {
 .card {
     width: 12em;
     min-height: 12em;
-    padding: 25px;
+    padding: 1em;
+    color: #4abdac;
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
     -webkit-transition: 0.3s;
@@ -350,7 +362,7 @@ body {
     display: -ms-flexbox;
     display: flex;
     text-align: center;
-    border: 10px solid White;
+    border: 5px solid #f7b733;
     margin:auto;
     -webkit-box-shadow: inset 0 0 0 10px #fc4a1a;
             box-shadow: inset 0 0 0 10px #fc4a1a;
@@ -384,6 +396,10 @@ body {
             justify-content: center;
 }
 
+.contribute{
+    color: white;
+}
+
 .copyright {
     position: fixed;    
     width: 50%;
@@ -393,42 +409,52 @@ body {
     -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
     font-size: .5em;
+    color: white;
 }
 
 .createCards {
     width:300px;
     margin:auto;
+    height: 50%;
 }
 
 .circleWord{
+    text-align: center;
     z-index: 5;
     color: white;
-    padding: 25px;
+    padding: 20px 10px;
 }
 
 .favorite {
-    margin: auto;
+    padding: 1em auto;
+    text-align: center;
+    margin: auto 1em;
     width: 70px;
     margin-top: 5%;
+    color: white;
+}
+
+.favorite-container{
+    padding-top: 2em;
 }
 
 /* Bex wrote this class */
 
 .general-button{
+    padding: .5em;
     background-color: #fc4a1a;
     color: white;
-    -webkit-box-shadow: 0 5px 0 #f7b733;
-            box-shadow: 0 5px 0 #f7b733;
     margin: 1.5em auto;
     border-radius: 5px;
-    border: 0px
+    border: .1em solid white;
+    font-size: 1.5em;
 }
 
 /* https://codepen.io/shayhowe/pen/Bocnt */
 
 .general-button:active {
-    -webkit-box-shadow: 0 2px 0 #f7b733;
-            box-shadow: 0 2px 0 #f7b733;
+    -webkit-box-shadow: 0 2px 0 #dfdce3;
+            box-shadow: 0 2px 0 #dfdce3;
     -webkit-transform: translateY(3px);
             transform: translateY(3px);
 }
@@ -446,7 +472,8 @@ body {
 
 .header h1 {
     margin: auto;
-    font-size: 2em;
+    padding-top: 1em;
+    font-size: 3em;
 }
 
 .landing-logo {
@@ -461,8 +488,13 @@ body {
             align-items: center;
 }
 
-.logo {
+.logo-landing {
     width: 10em;
+    margin-top: 3em;
+}
+
+.logo-absolute {
+    width: 6em;
     margin-top: 3em;
 }
 
@@ -475,11 +507,27 @@ body {
 }
 
 .player-name {
-    margin:auto;
+    color: white;
+    margin: .7em auto 0 auto;
 }
 
 .player-topBumper {
-    margin-top:25px
+    text-align: center;
+    margin: 2em 0;
+}
+
+.card-input{
+    text-align: center;
+    font-size: 1em;
+    line-height: 1.5em;
+    width: 100%;
+    margin: 1em 0 0 0;
+}
+
+.players-connected{
+    margin-bottom: 1em;
+    font-size: 2em;
+    word-wrap: break-word;
 }
 
 .nounTitleText {
@@ -493,7 +541,7 @@ body {
     height: 100px;
     background-color: purple;
   
-    margin: 100px auto;
+    margin: 50px auto;
     -webkit-animation: sk-rotateplane 5.2s infinite ease-in-out;
     animation: sk-rotateplane 5.0s infinite ease-in-out;
   }
@@ -518,31 +566,118 @@ body {
   }
 
 .spinnerText {
+    color: white;
     text-align: center;
+    margin: 1em 0;
 }
 
 .submit {
     /* margin-top:25px; */
-    width: 60px;
+    width: 60%;
+    height: 2.3em;
+}
+
+.btn-player-submit{
+    padding: 0;
+    margin: 1em;
+    width: 100%;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 1em;
     height: 2em;
+    color: white;
+    background-color: #fc4a1a;
+    border: .1em solid white;
 }
 
 .roomForm {
-    width: 300px;
+    width: 80%;
+    text-align: center;
     margin: auto;
-    margin-top: 6em; 
+    margin-top: 3em; 
+    font-size: 1.5em;
+}
+
+.room-code-p {
+    text-align: center;
+    margin: .5em; 
+    border: none;
+    color: white;
     font-size: 1.5em;
 }
 
 .roomForm-input {
-    font-size: 1em;
+    margin-top: .5em;
+    text-align: center;
+    width: 100%;
+    font-size: 1.5em;
 }
 
 .roomFromSubmit {
-    margin-top: 25px;
+    margin-top: .5em;
 }
 
 .waiting-bubble {
     margin:auto;
     margin-top: 25px;
+}
+
+.submit-input-card{
+    padding: 0;
+    margin: 1em auto;
+    width: 50%;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 1em;
+    height: 1.5em;
+    background-color: #fc4a1a;
+    border: .1em solid white;
+}
+
+.btn-go-to-game{
+    padding: .5em;
+    margin: .5em auto;
+    width: 70%;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 1.5em;
+    height: 2.5em;
+    background-color: #fc4a1a;
+    border: .1em solid white;
+}
+
+/* #Amanda media query for laptop screen  */
+
+@media (min-width: 768px) {
+  .header h1 {
+    font-size: 5em;
+  }
+
+  .btn-create, .btn-join {
+    width: 30%;
+    font-size: 2.3em;
+    margin: 1em auto;
+  }
+
+  .logo {
+    width: 13em;
+    margin-top: 3em;
+  }
+
+  .spinnerText{
+      font-size: 3em;
+      margin-top: 1em;
+  }
+
+  .roomForm-input{
+      width: 60%;
+  }
+
+  .roomFromSubmit{
+      width: 40%;
+  }
+
+  .btn-go-to-game{
+      width: 30%;
+  }
 }
