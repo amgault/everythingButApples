@@ -4,6 +4,7 @@ let socket = io.connect();
 let showAndHide = function(id1, id2) {
     $(`#${id1}`).hide()
     $(`#${id2}`).show()
+    console.log(`hiding:${id1}  showing:${id2}`)
 }
 
 function getRandNum() {
