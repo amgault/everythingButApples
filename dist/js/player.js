@@ -4,6 +4,7 @@ let socket = io.connect();
 let showAndHide = function(id1, id2) {
     $(`#${id1}`).hide()
     $(`#${id2}`).show()
+    console.log(`hiding:${id1}  showing:${id2}`)
 }
 
 function getRandNum() {
@@ -63,14 +64,14 @@ socket.on("display host", function() {
 });
 
 //#Gowri changed this button to emit a check function to know if a player can join
-$("#play-a-game").on("click", function() {
-    socket.emit("can player join");
-})
+// $("#play-a-game").on("click", function() {
+//     socket.emit("can player join");
+// })
 
 //#Gowri on receiving confirmation from server then display the player page
-socket.on("display player", function() {
-    showAndHide('landing', 'player')
-});
+// socket.on("display player", function() {
+//     showAndHide('landing', 'player-room')
+// });
 
 //#Gowri added listener to know when room is full and call function to display room full message
 socket.on('player limit reached', isRoomFull);
@@ -255,10 +256,10 @@ socket.on('all players joined', function(hostGlobalVar) {
 })
 
 //#Gowri listen for the deal cards after host starts game and switch the users to play screen
-socket.on('deal cards', function(cards) {
-    showAndHide('pregame', 'game');
-    cards.forEach(card => console.log(card.title));
-})
+// socket.on('deal cards', function(cards) {
+//     showAndHide('pregame', 'game');
+//     cards.forEach(card => console.log(card.title));
+// })
 
 //#Gowri listen for the start game and get the green cards for Host
 socket.on('green cards', function(hostGlobalVar) {
