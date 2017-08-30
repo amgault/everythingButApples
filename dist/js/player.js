@@ -249,10 +249,10 @@ socket.on('all players joined', function(hostGlobalVar) {
 })
 
 //#Gowri listen for the deal cards after host starts game and switch the users to play screen
-socket.on('deal cards', function(cards) {
-    showAndHide('pregame', 'game');
-    cards.forEach(card => console.log(card.title));
-})
+// socket.on('deal cards', function(cards) {
+//     showAndHide('pregame', 'game');
+//     cards.forEach(card => console.log(card.title));
+// })
 
 //#Gowri listen for the start game and get the green cards for Host
 socket.on('green cards', function(hostGlobalVar) {
