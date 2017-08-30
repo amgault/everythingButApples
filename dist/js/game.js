@@ -94,6 +94,31 @@ exports.initGame = function(sio, sock) {
         })
     })
 
+    //#Gowri listen for end of game and send signal to close all connections and also rest the variables
+    socket.on('end of game', function(){
+
+        io.sockets.emit('interrupted');
+        players=[];
+        host=[];
+        hostGlobalVar = {
+            currentGreenCard: null,
+            currentGreenCardIndex: 0,
+            currentLeaderIndex: 0,
+            dealerTracker: 0,
+            greenDeck: [],
+            hostArray: [],
+            playersArray: [],
+            playerDecks: [],
+            roundsNum: 2,
+            roundsTracker: 1,
+            submittedCards: [],
+            winningCards: [],
+            playersNum: 0
+        };
+        
+ 
+    })        
+
 }
 
 
