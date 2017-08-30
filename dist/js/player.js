@@ -244,6 +244,13 @@ function isRoomFull(where) {
     showAndHide(where, "room-full-message");
 }
 
+//#Gowri added function to display message for interrupted connection
+socket.on("interrupted", function(){
+    //console.log('closed connection');
+   // showAndHide('host-page','connection-interrupted');
+    //showAndHide('player','connection-interrupted');
+    socket.close();    
+})
 
 //#Gowri listen for the players joined and update the host screen
 
