@@ -297,7 +297,7 @@ h1{
     border-top: 1px solid #D3D3D3;
     text-align: center;
     overflow-y: auto;
-    z-index: 5;
+    z-index: -1;
     position: absolute;
     bottom:0px;
     left: 0px;
