@@ -228,6 +228,8 @@ h1{
 .player-name {
     color: white;
     margin: .7em auto 0 auto;
+    font-weight: bolder;
+    font-size: 1.5em;
 }
 
 .player-topBumper {

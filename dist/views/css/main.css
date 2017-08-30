@@ -238,19 +238,17 @@ body {
 
 /* #Max  this code holds the screen into a vertical position */
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+/* @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
     html {
-      -webkit-transform: rotate(-90deg);
-              transform: rotate(-90deg);
-      -webkit-transform-origin: left top;
-              transform-origin: left top;
+      transform: rotate(-90deg);
+      transform-origin: left top;
       width: 100vh;
       overflow-x: hidden;
       position: absolute;
       top: 100%;
       left: 0;
     }
-}
+} */
 
 * {
     -webkit-box-sizing: border-box;
@@ -509,6 +507,8 @@ h1{
 .player-name {
     color: white;
     margin: .7em auto 0 auto;
+    font-weight: bolder;
+    font-size: 1.5em;
 }
 
 .player-topBumper {
