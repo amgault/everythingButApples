@@ -56,7 +56,9 @@
                             <!-- player connections will go here -->
                         </div>
                     </div>
-                    <button id="start-game-button" class="general-button">Start Game</button>
+                    <p id="waitingforplayers"> Waiting for all players to join </p>
+                    <br/>
+                    <button id="start-game-button" class="general-button" style="display: none;">Start Game</button>
                 </div>
             </div>
             <div class="host-rounds-display">
@@ -156,7 +158,7 @@
                     <!-- <p>Contribute to the deck by submitting noun cards!</p> -->
                 </div>
             </form>
-            <img class="logo absolute logo-absolute" src="../img/logo.svg">
+            <!-- <img class="logo absolute logo-absolute" src="../img/logo.svg"> -->
         </div>
     
         <div class="container" id="game" style="display:none;">        
@@ -164,8 +166,8 @@
                 <span style="font-weight:bold" id="playername">${playerName}</span>
             </div>
             <div id="favorite" class="absoluteTop">
-                <div class="favorite favorite-container">
-                    <p style="text-align: left;" class="favorite">Card to Play:</p>
+                <div>
+                    <p style="margin-top: 5px; text-align: center; color: white;">Play This Card:</p>
                 </div>
                 <div class="player-hand-card cardContainer card" id='fav'>
                     <p class="nounTitleText">card.title</p>

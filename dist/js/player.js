@@ -253,6 +253,8 @@ socket.on('player joined', function(players) {
 
 socket.on('all players joined', function(hostGlobalVar) {
     hostLocalVar = hostGlobalVar;
+    $("#waitingforplayers").hide();
+    $("#start-game-button").show();
 })
 
 //#Gowri listen for the deal cards after host starts game and switch the users to play screen
@@ -600,7 +602,7 @@ socket.on('here goes nothing and a red card', function(card) {
 })
 
 //#SRM When the host double-clicks on their favorite card
-$(".played-card").on("click", function() {
+$(document).on("click", ".flipped", function() {
 
     /*
     for (i=0; i<hostLocalVar.playersArray.length; i++{
