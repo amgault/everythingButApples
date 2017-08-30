@@ -147,7 +147,7 @@
                         <input type="text" id="player-name-form" name="player-name" class="roomForm-input" placeholder="ex: eba4lyf">
                         <p class='room-code-p'>USERNAME</p>
                     </div>
-                    <input type="submit" placeholder="submit" class="submit roomFromSubmit general-button" id="code-button">
+                    <button placeholder="submit" class="submit roomFromSubmit general-button" id="code-button">
                     <!-- #Max Here compare this code to other codes that are in use -->
                 </div>
                 
@@ -163,23 +163,21 @@
                 <div class="player-topBumper">
                     <p class='contribute'>Contribute to the deck by submitting noun cards!</p>
                     <input class='card-input' placeholder='enter noun' type="text" id="card-form" name="card">
-                    <input class="general-button submit-input-card" type="submit" placeholder="submit" class="submit">
+                    <button class="general-button submit-input-card" placeholder="submit" class="submit">
                     <!-- <p>Contribute to the deck by submitting noun cards!</p> -->
                 </div>
             </form>
-            <button class="general-button btn-go-to-game" onclick="showAndHide('pregame', 'game')">Go to Game</button>
         </div>
     
         <div class="container" id="game" style="display:none;">        
             <div class="player-name">
                 <span>Your name here: </span>
-                <!-- This player name should populate based on the username given on last  -->
                 <span id="playername">${playerName}</span>
             </div>
             <div id="favorite" class="absoluteTop">
                 <div class="favorite favorite-container">
                     <p class="favorite">Favorite Card:</p>
-                    <input id="playerschoice" type="submit" placeholder="submit" class="submit player-topBumper btn-player-submit">
+                    <button id="playerschoice" placeholder="submit" class="submit player-topBumper btn-player-submit">
                 </div>
                 <div class="player-hand-card cardContainer card" id='fav'>
                     <p class="nounTitleText">card.title</p>
@@ -203,10 +201,6 @@
                     <p class="nounTitleText" id="card4-noun">Jquery</p>
                     <p id="card4-desc">Javascript framework</p>
                 </div>
-<!--                 <div class="player-hand-card cardContainer card" id="card5" cardId="socketInfo">
-                    <p class="nounTitleText" id="card5-noun">Noun</p>
-                    <p id="card5-desc">Description</p>
-                </div> -->
             </div>
         </div>
     
