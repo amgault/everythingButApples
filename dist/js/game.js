@@ -37,11 +37,11 @@ exports.initGame = function(sio, sock) {
     //#Gowri when a user clicks start a game and there are already 5 players then room full message will display
     socket.on("can player join", function() {
         if (players.length >= 5) {
-            io.to(user.playerId).emit('player limit reached', "landing");
+            socket.emit('player limit reached', "landing");
         } //#Gowri else display the player page
         else {
             // socket.emit('display player');
-            io.to(user.playerId).emit('display player')
+            socket.emit('display player')
         }
     })
 
