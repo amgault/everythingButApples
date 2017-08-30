@@ -204,6 +204,11 @@ function startGame() {
     //then run a query to obtain all of those cards and shuffle them
     //then construct an array of cards for each players hand and the remaining cards
 
+    $(".player-circle").each(function(){
+        console.log($(this).attr("socketId"))
+        $("#scores-list").append($("<li>").attr("id", $(this).data("socketId")).attr("data-score", 0).text("0 : "+$(this).text()))
+    })
+
     showAndHide("host-pregame-lobby", "host-game");
 }
 
@@ -219,15 +224,17 @@ function updatePlayerConnections(players) {
     console.log("IN updatePlayerCOnnections we received: " + players);
     $("#player-connections-container").empty();
     for (var p in players) {
-        $("#player-connections-container").append($("<div>").addClass("player-circle").text(players[p].userName))
+        $("#player-connections-container").append($("<div>").addClass("player-circle").text(players[p].userName).data("socketId", players[p].playerId));
     }
 }
 
-function updateScore(winningPlayerId, winningPlayerName) {
+function updateScore(winningPlayerId) {
     // Increment the score of the winner
     var winnerJqueryObj = $("#" + winningPlayerId);
     var updatedScore = parseInt(winnerJqueryObj.attr("data-score")) + 1;
-    winnerJqueryObj.attr("data-score", updatedScore).text(updatedScore + " : " + winningPlayerName);
+    var text = updatedScore + winnerJqueryObj.text().slice(1, winnerJqueryObj.text().length);
+    text[0] = updatedScore;
+    winnerJqueryObj.attr("data-score", updatedScore).text(text);
 
 }
 
@@ -614,6 +621,7 @@ $(".played-card").on("dblclick", function() {
         if (hostLocalVar.playersArray)
     }
     */
+    updateScore($(this).attr("data-player-id"))
 
     $("#adj-title").text('ヘ(^o^ヘ)');
     $("#adj-description").text("+1 pt");
