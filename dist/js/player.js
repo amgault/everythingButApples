@@ -64,14 +64,14 @@ socket.on("display host", function() {
 });
 
 //#Gowri changed this button to emit a check function to know if a player can join
-$("#play-a-game").on("click", function() {
-    socket.emit("can player join");
-})
+// $("#play-a-game").on("click", function() {
+//     socket.emit("can player join");
+// })
 
 //#Gowri on receiving confirmation from server then display the player page
-socket.on("display player", function() {
-    showAndHide('landing', 'player-room')
-});
+// socket.on("display player", function() {
+//     showAndHide('landing', 'player-room')
+// });
 
 //#Gowri added listener to know when room is full and call function to display room full message
 socket.on('player limit reached', isRoomFull);
