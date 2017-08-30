@@ -135,23 +135,26 @@
     </div>
     <!-- Bex: HOST PAGE ENDS -->
 
-    <div id="player" style="display:none">
-        <form class="container" id="roomCode">
-                <div id="room-form" class="roomForm">
-                    <div>
-                        <input type="text" id="code-input" name="room-code" class="roomForm-input"  placeholder="ex: 12345">
-                        <p class='room-code-p'>ROOM CODE</p>
-                        <!-- Bex: adding message for room being full -->
+    <div id="player">
+        <div id="player-room" style="display:none;">
+            <form class="container" id="roomCode">
+                    <div id="room-form" class="roomForm">
+                        <div>
+                            <input type="text" id="code-input" name="room-code" class="roomForm-input"  placeholder="ex: 12345">
+                            <p class='room-code-p'>ROOM CODE</p>
+                            <!-- Bex: adding message for room being full -->
+                        </div>
+                        <div class="player-topBumper">
+                            <input type="text" id="player-name-form" name="player-name" class="roomForm-input" placeholder="ex: eba4lyf">
+                            <p class='room-code-p'>USERNAME</p>
+                        </div>
+                        <button placeholder="submit" class="submit roomFromSubmit general-button" id="code-button">
+                        <!-- #Max Here compare this code to other codes that are in use -->
                     </div>
-                    <div class="player-topBumper">
-                        <input type="text" id="player-name-form" name="player-name" class="roomForm-input" placeholder="ex: eba4lyf">
-                        <p class='room-code-p'>USERNAME</p>
-                    </div>
-                    <button placeholder="submit" class="submit roomFromSubmit general-button" id="code-button">
-                    <!-- #Max Here compare this code to other codes that are in use -->
-                </div>
-                
-        </form>
+                    
+            </form>
+        </div>
+
         
     
         <div class="container pregame" id="pregame" style="display:none;">

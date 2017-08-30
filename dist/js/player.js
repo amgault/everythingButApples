@@ -69,7 +69,7 @@ $("#play-a-game").on("click", function() {
 
 //#Gowri on receiving confirmation from server then display the player page
 socket.on("display player", function() {
-    showAndHide('landing', 'player')
+    showAndHide('landing', 'player-room')
     console.log('got to  player.js display player')
 });
 
