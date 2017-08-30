@@ -134,14 +134,13 @@
                             <input type="text" id="player-name-form" name="player-name" class="roomForm-input" placeholder="ex: eba4lyf">
                             <p class='room-code-p'>USERNAME</p>
                         </div>
-                        <button placeholder="submit" class="submit roomFromSubmit general-button" id="code-button">
+                        <button placeholder="submit" class="submit roomFromSubmit general-button" id="code-button">Submit</button>
                         <!-- #Max Here compare this code to other codes that are in use -->
                     </div>
                     
             </form>
-        </div>
-
-        
+            <img class="logo absolute logo-absolute" src="../img/logo.png">
+        </div>        
     
         <div class="container pregame" id="pregame" style="display:none;">
 
@@ -156,22 +155,24 @@
                     <!-- <p>Contribute to the deck by submitting noun cards!</p> -->
                 </div>
             </form>
+            <img class="logo absolute logo-absolute" src="../img/logo.png">
         </div>
     
         <div class="container" id="game" style="display:none;">        
             <div class="player-name">
-                <span>Your name here: </span>
-                <span id="playername">${playerName}</span>
+                <span style="font-weight:bold" id="playername">${playerName}</span>
             </div>
             <div id="favorite" class="absoluteTop">
                 <div class="favorite favorite-container">
                     <p class="favorite">Favorite Card:</p>
-                    <button id="playerschoice" placeholder="submit" class="submit player-topBumper btn-player-submit">SUBMIT</button>
                 </div>
                 <div class="player-hand-card cardContainer card" id='fav'>
                     <p class="nounTitleText">card.title</p>
                     <p>card.description</p>
                 </div>
+                <div class="favorite favorite-container">
+                    <button id="playerschoice" placeholder="submit" class="submit player-topBumper btn-player-submit">SUBMIT</button>
+                </div>    
             </div>
             <div id="hand" class="absoluteBottom">
                 <div class="player-hand-card cardContainer card" id="card1" cardId="socketInfo">
@@ -191,11 +192,12 @@
                     <p id="card4-desc">Javascript framework</p>
                 </div>
             </div>
+            <img class="logo absolute logo-absolute" src="../img/logo.png">
         </div>
     
         <script src="../js/player.js"></script>
         <!--script src="../js/hostMachine.js"></script-->
-        <img class="logo absolute logo-absolute" src="../img/logo.png">
+
     </div>
 </body>
 </html>
