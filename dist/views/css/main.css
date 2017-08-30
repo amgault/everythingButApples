@@ -1,4 +1,4 @@
-fav/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -440,13 +440,12 @@ h1{
     padding: 1em auto;
     text-align: center;
     margin: auto 1em;
-    width: 70px;
+    width: 50%;
     margin-top: 5%;
     color: white;
 }
 
 .favorite-container{
-    /* padding-top: 2em; */
     margin: auto;
 }
 
