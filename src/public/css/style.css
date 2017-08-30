@@ -313,6 +313,10 @@ h1{
     border: .1em solid white;
 }
 
+.btn-reveal{
+    margin: .5em auto;
+}
+
 .roomForm {
     width: 80%;
     text-align: center;
