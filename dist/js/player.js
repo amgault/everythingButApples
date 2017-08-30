@@ -412,7 +412,7 @@ socket.on('turn lead', function(turnlead) {
 //************************************* LISTEN FOR END OF ROUND ************************************************************
 
 //socket listener for endofround goes here:
-//socket.on('end of round', thisuser.newhand());
+//socket.on('round ended', thisuser.newhand());
 
 
 //************************************* END LISTEN FOR ROUND END ************************************************************
