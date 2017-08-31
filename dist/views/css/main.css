@@ -143,9 +143,9 @@ body {
   /* background: red; */
   width: 12em;
   min-height: 12em;
-  background-image: url("https://farm5.staticflickr.com/4359/36609034781_96e88f2b8f.jpg");
-  background-size: 100% 100%;
-  border: 4px solid black;
+  background-image: url("https://farm5.staticflickr.com/4343/36924457885_8423a16058_t.jpg");
+  background-repeat: round;
+  border: 4px solid #fc4a1a;
 }
 
 .played-card .card-back {
@@ -375,8 +375,7 @@ h1{
     text-align: center;
     border: 5px solid #f7b733;
     margin:auto;
-    -webkit-box-shadow: inset 0 0 0 10px #fc4a1a;
-            box-shadow: inset 0 0 0 10px #fc4a1a;
+    /* box-shadow: inset 0 0 0 10px var(--new-contr-button); */
 }
 
 .cardContainer {
@@ -440,13 +439,12 @@ h1{
     padding: 1em auto;
     text-align: center;
     margin: auto 1em;
-    width: 70px;
+    width: 50%;
     margin-top: 5%;
     color: white;
 }
 
 .favorite-container{
-    /* padding-top: 2em; */
     margin: auto;
 }
 
