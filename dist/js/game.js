@@ -79,13 +79,6 @@ exports.initGame = function(sio, sock) {
 
     })
 
-    /* Not tested yet
-    //#SRM listenfor the message from the host containing the next turn leader's id
-    socket.on('next leader', function(idString){
-        //#SRM emit the message and the id back to players
-        socket.emit('check this id', idString);
-    })
-    */
     //#jordan next leader listener
     socket.on('next leader', function(nextlead){ 
         //console.log("emitting next leader");
@@ -96,7 +89,6 @@ exports.initGame = function(sio, sock) {
 
     //#Gowri listen for end of game and send signal to close all connections and also rest the variables
     socket.on('end of game', function(){
-
         io.sockets.emit('interrupted');
         players=[];
         host=[];

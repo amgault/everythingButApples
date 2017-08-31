@@ -249,6 +249,7 @@ socket.on("interrupted", function(){
     //console.log('closed connection');
    // showAndHide('host-page','connection-interrupted');
     //showAndHide('player','connection-interrupted');
+
     socket.close();    
 })
 
@@ -449,7 +450,7 @@ socket.on('turn started', function(){
 //************************************* LISTEN FOR END OF GAME **************************************************************
 
 //socket listener for endofgame goes here:
-//socket.on('endofgame', ENDIT());
+//socket.on('end of game', ENDIT());
 
 
 
@@ -470,7 +471,6 @@ function swapHand() {
 
 //this function signifies the end of the game and will hide all cards and display a message for the time being
 function ENDIT() {
-
 } // end endit
 
 // assuming there's a onclick="chooseCard()" in the html for the cards 
@@ -644,7 +644,9 @@ $(document).on("click", ".flipped", function() {
 
         //#SRM EMIT AN END OF GAME MESSAGE TO ALL THE PLAYERS
         socket.emit('end of game', { message: "End of Game!" });
-        alert("END OF GAME");
+        //showAndHide("adjective-card", "endofgame");
+        $("#showGreenCard").hide();
+        showAndHide("adjective-card", "endofgame");
 
     } else if (hostLocalVar.currentLeaderIndex + 1 === hostLocalVar.playersArray.length) {
         //if it is not the last round, get ready for the next round 
