@@ -12,16 +12,13 @@
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-
     <div class="container" id="landing">
         <header class="header">
             <h1>Everything But Apples</h1>
         </header>
-            
         <div class='landing-logo'>
             <img class="logo logo-landing" src="../img/logo.svg">
         </div>
-
         <!-- #Max  These buttons are currently broken on iphone 5 but works on anything else -->
         <div class="buttonContain">
             <a id="host" class="btn btn-create">
@@ -75,11 +72,15 @@
 
                     </ul>
                 </div>
-                <div class="adj-card">
+                <div id="adjective-card" class="adj-card">
                     <p id="adj-title" class="nounTitleText">????</p>
                     <p id="adj-description">(╯°□°）╯︵ ┻━┻</p>
                 </div>
                 <button id="showGreenCard" class="general-button btn-reveal">Reveal Card</button>
+                <!-- End of game -->
+                <div id="endofgame" class="end-game-div" style="display:none">
+                    <img class="logo logo-over" src="../img/over.svg">
+                </div>
                 <p class="judging-message" id="pre-judging-message"><span id="judging-player">???</span> will judge this round.</p>
                 <p class="judging-message" id="mid-judging-message" style="display:none;"><span id="mid-judging-player">???</span> is the judge. Please pick your favorite card.</p>
             </div>
@@ -218,11 +219,6 @@
                 <div>░██▒▒▒▒▒▒▒▒▒▒████▒▒▒▒▒▒▒▒▒▒█</div>
                 <div>░░████████████░░███████████</div>
             </div>
-        </div>
-
-        <!-- End of game -->
-        <div id="endofgame" class="end-game-div" style="display:none;">
-            END OF GAME
         </div>
     </div>
 </body>
