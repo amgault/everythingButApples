@@ -226,6 +226,10 @@ h1{
     background-color: white;
 }
 
+.player-hand-card:hover {
+    cursor: pointer;
+}
+
 .player-name {
     color: white;
     margin: .7em auto 0 auto;
@@ -301,8 +305,9 @@ h1{
 
 .btn-player-submit{
     padding: 0;
-    /* margin: 1em; */
-    width: 100%;
+    margin-top: 1em;
+    margin-left: 25%;
+    width: 50%;
     border-radius: 5px;
     border: 0px;
     font-size: 1em;
@@ -310,6 +315,10 @@ h1{
     color: white;
     background-color: #fc4a1a;
     border: .1em solid white;
+}
+
+.btn-player-submit:hover {
+    cursor: pointer;
 }
 
 .btn-reveal{
