@@ -226,6 +226,10 @@ h1{
     background-color: white;
 }
 
+.player-hand-card:hover {
+    cursor: pointer;
+}
+
 .player-name {
     color: white;
     margin: .7em auto 0 auto;
