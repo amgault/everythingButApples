@@ -74,6 +74,7 @@
     transition: transform 1s;
     transform-style: preserve-3d;
     -webkit-transform-origin: 50% 50%;
+    cursor: pointer;
 }
 .played-card div {
     display: block;
